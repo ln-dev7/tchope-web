@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react"
 import Link from "next/link"
-import { Plus, Trash2, BookOpen } from "lucide-react"
+import { Plus, Trash2, Pencil, BookOpen } from "lucide-react"
 import { toast } from "sonner"
 import { useLocale } from "@/lib/locale-context"
 import { useAppTranslations } from "@/hooks/use-app-translations"
@@ -115,6 +115,12 @@ export default function CookbookPage() {
                     {r.region} · {r.duration} min
                   </p>
                 </div>
+              </Link>
+              <Link
+                href={`/${locale}/app/add-recipe?edit=${r.id}`}
+                className="shrink-0 cursor-pointer rounded-lg p-2 text-primary transition-colors hover:bg-primary/10"
+              >
+                <Pencil className="size-4" />
               </Link>
               <AlertDialog>
                 <AlertDialogTrigger asChild>
