@@ -3,7 +3,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { Home, Search, BookOpen, Settings } from "lucide-react"
+import { Home, Search, BookOpen, Settings, Globe } from "lucide-react"
 import { useLocale } from "@/lib/locale-context"
 import { useAppTranslations } from "@/hooks/use-app-translations"
 import type { Locale } from "@/lib/i18n"
@@ -81,6 +81,15 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               </Link>
             )
           })}
+          <div className="mt-auto pt-4">
+            <Link
+              href={`/${locale}`}
+              className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-muted transition-colors hover:bg-foreground/5 hover:text-foreground dark:text-dark-muted dark:hover:bg-white/5 dark:hover:text-white"
+            >
+              <Globe className="size-5" />
+              {locale === "fr" ? "Retour au site" : "Back to site"}
+            </Link>
+          </div>
         </nav>
       </aside>
 
@@ -113,6 +122,15 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               </Link>
             )
           })}
+          <div className="mt-auto pt-4">
+            <Link
+              href={`/${locale}`}
+              title={locale === "fr" ? "Retour au site" : "Back to site"}
+              className="flex size-10 items-center justify-center rounded-xl text-muted transition-colors hover:bg-foreground/5 hover:text-foreground dark:text-dark-muted dark:hover:bg-white/5 dark:hover:text-white"
+            >
+              <Globe className="size-5" />
+            </Link>
+          </div>
         </nav>
       </aside>
 

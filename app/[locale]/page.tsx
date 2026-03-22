@@ -2,8 +2,9 @@
 
 import { useState } from "react"
 import Image from "next/image"
+import Link from "next/link"
 import Masonry from "react-masonry-css"
-import { Map, Search, Heart, WifiOff, ChefHat, Flame } from "lucide-react"
+import { Map, Search, Heart, WifiOff, ChefHat, Flame, ArrowRight } from "lucide-react"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { StoreBadges } from "@/components/store-badges"
@@ -32,7 +33,7 @@ const masonryBreakpoints = {
 }
 
 export default function Home() {
-  const { t } = useLocale()
+  const { locale, t } = useLocale()
   const [lightbox, setLightbox] = useState<{
     src: string
     alt: string
@@ -104,7 +105,14 @@ export default function Home() {
             </FadeInUp>
 
             <FadeInUp delay={0.3}>
-              <div className="mt-8 flex justify-center lg:justify-start">
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
+                <Link
+                  href={`/${locale}/app`}
+                  className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-bold text-white transition-all hover:brightness-110"
+                >
+                  {t.nav.openApp}
+                  <ArrowRight className="size-4" />
+                </Link>
                 <StoreBadges />
               </div>
             </FadeInUp>
@@ -263,7 +271,14 @@ export default function Home() {
               <p className="mt-4 text-base text-muted sm:text-lg">
                 {t.cta.subtitle}
               </p>
-              <div className="mt-8 flex justify-center">
+              <div className="mt-8 flex flex-col items-center gap-4">
+                <Link
+                  href={`/${locale}/app`}
+                  className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3 text-sm font-bold text-white transition-all hover:brightness-110"
+                >
+                  {t.cta.openWeb}
+                  <ArrowRight className="size-4" />
+                </Link>
                 <StoreBadges />
               </div>
             </div>

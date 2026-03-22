@@ -53,9 +53,15 @@ export function Header() {
                 <Globe className="size-3.5" />
                 {locale === "fr" ? "EN" : "FR"}
               </button>
+              <Link
+                href={`/${locale}/app`}
+                className="ml-1 rounded-full bg-primary px-5 py-2 text-sm font-semibold text-white transition-all hover:brightness-110"
+              >
+                {t.nav.openApp}
+              </Link>
               <a
                 href={`/${locale}#download`}
-                className="ml-3 rounded-full bg-foreground px-5 py-2 text-sm font-semibold text-surface transition-all hover:bg-foreground/85"
+                className="ml-1 rounded-full bg-foreground px-5 py-2 text-sm font-semibold text-surface transition-all hover:bg-foreground/85"
               >
                 {t.nav.download}
               </a>
@@ -104,10 +110,17 @@ export function Header() {
                       {item.label}
                     </a>
                   ))}
+                  <Link
+                    href={`/${locale}/app`}
+                    onClick={() => setMobileOpen(false)}
+                    className="mt-2 rounded-full bg-primary py-3 text-center text-sm font-semibold text-white"
+                  >
+                    {t.nav.openApp}
+                  </Link>
                   <a
                     href={`/${locale}#download`}
                     onClick={() => setMobileOpen(false)}
-                    className="mt-2 rounded-full bg-foreground py-3 text-center text-sm font-semibold text-surface"
+                    className="rounded-full bg-foreground py-3 text-center text-sm font-semibold text-surface"
                   >
                     {t.nav.download}
                   </a>

@@ -13,6 +13,7 @@ const dictionaries = {
       features: "Fonctionnalités",
       screenshots: "Aperçu",
       download: "Télécharger",
+      openApp: "Ouvrir l'app",
     },
     hero: {
       badge: "80+ recettes",
@@ -49,6 +50,7 @@ const dictionaries = {
       title: "Prêt à tchoper ?",
       subtitle:
         "Télécharge Tchopé gratuitement et commence à cuisiner.",
+      openWeb: "Ouvrir la version web",
     },
     footer: {
       tagline: "La cuisine camerounaise dans ta poche.",
@@ -131,6 +133,7 @@ const dictionaries = {
       features: "Features",
       screenshots: "Preview",
       download: "Download",
+      openApp: "Open app",
     },
     hero: {
       badge: "80+ recipes",
@@ -167,6 +170,7 @@ const dictionaries = {
       title: "Ready to tchoper?",
       subtitle:
         "Download Tchopé for free and start cooking.",
+      openWeb: "Open web version",
     },
     footer: {
       tagline: "Cameroonian cuisine in your pocket.",
