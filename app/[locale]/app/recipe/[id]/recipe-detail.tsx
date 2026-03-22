@@ -6,6 +6,7 @@ import Link from "next/link"
 import {
   ArrowLeft,
   Link2,
+  Copy,
   Heart,
   Clock,
   ChefHat,
@@ -107,6 +108,26 @@ export default function RecipeDetail() {
     toast.success(locale === "fr" ? "Lien copié !" : "Link copied!")
   }
 
+  function handleCopyRecipe() {
+    let text = `🍽️ ${recipe!.name}\n`
+    text += `📍 ${recipe!.region} | ⏱️ ${recipe!.duration} min | 👥 ${recipe!.servings} pers.\n\n`
+    if (recipe!.description) text += `📝 ${recipe!.description}\n\n`
+    text += `🛒 INGRÉDIENTS\n`
+    recipe!.ingredients.forEach((ing) => {
+      text += `  • ${ing.name} — ${ing.quantity}\n`
+    })
+    text += `\n👨‍🍳 PRÉPARATION\n`
+    recipe!.steps.forEach((step, i) => {
+      text += `  ${i + 1}. ${step}\n`
+    })
+    if (recipe!.tips) {
+      text += `\n💡 ASTUCE DU CHEF\n${recipe!.tips}\n`
+    }
+    text += `\n— Partagé via Tchopé 🇨🇲 by https://tchope.lndev.me`
+    navigator.clipboard.writeText(text)
+    toast.success(locale === "fr" ? "Recette copiée !" : "Recipe copied!")
+  }
+
   return (
     <div className="-mx-4 -mt-6 md:-mx-6">
       {jsonLd && (
@@ -135,10 +156,10 @@ export default function RecipeDetail() {
             <ArrowLeft className="size-5" />
           </button>
           <button
-            onClick={handleCopyLink}
+            onClick={isUserCreated ? handleCopyRecipe : handleCopyLink}
             className="flex size-10 cursor-pointer items-center justify-center rounded-full bg-black/30 text-white backdrop-blur-sm"
           >
-            <Link2 className="size-5" />
+            {isUserCreated ? <Copy className="size-5" /> : <Link2 className="size-5" />}
           </button>
         </div>
       </div>
