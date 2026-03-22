@@ -1,13 +1,13 @@
 "use client"
 
 import { Suspense, useRef, useEffect } from "react"
-import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 import { Search as SearchIcon, X, Clock, Flame, RotateCcw } from "lucide-react"
 import { useLocale } from "@/lib/locale-context"
 import { useAppTranslations } from "@/hooks/use-app-translations"
 import { useLocalizedRecipes } from "@/hooks/use-localized-recipes"
 import { useSearch, type Filters } from "@/hooks/use-search"
+import { StoreBanner } from "@/components/store-banner"
 import { RecipeCard } from "@/components/recipe-card"
 import type { Spiciness } from "@/types/recipe"
 
@@ -37,17 +37,13 @@ function SearchPage() {
   const { locale } = useLocale()
   const { t } = useAppTranslations(locale)
   const recipes = useLocalizedRecipes(locale)
-  const { results, query, setQuery, filters, setFilters, reset } =
-    useSearch(recipes)
+  const { results, query, setQuery, filters, setFilters, reset } = useSearch(recipes)
   const inputRef = useRef<HTMLInputElement>(null)
   const searchParams = useSearchParams()
 
-  // Handle region filter from URL
   useEffect(() => {
     const region = searchParams.get("region")
-    if (region) {
-      setQuery(region)
-    }
+    if (region) setQuery(region)
   }, [searchParams, setQuery])
 
   useEffect(() => {
@@ -57,7 +53,9 @@ function SearchPage() {
   const hasFilters = !!(query || filters.duration || filters.spiciness || filters.ingredient)
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5 pb-4">
+      <StoreBanner />
+
       {/* Search input */}
       <div className="relative">
         <SearchIcon className="absolute top-1/2 left-4 size-4 -translate-y-1/2 text-muted dark:text-dark-muted" />
@@ -67,12 +65,12 @@ function SearchPage() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder={t("searchPlaceholder")}
-          className="w-full rounded-2xl border border-foreground/5 bg-surface py-3.5 pr-10 pl-11 text-sm text-foreground outline-none placeholder:text-muted focus:border-primary/30 dark:border-white/5 dark:bg-dark-surface dark:text-white dark:placeholder:text-dark-muted"
+          className="w-full rounded-2xl border border-foreground/5 bg-surface py-3 pr-10 pl-11 text-sm text-foreground outline-none placeholder:text-muted focus:border-primary/30 dark:border-white/5 dark:bg-dark-surface dark:text-white dark:placeholder:text-dark-muted"
         />
         {query && (
           <button
             onClick={() => setQuery("")}
-            className="absolute top-1/2 right-3 -translate-y-1/2 rounded-full p-1 text-muted hover:text-foreground dark:text-dark-muted"
+            className="absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer rounded-full p-1 text-muted hover:text-foreground dark:text-dark-muted"
           >
             <X className="size-4" />
           </button>
@@ -81,7 +79,7 @@ function SearchPage() {
 
       {/* Duration filters */}
       <section>
-        <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-foreground dark:text-white">
+        <div className="mb-2.5 flex items-center gap-2 text-sm font-semibold text-foreground dark:text-white">
           <Clock className="size-4 text-primary" />
           {t("cookingTime")}
         </div>
@@ -95,7 +93,7 @@ function SearchPage() {
                   duration: prev.duration === f.key ? undefined : f.key,
                 }))
               }
-              className={`rounded-full px-4 py-2 text-xs font-semibold transition-colors ${
+              className={`cursor-pointer rounded-full px-4 py-2 text-xs font-semibold transition-colors ${
                 filters.duration === f.key
                   ? "bg-primary text-white"
                   : "bg-surface text-foreground dark:bg-dark-surface dark:text-white"
@@ -107,9 +105,9 @@ function SearchPage() {
         </div>
       </section>
 
-      {/* Spiciness filters */}
+      {/* Spiciness */}
       <section>
-        <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-foreground dark:text-white">
+        <div className="mb-2.5 flex items-center gap-2 text-sm font-semibold text-foreground dark:text-white">
           <Flame className="size-4 text-primary" />
           {t("spicinessLevel")}
         </div>
@@ -123,7 +121,7 @@ function SearchPage() {
                   spiciness: prev.spiciness === f.key ? undefined : f.key,
                 }))
               }
-              className={`rounded-full px-4 py-2 text-xs font-semibold transition-colors ${
+              className={`cursor-pointer rounded-full px-4 py-2 text-xs font-semibold transition-colors ${
                 filters.spiciness === f.key
                   ? "bg-primary text-white"
                   : "bg-surface text-foreground dark:bg-dark-surface dark:text-white"
@@ -137,7 +135,7 @@ function SearchPage() {
 
       {/* Popular ingredients */}
       <section>
-        <div className="mb-3 text-sm font-semibold text-foreground dark:text-white">
+        <div className="mb-2.5 text-sm font-semibold text-foreground dark:text-white">
           {t("popularIngredients")}
         </div>
         <div className="flex flex-wrap gap-2">
@@ -150,7 +148,7 @@ function SearchPage() {
                   ingredient: prev.ingredient === ing ? undefined : ing,
                 }))
               }
-              className={`rounded-full px-4 py-2 text-xs font-semibold transition-colors ${
+              className={`cursor-pointer rounded-full px-4 py-2 text-xs font-semibold transition-colors ${
                 filters.ingredient === ing
                   ? "bg-primary text-white"
                   : "bg-surface text-foreground dark:bg-dark-surface dark:text-white"
@@ -174,22 +172,21 @@ function SearchPage() {
           {hasFilters && (
             <button
               onClick={reset}
-              className="flex items-center gap-1 text-xs font-medium text-primary"
+              className="flex cursor-pointer items-center gap-1 text-xs font-medium text-primary"
             >
               <RotateCcw className="size-3" />
               {t("reset")}
             </button>
           )}
         </div>
-
         {results.length > 0 ? (
-          <div className="space-y-3">
+          <div className="space-y-2">
             {results.map((r) => (
               <RecipeCard key={r.id} recipe={r} locale={locale} />
             ))}
           </div>
         ) : (
-          <div className="py-12 text-center text-sm text-muted dark:text-dark-muted">
+          <div className="py-16 text-center text-sm text-muted dark:text-dark-muted">
             {t("noResults")}
           </div>
         )}

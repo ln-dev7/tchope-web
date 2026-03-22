@@ -135,8 +135,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       </aside>
 
       {/* Main content */}
-      <main className="flex-1 pb-20 md:ml-[72px] lg:ml-[220px]">
-        <div className="mx-auto max-w-3xl px-4 py-6 md:px-6">{children}</div>
+      <main className="min-h-dvh pb-20 md:ml-[72px] lg:ml-[220px] w-full">
+        <div className="mx-auto max-w-2xl px-4 py-5 sm:px-6 md:py-6 lg:max-w-4xl">{children}</div>
       </main>
 
       {/* Bottom tabs — mobile */}

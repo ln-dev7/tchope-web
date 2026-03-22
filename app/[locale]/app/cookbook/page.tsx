@@ -3,11 +3,13 @@
 import { useState, useMemo } from "react"
 import Link from "next/link"
 import { Plus, Trash2, BookOpen } from "lucide-react"
+import { toast } from "sonner"
 import { useLocale } from "@/lib/locale-context"
 import { useAppTranslations } from "@/hooks/use-app-translations"
 import { useLocalizedRecipes } from "@/hooks/use-localized-recipes"
-import { useFavorites } from "@/hooks/use-favorites"
-import { useUserRecipes } from "@/hooks/use-user-recipes"
+import { useFavorites } from "@/stores/favorites"
+import { useUserRecipes } from "@/stores/user-recipes"
+import { StoreBanner } from "@/components/store-banner"
 import { RecipeCard } from "@/components/recipe-card"
 import { RecipeImage } from "@/components/recipe-image"
 
@@ -25,15 +27,16 @@ export default function CookbookPage() {
   )
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
+    <div className="space-y-5 pb-4">
+      <StoreBanner />
+
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-extrabold text-foreground dark:text-white">
           {t("myCookbook")}
         </h1>
         <Link
           href={`/${locale}/app/add-recipe`}
-          className="flex size-10 items-center justify-center rounded-full bg-primary text-white shadow-md"
+          className="flex size-10 cursor-pointer items-center justify-center rounded-full bg-primary text-white"
         >
           <Plus className="size-5" />
         </Link>
@@ -43,7 +46,7 @@ export default function CookbookPage() {
       <div className="flex gap-2">
         <button
           onClick={() => setTab("favorites")}
-          className={`rounded-full px-5 py-2 text-sm font-semibold transition-colors ${
+          className={`cursor-pointer rounded-full px-5 py-2 text-sm font-semibold transition-colors ${
             tab === "favorites"
               ? "bg-primary text-white"
               : "bg-surface text-muted dark:bg-dark-surface dark:text-dark-muted"
@@ -53,7 +56,7 @@ export default function CookbookPage() {
         </button>
         <button
           onClick={() => setTab("myrecipes")}
-          className={`rounded-full px-5 py-2 text-sm font-semibold transition-colors ${
+          className={`cursor-pointer rounded-full px-5 py-2 text-sm font-semibold transition-colors ${
             tab === "myrecipes"
               ? "bg-primary text-white"
               : "bg-surface text-muted dark:bg-dark-surface dark:text-dark-muted"
@@ -63,22 +66,18 @@ export default function CookbookPage() {
         </button>
       </div>
 
-      {/* Content */}
       {tab === "favorites" ? (
         favoriteRecipes.length > 0 ? (
-          <div className="grid gap-3 sm:grid-cols-2">
+          <div className="grid gap-2 sm:grid-cols-2">
             {favoriteRecipes.map((r) => (
               <RecipeCard key={r.id} recipe={r} locale={locale} />
             ))}
           </div>
         ) : (
-          <EmptyState
-            title={t("noFavorites")}
-            subtitle={t("noFavoritesSubtitle")}
-          />
+          <EmptyState title={t("noFavorites")} subtitle={t("noFavoritesSubtitle")} />
         )
       ) : userRecipes.length > 0 ? (
-        <div className="space-y-3">
+        <div className="space-y-2">
           {userRecipes.map((r) => (
             <div
               key={r.id}
@@ -86,9 +85,9 @@ export default function CookbookPage() {
             >
               <Link
                 href={`/${locale}/app/recipe/${r.id}`}
-                className="flex min-w-0 flex-1 items-center gap-3"
+                className="flex min-w-0 flex-1 cursor-pointer items-center gap-3"
               >
-                <div className="relative size-16 shrink-0 overflow-hidden rounded-xl">
+                <div className="relative size-14 shrink-0 overflow-hidden rounded-xl sm:size-16">
                   <RecipeImage
                     recipeId={r.id}
                     category={r.category}
@@ -108,11 +107,10 @@ export default function CookbookPage() {
               </Link>
               <button
                 onClick={() => {
-                  if (confirm(t("clearConfirmMessage"))) {
-                    deleteRecipe(r.id)
-                  }
+                  deleteRecipe(r.id)
+                  toast.success(t("recipeDeleted"))
                 }}
-                className="shrink-0 rounded-lg p-2 text-red-500 transition-colors hover:bg-red-500/10"
+                className="shrink-0 cursor-pointer rounded-lg p-2 text-red-500 transition-colors hover:bg-red-500/10"
               >
                 <Trash2 className="size-4" />
               </button>
@@ -120,33 +118,20 @@ export default function CookbookPage() {
           ))}
         </div>
       ) : (
-        <EmptyState
-          title={t("noUserRecipes")}
-          subtitle={t("noUserRecipesSubtitle")}
-        />
+        <EmptyState title={t("noUserRecipes")} subtitle={t("noUserRecipesSubtitle")} />
       )}
     </div>
   )
 }
 
-function EmptyState({
-  title,
-  subtitle,
-}: {
-  title: string
-  subtitle: string
-}) {
+function EmptyState({ title, subtitle }: { title: string; subtitle: string }) {
   return (
     <div className="flex flex-col items-center py-16 text-center">
       <div className="flex size-16 items-center justify-center rounded-full bg-surface dark:bg-dark-surface">
         <BookOpen className="size-7 text-muted dark:text-dark-muted" />
       </div>
-      <h3 className="mt-4 text-base font-bold text-foreground dark:text-white">
-        {title}
-      </h3>
-      <p className="mt-1 max-w-xs text-sm text-muted dark:text-dark-muted">
-        {subtitle}
-      </p>
+      <h3 className="mt-4 text-base font-bold text-foreground dark:text-white">{title}</h3>
+      <p className="mt-1 max-w-xs text-sm text-muted dark:text-dark-muted">{subtitle}</p>
     </div>
   )
 }

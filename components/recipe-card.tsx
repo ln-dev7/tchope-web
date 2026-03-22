@@ -16,7 +16,7 @@ export function RecipeCard({
   return (
     <Link
       href={`/${locale}/app/recipe/${recipe.id}`}
-      className="group flex gap-4 rounded-2xl bg-surface p-3 transition-all hover:shadow-md dark:bg-dark-surface"
+      className="group flex cursor-pointer gap-4 rounded-2xl bg-surface p-3 dark:bg-dark-surface"
     >
       <div className="relative size-24 shrink-0 overflow-hidden rounded-xl">
         <RecipeImage
@@ -24,14 +24,14 @@ export function RecipeCard({
           category={recipe.category}
           alt={recipe.name}
           fill
-          className="transition-transform group-hover:scale-105"
+          className="transition-transform duration-300 group-hover:scale-105"
         />
       </div>
       <div className="flex min-w-0 flex-1 flex-col justify-center">
-        <h3 className="truncate text-base font-semibold text-foreground dark:text-white">
+        <h3 className="truncate text-[15px] font-semibold text-foreground dark:text-white">
           {recipe.name}
         </h3>
-        <div className="mt-1 flex items-center gap-1 text-xs text-muted dark:text-dark-muted">
+        <div className="mt-1.5 flex items-center gap-1 text-xs text-muted dark:text-dark-muted">
           <MapPin className="size-3" />
           {recipe.region}
         </div>

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
+import Link from "next/link"
 import {
   Sun,
   Moon,
@@ -9,16 +10,17 @@ import {
   Check,
   Trash2,
   ExternalLink,
-  Heart,
   Github,
   Mail,
   Send,
   Shield,
 } from "lucide-react"
+import { toast } from "sonner"
 import { useLocale } from "@/lib/locale-context"
 import { useAppTranslations } from "@/hooks/use-app-translations"
-import { useFavorites } from "@/hooks/use-favorites"
-import { useUserRecipes } from "@/hooks/use-user-recipes"
+import { useFavorites } from "@/stores/favorites"
+import { useUserRecipes } from "@/stores/user-recipes"
+import { StoreBanner } from "@/components/store-banner"
 
 type Theme = "light" | "dark" | "system"
 
@@ -30,8 +32,7 @@ function getStoredTheme(): Theme {
 function applyTheme(theme: Theme) {
   const isDark =
     theme === "dark" ||
-    (theme === "system" &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches)
+    (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches)
   document.documentElement.classList.toggle("dark", isDark)
   localStorage.setItem("tchope_theme", theme)
 }
@@ -40,8 +41,8 @@ export default function SettingsPage() {
   const { locale } = useLocale()
   const { t } = useAppTranslations(locale)
   const router = useRouter()
-  const { clearAll: clearFavorites } = useFavorites()
-  const { clearAll: clearUserRecipes } = useUserRecipes()
+  const clearFavorites = useFavorites((s) => s.clearAll)
+  const clearUserRecipes = useUserRecipes((s) => s.clearAll)
   const [theme, setTheme] = useState<Theme>(getStoredTheme)
 
   useEffect(() => {
@@ -53,48 +54,34 @@ export default function SettingsPage() {
     router.push(`/${target}/app/settings`)
   }
 
-  function handleClearFavorites() {
-    if (confirm(t("clearConfirmMessage"))) {
-      clearFavorites()
-    }
-  }
-
-  function handleClearRecipes() {
-    if (confirm(t("clearConfirmMessage"))) {
-      clearUserRecipes()
-    }
-  }
-
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 pb-4">
+      <StoreBanner />
+
       <h1 className="text-2xl font-extrabold text-foreground dark:text-white">
         {t("settings")}
       </h1>
 
       {/* Appearance */}
       <Section title={t("appearance")}>
-        <div className="space-y-1">
-          <p className="mb-2 text-xs font-medium text-muted dark:text-dark-muted">
-            {t("theme")}
-          </p>
-          {([
-            { key: "light" as Theme, icon: Sun, label: t("light") },
-            { key: "dark" as Theme, icon: Moon, label: t("dark") },
-            { key: "system" as Theme, icon: Monitor, label: t("system") },
-          ]).map((item) => (
-            <button
-              key={item.key}
-              onClick={() => setTheme(item.key)}
-              className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-foreground transition-colors hover:bg-foreground/5 dark:text-white dark:hover:bg-white/5"
-            >
-              <item.icon className="size-4 text-muted dark:text-dark-muted" />
-              <span className="flex-1 text-left">{item.label}</span>
-              {theme === item.key && (
-                <Check className="size-4 text-primary" />
-              )}
-            </button>
-          ))}
-        </div>
+        <p className="my-2 px-4 text-xs font-medium text-muted dark:text-dark-muted">
+          {t("theme")}
+        </p>
+        {([
+          { key: "light" as Theme, icon: Sun, label: t("light") },
+          { key: "dark" as Theme, icon: Moon, label: t("dark") },
+          { key: "system" as Theme, icon: Monitor, label: t("system") },
+        ]).map((item) => (
+          <button
+            key={item.key}
+            onClick={() => setTheme(item.key)}
+            className="flex w-full cursor-pointer items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-foreground transition-colors hover:bg-foreground/5 dark:text-white dark:hover:bg-white/5"
+          >
+            <item.icon className="size-4 text-muted dark:text-dark-muted" />
+            <span className="flex-1 text-left">{item.label}</span>
+            {theme === item.key && <Check className="size-4 text-primary" />}
+          </button>
+        ))}
       </Section>
 
       {/* Language */}
@@ -106,12 +93,10 @@ export default function SettingsPage() {
           <button
             key={lang.key}
             onClick={lang.key !== locale ? switchLanguage : undefined}
-            className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-foreground transition-colors hover:bg-foreground/5 dark:text-white dark:hover:bg-white/5"
+            className="flex w-full cursor-pointer items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-foreground transition-colors hover:bg-foreground/5 dark:text-white dark:hover:bg-white/5"
           >
             <span className="flex-1 text-left">{lang.label}</span>
-            {locale === lang.key && (
-              <Check className="size-4 text-primary" />
-            )}
+            {locale === lang.key && <Check className="size-4 text-primary" />}
           </button>
         ))}
       </Section>
@@ -119,15 +104,21 @@ export default function SettingsPage() {
       {/* Data */}
       <Section title={t("data")}>
         <button
-          onClick={handleClearFavorites}
-          className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-red-500 transition-colors hover:bg-red-500/5"
+          onClick={() => {
+            clearFavorites()
+            toast.success(locale === "fr" ? "Favoris supprimés" : "Favorites cleared")
+          }}
+          className="flex w-full cursor-pointer items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-red-500 transition-colors hover:bg-red-500/5"
         >
           <Trash2 className="size-4" />
           {t("clearFavorites")}
         </button>
         <button
-          onClick={handleClearRecipes}
-          className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-red-500 transition-colors hover:bg-red-500/5"
+          onClick={() => {
+            clearUserRecipes()
+            toast.success(t("allCreationsDeleted"))
+          }}
+          className="flex w-full cursor-pointer items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-red-500 transition-colors hover:bg-red-500/5"
         >
           <Trash2 className="size-4" />
           {t("clearUserRecipes")}
@@ -136,56 +127,28 @@ export default function SettingsPage() {
 
       {/* Contact */}
       <Section title={t("contactMe")}>
-        <SettingsLink
-          href="mailto:leonelngoya@gmail.com"
-          icon={Mail}
-          label="leonelngoya@gmail.com"
-        />
-        <SettingsLink
-          href="https://t.me/ln_dev7"
-          icon={Send}
-          label="Telegram"
-        />
+        <SettingsLink href="mailto:leonelngoya@gmail.com" icon={Mail} label="leonelngoya@gmail.com" />
+        <SettingsLink href="https://t.me/ln_dev7" icon={Send} label="Telegram" />
       </Section>
 
       {/* About */}
       <Section title={t("about")}>
-        <div className="space-y-1">
-          <div className="flex items-center justify-between rounded-xl px-4 py-3 text-sm text-foreground dark:text-white">
-            <span>{t("version")}</span>
-            <span className="text-muted dark:text-dark-muted">1.0.0</span>
-          </div>
-          <SettingsLink
-            href="https://lndev.me"
-            icon={ExternalLink}
-            label={t("developer")}
-            suffix="lndev.me"
-          />
-          <SettingsLink
-            href="https://github.com/ln-dev7/tchope"
-            icon={Github}
-            label="GitHub"
-          />
-          <SettingsLink
-            href={`/${locale}/privacy`}
-            icon={Shield}
-            label={t("privacyPolicy")}
-            external={false}
-          />
-        </div>
+        <SettingsLink href="https://lndev.me" icon={ExternalLink} label={t("developer")} suffix="lndev.me" />
+        <SettingsLink href="https://github.com/ln-dev7/tchope" icon={Github} label="GitHub" />
+        <Link
+          href={`/${locale}/privacy`}
+          className="flex w-full cursor-pointer items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-foreground transition-colors hover:bg-foreground/5 dark:text-white dark:hover:bg-white/5"
+        >
+          <Shield className="size-4 text-muted dark:text-dark-muted" />
+          <span className="flex-1">{t("privacyPolicy")}</span>
+        </Link>
       </Section>
 
-      {/* Footer */}
       <div className="pb-4 text-center text-xs text-muted dark:text-dark-muted">
         <p>{t("madeWith")}</p>
         <p className="mt-1">
-          <a
-            href="https://lndev.me"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-medium text-primary"
-          >
-            LNDEV.ME
+          <a href="https://lndev.me" target="_blank" rel="noopener noreferrer" className="font-medium text-primary">
+            lndev.me
           </a>
         </p>
       </div>
@@ -193,21 +156,13 @@ export default function SettingsPage() {
   )
 }
 
-function Section({
-  title,
-  children,
-}: {
-  title: string
-  children: React.ReactNode
-}) {
+function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section>
-      <h2 className="mb-3 text-sm font-bold uppercase tracking-wider text-muted dark:text-dark-muted">
+      <h2 className="mb-2 text-xs font-bold uppercase tracking-wider text-muted dark:text-dark-muted">
         {title}
       </h2>
-      <div className="rounded-2xl bg-surface dark:bg-dark-surface">
-        {children}
-      </div>
+      <div className="rounded-2xl bg-surface dark:bg-dark-surface p-2">{children}</div>
     </section>
   )
 }
@@ -217,29 +172,22 @@ function SettingsLink({
   icon: Icon,
   label,
   suffix,
-  external = true,
 }: {
   href: string
   icon: typeof ExternalLink
   label: string
   suffix?: string
-  external?: boolean
 }) {
-  const Tag = external ? "a" : "a"
   return (
-    <Tag
+    <a
       href={href}
-      target={external ? "_blank" : undefined}
-      rel={external ? "noopener noreferrer" : undefined}
-      className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-foreground transition-colors hover:bg-foreground/5 dark:text-white dark:hover:bg-white/5"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="flex w-full cursor-pointer items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-foreground transition-colors hover:bg-foreground/5 dark:text-white dark:hover:bg-white/5"
     >
       <Icon className="size-4 text-muted dark:text-dark-muted" />
       <span className="flex-1">{label}</span>
-      {suffix && (
-        <span className="text-xs text-muted dark:text-dark-muted">
-          {suffix}
-        </span>
-      )}
-    </Tag>
+      {suffix && <span className="text-xs text-muted dark:text-dark-muted">{suffix}</span>}
+    </a>
   )
 }
