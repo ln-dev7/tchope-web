@@ -7,6 +7,13 @@ import { toast } from "sonner"
 import { useLocale } from "@/lib/locale-context"
 import { useAppTranslations } from "@/hooks/use-app-translations"
 import { useUserRecipes } from "@/stores/user-recipes"
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select"
 import type { Region, Difficulty, UserRecipe } from "@/types/recipe"
 
 const REGIONS: Region[] = [
@@ -134,15 +141,16 @@ export default function AddRecipePage() {
       {/* Region */}
       <div>
         <label className="mb-2 block text-xs font-semibold text-muted dark:text-dark-muted">{t("region")}</label>
-        <select
-          value={region}
-          onChange={(e) => setRegion(e.target.value as Region)}
-          className="w-full cursor-pointer rounded-2xl bg-surface px-4 py-3 text-sm text-foreground dark:bg-dark-surface dark:text-white"
-        >
-          {REGIONS.map((r) => (
-            <option key={r} value={r}>{r}</option>
-          ))}
-        </select>
+        <Select value={region} onValueChange={(v) => setRegion(v as Region)}>
+          <SelectTrigger>
+            <SelectValue placeholder={t("selectRegion")} />
+          </SelectTrigger>
+          <SelectContent>
+            {REGIONS.map((r) => (
+              <SelectItem key={r} value={r}>{r}</SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
 
       {/* Duration + Difficulty */}
