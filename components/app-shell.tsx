@@ -95,7 +95,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
       {/* Sidebar — tablet (icons only) */}
       <aside className="fixed top-0 left-0 z-40 hidden h-dvh w-[72px] flex-col items-center border-r border-foreground/5 bg-surface py-6 dark:border-white/5 dark:bg-dark-surface md:flex lg:hidden">
-        <Link href={`/${locale}/app`} className="mb-8">
+        <Link href={`/${locale}`} className="mb-8">
           <Image
             src="/brand/logo.png"
             alt="Tchopé"
