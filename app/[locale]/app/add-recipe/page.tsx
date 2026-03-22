@@ -1,7 +1,7 @@
 "use client"
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
+import { useState, useEffect } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
 import { ArrowLeft, Plus, Trash2, Camera } from "lucide-react"
 import { toast } from "sonner"
 import { useLocale } from "@/lib/locale-context"
@@ -17,9 +17,14 @@ const DIFFICULTIES: Difficulty[] = ["Easy", "Medium", "Hard"]
 
 export default function AddRecipePage() {
   const router = useRouter()
+  const searchParams = useSearchParams()
   const { locale } = useLocale()
   const { t } = useAppTranslations(locale)
-  const addRecipe = useUserRecipes((s) => s.addRecipe)
+  const { addRecipe, updateRecipe, userRecipes } = useUserRecipes()
+
+  const editId = searchParams.get("edit")
+  const editingRecipe = editId ? userRecipes.find((r) => r.id === editId) : null
+  const isEditing = !!editingRecipe
 
   const [name, setName] = useState("")
   const [region, setRegion] = useState<Region>("Centre")
@@ -28,6 +33,24 @@ export default function AddRecipePage() {
   const [ingredients, setIngredients] = useState([{ name: "", quantity: "" }])
   const [steps, setSteps] = useState([""])
   const [imageUri, setImageUri] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (editingRecipe) {
+      setName(editingRecipe.name)
+      setRegion(editingRecipe.region)
+      setDuration(String(editingRecipe.duration))
+      setDifficulty(editingRecipe.difficulty)
+      setIngredients(
+        editingRecipe.ingredients.length > 0
+          ? editingRecipe.ingredients
+          : [{ name: "", quantity: "" }]
+      )
+      setSteps(
+        editingRecipe.steps.length > 0 ? editingRecipe.steps : [""]
+      )
+      setImageUri(editingRecipe.imageUri ?? null)
+    }
+  }, [editingRecipe])
 
   function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
@@ -41,7 +64,7 @@ export default function AddRecipePage() {
     if (!name.trim()) return
 
     const recipe: UserRecipe = {
-      id: `user-${Date.now()}`,
+      id: isEditing ? editingRecipe!.id : `user-${Date.now()}`,
       name: name.trim(),
       description: "",
       image: null,
@@ -56,12 +79,17 @@ export default function AddRecipePage() {
       steps: steps.filter((s) => s.trim()),
       tips: null,
       isUserCreated: true,
-      createdAt: new Date().toISOString(),
+      createdAt: isEditing ? editingRecipe!.createdAt : new Date().toISOString(),
       imageUri,
     }
 
-    addRecipe(recipe)
-    toast.success(t("recipeAdded"))
+    if (isEditing) {
+      updateRecipe(editingRecipe!.id, recipe)
+      toast.success(t("recipeUpdated"))
+    } else {
+      addRecipe(recipe)
+      toast.success(t("recipeAdded"))
+    }
     router.back()
   }
 
@@ -76,7 +104,7 @@ export default function AddRecipePage() {
           <ArrowLeft className="size-5 text-foreground dark:text-white" />
         </button>
         <h1 className="text-xl font-extrabold text-foreground dark:text-white">
-          {t("newRecipe")}
+          {isEditing ? t("editRecipe") : t("newRecipe")}
         </h1>
       </div>
 

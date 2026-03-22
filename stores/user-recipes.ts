@@ -5,6 +5,7 @@ import type { UserRecipe } from "@/types/recipe"
 type UserRecipesStore = {
   userRecipes: UserRecipe[]
   addRecipe: (recipe: UserRecipe) => void
+  updateRecipe: (id: string, recipe: UserRecipe) => void
   deleteRecipe: (id: string) => void
   clearAll: () => void
 }
@@ -15,6 +16,10 @@ export const useUserRecipes = create<UserRecipesStore>()(
       userRecipes: [],
       addRecipe: (recipe) =>
         set((state) => ({ userRecipes: [...state.userRecipes, recipe] })),
+      updateRecipe: (id, recipe) =>
+        set((state) => ({
+          userRecipes: state.userRecipes.map((r) => (r.id === id ? recipe : r)),
+        })),
       deleteRecipe: (id) =>
         set((state) => ({
           userRecipes: state.userRecipes.filter((r) => r.id !== id),

@@ -13,6 +13,7 @@ import {
   Lightbulb,
   Youtube,
   ChevronRight,
+  Pencil,
 } from "lucide-react"
 import { toast } from "sonner"
 import { useLocale } from "@/lib/locale-context"
@@ -83,6 +84,7 @@ export default function RecipeDetail() {
     )
   }
 
+  const isUserCreated = userRecipes.some((r) => r.id === recipe.id)
   const fav = isFavorite(recipe.id)
 
   const difficultyLabel =
@@ -145,26 +147,36 @@ export default function RecipeDetail() {
       <div className="space-y-5 px-4 pt-5 pb-8 md:px-6">
         <StoreBanner />
 
-        {/* Title & Favorite */}
+        {/* Title & Actions */}
         <div className="flex items-start justify-between gap-3">
           <h1 className="text-xl font-extrabold text-foreground sm:text-2xl dark:text-white">
             {recipe.name}
           </h1>
-          <button
-            onClick={() => {
-              toggleFavorite(recipe.id)
-              toast.success(
-                fav
-                  ? locale === "fr" ? "Retiré des favoris" : "Removed from favorites"
-                  : locale === "fr" ? "Ajouté aux favoris" : "Added to favorites"
-              )
-            }}
-            className="mt-0.5 shrink-0 cursor-pointer"
-          >
-            <Heart
-              className={`size-6 ${fav ? "fill-red-500 text-red-500" : "text-muted dark:text-dark-muted"}`}
-            />
-          </button>
+          <div className="mt-0.5 flex shrink-0 items-center gap-2">
+            {isUserCreated && (
+              <Link
+                href={`/${locale}/app/add-recipe?edit=${recipe.id}`}
+                className="flex size-9 items-center justify-center rounded-full bg-primary/10 text-primary transition-colors hover:bg-primary/20"
+              >
+                <Pencil className="size-4" />
+              </Link>
+            )}
+            <button
+              onClick={() => {
+                toggleFavorite(recipe.id)
+                toast.success(
+                  fav
+                    ? locale === "fr" ? "Retiré des favoris" : "Removed from favorites"
+                    : locale === "fr" ? "Ajouté aux favoris" : "Added to favorites"
+                )
+              }}
+              className="cursor-pointer"
+            >
+              <Heart
+                className={`size-6 ${fav ? "fill-red-500 text-red-500" : "text-muted dark:text-dark-muted"}`}
+              />
+            </button>
+          </div>
         </div>
 
         {/* Meta */}
