@@ -1,16 +1,11 @@
-import { Geist, Geist_Mono } from "next/font/google"
+import { Nunito } from "next/font/google"
 
 import "./globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
-import { cn } from "@/lib/utils";
 
-const geistMonoHeading = Geist_Mono({subsets:['latin'],variable:'--font-heading'});
-
-const geist = Geist({subsets:['latin'],variable:'--font-sans'})
-
-const fontMono = Geist_Mono({
+const nunito = Nunito({
   subsets: ["latin"],
-  variable: "--font-mono",
+  variable: "--font-sans",
+  weight: ["400", "500", "600", "700", "800"],
 })
 
 export default function RootLayout({
@@ -19,14 +14,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className={cn("antialiased", fontMono.variable, "font-sans", geist.variable, geistMonoHeading.variable)}
-    >
-      <body>
-        <ThemeProvider>{children}</ThemeProvider>
-      </body>
+    <html lang="fr" suppressHydrationWarning className={nunito.variable}>
+      <body>{children}</body>
     </html>
   )
 }
