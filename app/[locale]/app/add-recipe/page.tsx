@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, Suspense } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { ArrowLeft, Plus, Trash2, Camera } from "lucide-react"
 import { toast } from "sonner"
@@ -23,6 +23,14 @@ const REGIONS: Region[] = [
 const DIFFICULTIES: Difficulty[] = ["Easy", "Medium", "Hard"]
 
 export default function AddRecipePage() {
+  return (
+    <Suspense>
+      <AddRecipeForm />
+    </Suspense>
+  )
+}
+
+function AddRecipeForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const { locale } = useLocale()
@@ -33,31 +41,21 @@ export default function AddRecipePage() {
   const editingRecipe = editId ? userRecipes.find((r) => r.id === editId) : null
   const isEditing = !!editingRecipe
 
-  const [name, setName] = useState("")
-  const [region, setRegion] = useState<Region>("Centre")
-  const [duration, setDuration] = useState("30")
-  const [difficulty, setDifficulty] = useState<Difficulty>("Easy")
-  const [ingredients, setIngredients] = useState([{ name: "", quantity: "" }])
-  const [steps, setSteps] = useState([""])
-  const [imageUri, setImageUri] = useState<string | null>(null)
-
-  useEffect(() => {
-    if (editingRecipe) {
-      setName(editingRecipe.name)
-      setRegion(editingRecipe.region)
-      setDuration(String(editingRecipe.duration))
-      setDifficulty(editingRecipe.difficulty)
-      setIngredients(
-        editingRecipe.ingredients.length > 0
-          ? editingRecipe.ingredients
-          : [{ name: "", quantity: "" }]
-      )
-      setSteps(
-        editingRecipe.steps.length > 0 ? editingRecipe.steps : [""]
-      )
-      setImageUri(editingRecipe.imageUri ?? null)
-    }
-  }, [editingRecipe])
+  const [name, setName] = useState(editingRecipe?.name ?? "")
+  const [region, setRegion] = useState<Region>(editingRecipe?.region ?? "Centre")
+  const [duration, setDuration] = useState(editingRecipe ? String(editingRecipe.duration) : "30")
+  const [difficulty, setDifficulty] = useState<Difficulty>(editingRecipe?.difficulty ?? "Easy")
+  const [ingredients, setIngredients] = useState(
+    editingRecipe && editingRecipe.ingredients.length > 0
+      ? editingRecipe.ingredients
+      : [{ name: "", quantity: "" }]
+  )
+  const [steps, setSteps] = useState(
+    editingRecipe && editingRecipe.steps.length > 0
+      ? editingRecipe.steps
+      : [""]
+  )
+  const [imageUri, setImageUri] = useState<string | null>(editingRecipe?.imageUri ?? null)
 
   function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
