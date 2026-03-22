@@ -35,6 +35,20 @@ export async function generateMetadata({
         siteName: "Tchopé",
         locale: "en_US",
         type: "website",
+        images: [
+          {
+            url: "https://tchope.lndev.me/brand/banner.png",
+            width: 1200,
+            height: 630,
+            alt: "Tchopé — Cameroonian Recipes",
+          },
+        ],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: "Tchopé — Cameroonian Recipes",
+        description: "Cameroonian cuisine in your pocket.",
+        images: ["https://tchope.lndev.me/brand/banner.png"],
       },
     }
   }
@@ -59,6 +73,20 @@ export async function generateMetadata({
       siteName: "Tchopé",
       locale: "fr_FR",
       type: "website",
+      images: [
+        {
+          url: "https://tchope.lndev.me/brand/banner.png",
+          width: 1200,
+          height: 630,
+          alt: "Tchopé — Recettes de cuisine camerounaise",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Tchopé — Recettes Camerounaises",
+      description: "La cuisine camerounaise dans ta poche.",
+      images: ["https://tchope.lndev.me/brand/banner.png"],
     },
   }
 }
