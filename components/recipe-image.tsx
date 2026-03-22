@@ -47,9 +47,19 @@ export function RecipeImage({
   const [error, setError] = useState(false)
 
   const isUserRecipe = recipeId.startsWith("user-")
-  const src = imageUri || (isUserRecipe ? null : getRecipeImage(recipeId, category))
+  const src =
+    imageUri || (isUserRecipe ? null : getRecipeImage(recipeId, category))
 
   if (!src || error) {
+    if (isUserRecipe) {
+      return (
+        <img
+          src="/brand/logo.png"
+          alt="Tchopé"
+          className="h-full w-full object-cover"
+        />
+      )
+    }
     return (
       <div
         className={`flex items-center justify-center ${categoryColors[category]} ${className}`}
