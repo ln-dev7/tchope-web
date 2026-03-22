@@ -37,7 +37,7 @@ export async function generateMetadata({
         type: "website",
         images: [
           {
-            url: "https://tchope.lndev.me/brand/banner.png",
+            url: "https://tchope.lndev.me/brand/banner-en.png",
             width: 1200,
             height: 630,
             alt: "Tchopé — Cameroonian Recipes",
@@ -48,7 +48,7 @@ export async function generateMetadata({
         card: "summary_large_image",
         title: "Tchopé — Cameroonian Recipes",
         description: "Cameroonian cuisine in your pocket.",
-        images: ["https://tchope.lndev.me/brand/banner.png"],
+        images: ["https://tchope.lndev.me/brand/banner-en.png"],
       },
     }
   }
