@@ -115,7 +115,7 @@ export default function RecipeDetail() {
       )}
 
       {/* Hero image */}
-      <div className="relative aspect-[4/3] w-full overflow-hidden sm:aspect-[16/9] md:aspect-[2/1] md:max-h-[400px]">
+      <div className="relative aspect-4/3 w-full overflow-hidden sm:aspect-video md:aspect-2/1 md:max-h-[400px] rounded-bl-3xl rounded-br-3xl">
         <RecipeImage
           recipeId={recipe.id}
           category={recipe.category}
