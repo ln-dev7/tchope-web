@@ -12,6 +12,17 @@ import { useUserRecipes } from "@/stores/user-recipes"
 import { StoreBanner } from "@/components/store-banner"
 import { RecipeCard } from "@/components/recipe-card"
 import { RecipeImage } from "@/components/recipe-image"
+import {
+  AlertDialog,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogFooter,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogAction,
+  AlertDialogCancel,
+} from "@/components/ui/alert-dialog"
 
 export default function CookbookPage() {
   const { locale } = useLocale()
@@ -19,7 +30,7 @@ export default function CookbookPage() {
   const recipes = useLocalizedRecipes(locale)
   const { favorites } = useFavorites()
   const { userRecipes, deleteRecipe } = useUserRecipes()
-  const [tab, setTab] = useState<"favorites" | "myrecipes">("favorites")
+  const [tab, setTab] = useState<"favorites" | "myrecipes">("myrecipes")
 
   const favoriteRecipes = useMemo(
     () => recipes.filter((r) => favorites.includes(r.id)),
@@ -105,15 +116,32 @@ export default function CookbookPage() {
                   </p>
                 </div>
               </Link>
-              <button
-                onClick={() => {
-                  deleteRecipe(r.id)
-                  toast.success(t("recipeDeleted"))
-                }}
-                className="shrink-0 cursor-pointer rounded-lg p-2 text-red-500 transition-colors hover:bg-red-500/10"
-              >
-                <Trash2 className="size-4" />
-              </button>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <button
+                    className="shrink-0 cursor-pointer rounded-lg p-2 text-red-500 transition-colors hover:bg-red-500/10"
+                  >
+                    <Trash2 className="size-4" />
+                  </button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>{t("clearConfirm")}</AlertDialogTitle>
+                    <AlertDialogDescription>{t("clearConfirmMessage")}</AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
+                    <AlertDialogAction
+                      onClick={() => {
+                        deleteRecipe(r.id)
+                        toast.success(t("recipeDeleted"))
+                      }}
+                    >
+                      {t("confirm")}
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             </div>
           ))}
         </div>

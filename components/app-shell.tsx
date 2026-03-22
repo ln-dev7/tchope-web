@@ -136,7 +136,19 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
       {/* Main content */}
       <main className="min-h-dvh pb-20 md:ml-[72px] lg:ml-[220px] w-full">
-        <div className="mx-auto max-w-2xl px-4 py-5 sm:px-6 md:py-6 lg:max-w-4xl">{children}</div>
+        <div className="mx-auto max-w-2xl px-4 py-5 sm:px-6 md:py-6 lg:max-w-4xl">
+          {children}
+          <div className="mt-10 flex flex-col items-center gap-1 pb-2">
+            <img
+              src="/brand/logo.png"
+              alt="Tchopé"
+              className="rounded-xl size-28"
+            />
+            <span className="text-[11px] font-medium text-muted/50 dark:text-dark-muted/50">
+              Tchopé
+            </span>
+          </div>
+        </div>
       </main>
 
       {/* Bottom tabs — mobile */}

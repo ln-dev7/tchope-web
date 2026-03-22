@@ -14,6 +14,7 @@ import {
   Mail,
   Send,
   Shield,
+  Heart,
 } from "lucide-react"
 import { toast } from "sonner"
 import { useLocale } from "@/lib/locale-context"
@@ -21,6 +22,18 @@ import { useAppTranslations } from "@/hooks/use-app-translations"
 import { useFavorites } from "@/stores/favorites"
 import { useUserRecipes } from "@/stores/user-recipes"
 import { StoreBanner } from "@/components/store-banner"
+import { StoreBadges } from "@/components/store-badges"
+import {
+  AlertDialog,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogFooter,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogAction,
+  AlertDialogCancel,
+} from "@/components/ui/alert-dialog"
 
 type Theme = "light" | "dark" | "system"
 
@@ -64,9 +77,6 @@ export default function SettingsPage() {
 
       {/* Appearance */}
       <Section title={t("appearance")}>
-        <p className="my-2 px-4 text-xs font-medium text-muted dark:text-dark-muted">
-          {t("theme")}
-        </p>
         {([
           { key: "light" as Theme, icon: Sun, label: t("light") },
           { key: "dark" as Theme, icon: Moon, label: t("dark") },
@@ -101,28 +111,83 @@ export default function SettingsPage() {
         ))}
       </Section>
 
+      {/* Store badges */}
+      <Section title={locale === "fr" ? "Télécharger l'app" : "Download the app"}>
+        <div className="flex items-center justify-center px-4 py-3">
+          <StoreBadges />
+        </div>
+      </Section>
+
+      {/* Support */}
+      <Section title={t("supportMe")}>
+        <a
+          href="https://ecaefmew.mychariow.shop/prd_3cu1s0"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex w-full cursor-pointer items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-foreground transition-colors hover:bg-foreground/5 dark:text-white dark:hover:bg-white/5"
+        >
+          <Heart className="size-4 text-red-500" />
+          <span className="flex-1">{t("supportProject")}</span>
+          <ExternalLink className="size-3.5 text-muted dark:text-dark-muted" />
+        </a>
+      </Section>
+
       {/* Data */}
       <Section title={t("data")}>
-        <button
-          onClick={() => {
-            clearFavorites()
-            toast.success(locale === "fr" ? "Favoris supprimés" : "Favorites cleared")
-          }}
-          className="flex w-full cursor-pointer items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-red-500 transition-colors hover:bg-red-500/5"
-        >
-          <Trash2 className="size-4" />
-          {t("clearFavorites")}
-        </button>
-        <button
-          onClick={() => {
-            clearUserRecipes()
-            toast.success(t("allCreationsDeleted"))
-          }}
-          className="flex w-full cursor-pointer items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-red-500 transition-colors hover:bg-red-500/5"
-        >
-          <Trash2 className="size-4" />
-          {t("clearUserRecipes")}
-        </button>
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <button
+              className="flex w-full cursor-pointer items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-red-500 transition-colors hover:bg-red-500/5"
+            >
+              <Trash2 className="size-4" />
+              {t("clearFavorites")}
+            </button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>{t("clearConfirm")}</AlertDialogTitle>
+              <AlertDialogDescription>{t("clearConfirmMessage")}</AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
+              <AlertDialogAction
+                onClick={() => {
+                  clearFavorites()
+                  toast.success(locale === "fr" ? "Favoris supprimés" : "Favorites cleared")
+                }}
+              >
+                {t("confirm")}
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <button
+              className="flex w-full cursor-pointer items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-red-500 transition-colors hover:bg-red-500/5"
+            >
+              <Trash2 className="size-4" />
+              {t("clearUserRecipes")}
+            </button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>{t("clearConfirm")}</AlertDialogTitle>
+              <AlertDialogDescription>{t("clearConfirmMessage")}</AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
+              <AlertDialogAction
+                onClick={() => {
+                  clearUserRecipes()
+                  toast.success(t("allCreationsDeleted"))
+                }}
+              >
+                {t("confirm")}
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </Section>
 
       {/* Contact */}

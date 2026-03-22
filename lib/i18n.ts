@@ -16,7 +16,7 @@ const dictionaries = {
       openApp: "Ouvrir l'app",
     },
     hero: {
-      badge: "80+ recettes",
+      badge: "100+ recettes",
       title: "La cuisine camerounaise dans ta poche",
       subtitle:
         "Découvre des recettes traditionnelles authentiques, filtre par région et crée ton propre cookbook. 100% gratuit, 100% hors ligne.",
@@ -136,7 +136,7 @@ const dictionaries = {
       openApp: "Open app",
     },
     hero: {
-      badge: "80+ recipes",
+      badge: "100+ recipes",
       title: "Cameroonian cuisine in your pocket",
       subtitle:
         "Discover authentic traditional recipes, filter by region and create your own cookbook. 100% free, 100% offline.",

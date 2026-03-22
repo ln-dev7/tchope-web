@@ -159,6 +159,7 @@ export const translations = {
     // Support
     supportMe: 'Me soutenir',
     supportSubtitle: 'Aidez-moi à continuer ce projet',
+    supportProject: 'Soutenir le projet',
 
     // Contact
     contactMe: 'Me contacter',
@@ -332,6 +333,7 @@ export const translations = {
     // Support
     supportMe: 'Support Me',
     supportSubtitle: 'Help me continue this project',
+    supportProject: 'Support the project',
 
     // Contact
     contactMe: 'Contact Me',

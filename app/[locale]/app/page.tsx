@@ -135,8 +135,8 @@ export default function AppHomePage() {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="-left-3 size-9 border-foreground/10 bg-surface active:translate-y-0 dark:border-white/10 dark:bg-dark-surface" />
-          <CarouselNext className="-right-3 size-9 border-foreground/10 bg-surface active:translate-y-0 dark:border-white/10 dark:bg-dark-surface" />
+          <CarouselPrevious className="-left-3 size-10 border-foreground/10 bg-surface active:-translate-y-1/2 hover:bg-surface dark:border-white/10 dark:bg-dark-surface dark:hover:bg-dark-surface" />
+          <CarouselNext className="-right-3 size-10 border-foreground/10 bg-surface active:-translate-y-1/2 hover:bg-surface dark:border-white/10 dark:bg-dark-surface dark:hover:bg-dark-surface" />
         </Carousel>
       </section>
 
