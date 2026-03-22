@@ -1,0 +1,349 @@
+export const translations = {
+  fr: {
+    // Tabs
+    tabHome: 'Accueil',
+    tabSearch: 'Rechercher',
+    tabCookbook: 'Cookbook',
+    tabSettings: 'Paramètres',
+
+    // Home
+    welcome: 'Bienvenue,',
+    searchPlaceholder: 'Rechercher une recette, un ingrédient...',
+    regions: 'Régions du Cameroun',
+    seeAll: 'Tout voir',
+    featuredRecipes: 'Recettes Vedettes',
+    popularRecipes: 'Recettes Populaires',
+    specialtyOf: 'Spécialité du',
+
+    // Detail
+    recipeDetails: 'Détails de la recette',
+    prepTime: 'Temps de préparation',
+    difficulty: 'Difficulté',
+    ingredients: 'Ingrédients',
+    steps: 'Étapes',
+    servings: 'Portions',
+    minutes: 'minutes',
+    chefTips: 'Astuces du chef',
+    share: 'Partager',
+    startCooking: 'Commencer la cuisson',
+    shoppingList: 'Liste de courses',
+    items: 'articles',
+    calories: 'Calories',
+    portions: 'Portions',
+    persons: 'personnes',
+
+    // Difficulties
+    easy: 'Facile',
+    medium: 'Moyen',
+    hard: 'Difficile',
+
+    // Spiciness
+    mild: 'Doux',
+    mediumSpice: 'Moyen',
+    extraHot: 'Très Pimenté',
+
+    // Search
+    quickFilters: 'Filtres rapides',
+    cookingTime: 'Temps de cuisson',
+    spicinessLevel: 'Niveau de piment',
+    popularIngredients: 'Ingrédients populaires',
+    results: 'Résultats',
+    sorting: 'Tri',
+    relevance: 'Pertinence',
+    noResults: 'Aucun résultat',
+    reset: 'Réinitialiser',
+    under30: 'Moins de 30 min',
+    between30and60: '30-60 min',
+    over60: '60 min+',
+    viewRecipe: 'Voir la recette',
+    filter: 'Filtrer',
+
+    // Cookbook
+    myCookbook: 'Mon Cookbook',
+    savedRecipes: 'Recettes Sauvées',
+    collections: 'Collections',
+    addRecipe: 'Ajouter une recette',
+    noFavorites: 'Aucun favori',
+    noFavoritesSubtitle: 'Ajoutez des recettes à vos favoris pour les retrouver ici',
+    noUserRecipes: 'Aucune recette',
+    noUserRecipesSubtitle: 'Créez votre première recette pour la retrouver ici',
+    all: 'Tout',
+    breakfast: 'Petit-déj',
+    sundayFeast: 'Repas du Dimanche',
+    starters: 'Entrées',
+    sauces: 'Sauces',
+    personalSpace: 'Espace Personnel',
+    myCollections: 'Mes Collections',
+    savedRecipesCount: 'Recettes sauvegardées',
+    personalCreationsCount: 'Créations personnelles',
+
+    // Form
+    newRecipe: 'Nouvelle Recette',
+    recipeName: 'Nom de la recette',
+    region: 'Région',
+    prepTimeLabel: 'Temps de préparation',
+    difficultyLabel: 'Difficulté',
+    addIngredient: 'Ajouter un ingrédient',
+    addStep: 'Ajouter une étape',
+    addPhoto: 'Ajouter une photo',
+    save: 'Enregistrer',
+    cancel: 'Annuler',
+    ingredientName: "Nom de l'ingrédient",
+    quantity: 'Quantité',
+    stepDescription: "Description de l'étape",
+    recipeAdded: 'Recette ajoutée avec succès',
+    recipeDeleted: 'Recette supprimée',
+    selectRegion: 'Sélectionner une région',
+    photoSubtitle: 'Prenez ou choisissez une photo de votre plat',
+    saveRecipe: 'Enregistrer la recette',
+    ingredientsAdded: 'Ingrédients ajoutés',
+    describeStep: 'Décrivez cette étape...',
+
+    // Settings
+    settings: 'Paramètres',
+    appearance: 'Apparence',
+    theme: 'Thème',
+    light: 'Clair',
+    dark: 'Sombre',
+    system: 'Système',
+    language: 'Langue',
+    french: 'Français',
+    english: 'Anglais',
+    about: 'À propos',
+    version: 'Version',
+    madeWith: 'Fait avec ❤️ au Cameroun',
+    developer: 'Développeur',
+    data: 'Données',
+    clearFavorites: 'Supprimer les favoris',
+    clearUserRecipes: 'Supprimer mes recettes',
+    clearConfirm: 'Confirmation',
+    clearConfirmMessage: 'Cette action est irréversible. Voulez-vous continuer ?',
+    confirm: 'Confirmer',
+    irreversibleAction: 'Action irréversible',
+    allCreationsDeleted: 'Toutes vos créations ont été supprimées',
+
+    // Regions
+    regionLittoral: 'Littoral',
+    regionOuest: 'Ouest',
+    regionCentre: 'Centre',
+    regionSud: 'Sud',
+    regionNord: 'Nord',
+    regionEst: 'Est',
+    regionAdamaoua: 'Adamaoua',
+    regionExtremeNord: 'Extrême-Nord',
+    regionNordOuest: 'Nord-Ouest',
+    regionSudOuest: 'Sud-Ouest',
+
+    // Categories
+    catPlat: 'Plat',
+    catSauce: 'Sauce',
+    catGrillade: 'Grillade',
+    catBoisson: 'Boisson',
+    catDessert: 'Dessert',
+    catEntree: 'Entrée',
+    catAccompagnement: 'Accompagnement',
+
+    // Tags
+    tagPopular: 'Populaire',
+    tagChefChoice: 'Choix du chef',
+    tagHealthy: 'Sain',
+    tagClassic: 'Classique',
+
+    // Video
+    videoRecipe: 'Recette en vidéo',
+    videoRecipes: 'Recettes en vidéo',
+    videoTutorials: 'Tutoriels vidéo',
+    videoSubtitle: 'Apprenez étape par étape avec ces vidéos',
+    watchVideo: 'Regarder',
+
+    // Support
+    supportMe: 'Me soutenir',
+    supportSubtitle: 'Aidez-moi à continuer ce projet',
+
+    // Contact
+    contactMe: 'Me contacter',
+    contactSubtitle: 'Par email ou Telegram',
+    privacyPolicy: 'Politique de confidentialité',
+
+    // General
+    allRecipes: 'Toutes les recettes',
+    favorites: 'Favoris',
+    myRecipes: 'Mes Recettes',
+    recipes: 'Recettes',
+  },
+
+  en: {
+    // Tabs
+    tabHome: 'Home',
+    tabSearch: 'Search',
+    tabCookbook: 'Cookbook',
+    tabSettings: 'Settings',
+
+    // Home
+    welcome: 'Welcome,',
+    searchPlaceholder: 'Search a recipe, an ingredient...',
+    regions: 'Regions of Cameroon',
+    seeAll: 'See all',
+    featuredRecipes: 'Featured Recipes',
+    popularRecipes: 'Popular Recipes',
+    specialtyOf: 'Specialty of',
+
+    // Detail
+    recipeDetails: 'Recipe Details',
+    prepTime: 'Prep Time',
+    difficulty: 'Difficulty',
+    ingredients: 'Ingredients',
+    steps: 'Steps',
+    servings: 'Servings',
+    minutes: 'minutes',
+    chefTips: "Chef's Tips",
+    share: 'Share',
+    startCooking: 'Start Cooking',
+    shoppingList: 'Shopping List',
+    items: 'items',
+    calories: 'Calories',
+    portions: 'Portions',
+    persons: 'persons',
+
+    // Difficulties
+    easy: 'Easy',
+    medium: 'Medium',
+    hard: 'Hard',
+
+    // Spiciness
+    mild: 'Mild',
+    mediumSpice: 'Medium',
+    extraHot: 'Extra Hot',
+
+    // Search
+    quickFilters: 'Quick Filters',
+    cookingTime: 'Cooking Time',
+    spicinessLevel: 'Spiciness Level',
+    popularIngredients: 'Popular Ingredients',
+    results: 'Results',
+    sorting: 'Sorting',
+    relevance: 'Relevance',
+    noResults: 'No results',
+    reset: 'Reset',
+    under30: 'Under 30 min',
+    between30and60: '30-60 min',
+    over60: '60 min+',
+    viewRecipe: 'View Recipe',
+    filter: 'Filter',
+
+    // Cookbook
+    myCookbook: 'My Cookbook',
+    savedRecipes: 'Saved Recipes',
+    collections: 'Collections',
+    addRecipe: 'Add a Recipe',
+    noFavorites: 'No favorites',
+    noFavoritesSubtitle: 'Add recipes to your favorites to find them here',
+    noUserRecipes: 'No recipes',
+    noUserRecipesSubtitle: 'Create your first recipe to find it here',
+    all: 'All',
+    breakfast: 'Breakfast',
+    sundayFeast: 'Sunday Feast',
+    starters: 'Starters',
+    sauces: 'Sauces',
+    personalSpace: 'Personal Space',
+    myCollections: 'My Collections',
+    savedRecipesCount: 'Saved Recipes',
+    personalCreationsCount: 'Personal Creations',
+
+    // Form
+    newRecipe: 'New Recipe',
+    recipeName: 'Recipe Name',
+    region: 'Region',
+    prepTimeLabel: 'Prep Time',
+    difficultyLabel: 'Difficulty',
+    addIngredient: 'Add an Ingredient',
+    addStep: 'Add a Step',
+    addPhoto: 'Add a Photo',
+    save: 'Save',
+    cancel: 'Cancel',
+    ingredientName: 'Ingredient Name',
+    quantity: 'Quantity',
+    stepDescription: 'Step Description',
+    recipeAdded: 'Recipe added successfully',
+    recipeDeleted: 'Recipe deleted',
+    selectRegion: 'Select a region',
+    photoSubtitle: 'Take or choose a photo of your dish',
+    saveRecipe: 'Save Recipe',
+    ingredientsAdded: 'Ingredients added',
+    describeStep: 'Describe this step...',
+
+    // Settings
+    settings: 'Settings',
+    appearance: 'Appearance',
+    theme: 'Theme',
+    light: 'Light',
+    dark: 'Dark',
+    system: 'System',
+    language: 'Language',
+    french: 'French',
+    english: 'English',
+    about: 'About',
+    version: 'Version',
+    madeWith: 'Made with ❤️ in Cameroon',
+    developer: 'Developer',
+    data: 'Data',
+    clearFavorites: 'Clear Favorites',
+    clearUserRecipes: 'Clear My Recipes',
+    clearConfirm: 'Confirmation',
+    clearConfirmMessage: 'This action is irreversible. Do you want to continue?',
+    confirm: 'Confirm',
+    irreversibleAction: 'Irreversible Action',
+    allCreationsDeleted: 'All your creations have been deleted',
+
+    // Regions
+    regionLittoral: 'Littoral',
+    regionOuest: 'West',
+    regionCentre: 'Centre',
+    regionSud: 'South',
+    regionNord: 'North',
+    regionEst: 'East',
+    regionAdamaoua: 'Adamaoua',
+    regionExtremeNord: 'Far North',
+    regionNordOuest: 'North-West',
+    regionSudOuest: 'South-West',
+
+    // Categories
+    catPlat: 'Dish',
+    catSauce: 'Sauce',
+    catGrillade: 'Grill',
+    catBoisson: 'Drink',
+    catDessert: 'Dessert',
+    catEntree: 'Starter',
+    catAccompagnement: 'Side Dish',
+
+    // Tags
+    tagPopular: 'Popular',
+    tagChefChoice: "Chef's Choice",
+    tagHealthy: 'Healthy',
+    tagClassic: 'Classic',
+
+    // Video
+    videoRecipe: 'Video Recipe',
+    videoRecipes: 'Video Recipes',
+    videoTutorials: 'Video Tutorials',
+    videoSubtitle: 'Learn step by step with these videos',
+    watchVideo: 'Watch',
+
+    // Support
+    supportMe: 'Support Me',
+    supportSubtitle: 'Help me continue this project',
+
+    // Contact
+    contactMe: 'Contact Me',
+    contactSubtitle: 'By email or Telegram',
+    privacyPolicy: 'Privacy Policy',
+
+    // General
+    allRecipes: 'All Recipes',
+    favorites: 'Favorites',
+    myRecipes: 'My Recipes',
+    recipes: 'Recipes',
+  },
+} as const;
+
+export type TranslationKey = keyof typeof translations.fr;
