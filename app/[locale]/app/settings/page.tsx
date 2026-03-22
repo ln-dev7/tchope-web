@@ -127,7 +127,7 @@ export default function SettingsPage() {
           className="flex w-full cursor-pointer items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-foreground transition-colors hover:bg-foreground/5 dark:text-white dark:hover:bg-white/5"
         >
           <Heart className="size-4 text-red-500" />
-          <span className="flex-1">{t("supportProject")}</span>
+          <span className="flex-1">{t("supportSubtitle")}</span>
           <ExternalLink className="size-3.5 text-muted dark:text-dark-muted" />
         </a>
       </Section>
