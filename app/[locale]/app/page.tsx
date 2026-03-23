@@ -33,11 +33,14 @@ import type { Region } from "@/types/recipe"
 import type { LucideIcon } from "lucide-react"
 
 const FEATURED_IDS = [
-  "ndole", "poulet-dg", "eru", "kondre", "poisson-braise", "koki", "okok-sale",
+  "ndole", "poulet-dg", "eru", "mbongo-tchobi", "koki",
+  "taro-sauce-jaune", "kondre", "sanga", "okok-sucre",
+  "poisson-braise", "ekwang", "met-de-pistache", "okok-sale",
 ]
 const POPULAR_IDS = [
-  "ndole", "poulet-dg", "eru", "poisson-braise", "beignets-haricots",
-  "jus-gingembre", "soya", "kondre", "koki", "okok-sale",
+  "ndole", "poulet-dg", "eru", "mbongo-tchobi", "koki",
+  "taro-sauce-jaune", "kondre", "sanga", "okok-sucre",
+  "poisson-braise", "ekwang", "met-de-pistache", "okok-sale",
 ]
 
 const regionIcons: Record<Region, LucideIcon> = {
@@ -64,11 +67,11 @@ export default function AppHomePage() {
   const recipes = useLocalizedRecipes(locale)
 
   const featured = useMemo(
-    () => recipes.filter((r) => FEATURED_IDS.includes(r.id)),
+    () => FEATURED_IDS.map((id) => recipes.find((r) => r.id === id)).filter(Boolean) as typeof recipes,
     [recipes]
   )
   const popular = useMemo(
-    () => recipes.filter((r) => POPULAR_IDS.includes(r.id)),
+    () => POPULAR_IDS.map((id) => recipes.find((r) => r.id === id)).filter(Boolean) as typeof recipes,
     [recipes]
   )
 
