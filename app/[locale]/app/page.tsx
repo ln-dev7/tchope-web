@@ -4,7 +4,7 @@ import { useMemo } from "react"
 import Link from "next/link"
 import {
   Search,
-  Sparkles,
+
   Droplets,
   Triangle,
   Building2,
@@ -92,25 +92,6 @@ export default function AppHomePage() {
       >
         <Search className="size-4 shrink-0" />
         <span className="truncate">{t("searchPlaceholder")}</span>
-      </Link>
-
-      {/* AI Recipe Finder */}
-      <Link
-        href={`/${locale}/app/ai-recipes`}
-        className="group flex cursor-pointer items-center gap-4 rounded-2xl border border-purple-500/15 bg-purple-500/5 p-4 transition-colors hover:bg-purple-500/10 dark:border-purple-500/20 dark:bg-purple-500/10 dark:hover:bg-purple-500/15"
-      >
-        <div className="flex size-11 shrink-0 items-center justify-center rounded-full bg-purple-500/15">
-          <Sparkles className="size-5 text-purple-500" />
-        </div>
-        <div className="min-w-0 flex-1">
-          <p className="text-sm font-bold text-foreground dark:text-white">
-            {t("aiCta")}
-          </p>
-          <p className="text-xs text-muted dark:text-dark-muted">
-            {t("aiCtaSubtitle")}
-          </p>
-        </div>
-        <ChevronRight className="size-4 text-purple-500/60" />
       </Link>
 
       {/* Regions */}
