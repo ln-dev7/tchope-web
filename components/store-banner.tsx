@@ -28,8 +28,8 @@ export function StoreBanner() {
         <Smartphone className="size-5 shrink-0 text-primary" />
         <p className="text-xs font-medium text-foreground dark:text-white">
           {locale === "fr"
-            ? "Tchopé est aussi disponible sur mobile !"
-            : "Tchopé is also available on mobile!"}
+            ? "Tchopé est aussi disponible sur mobile ! Plus de fonctionnalités y sont disponibles."
+            : "Tchopé is also available on mobile! More features are available there."}
         </p>
       </div>
       <div className="flex items-center gap-2 self-end sm:self-auto">

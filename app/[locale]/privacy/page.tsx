@@ -93,6 +93,46 @@ export default function PrivacyPage() {
             </FadeInUp>
 
             <FadeInUp>
+              <Section title={s.microphone.title}>
+                <p>{s.microphone.intro}</p>
+                <ul className="mt-4 space-y-2">
+                  {s.microphone.items.map((item) => (
+                    <li
+                      key={item}
+                      className="flex items-start gap-3 text-sm text-muted"
+                    >
+                      <span className="mt-1.5 block size-1.5 shrink-0 rounded-full bg-primary/40" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </Section>
+            </FadeInUp>
+
+            <FadeInUp>
+              <Section title={s.payment.title}>
+                <p>{s.payment.intro}</p>
+                <ul className="mt-4 space-y-2">
+                  {s.payment.items.map((item) => (
+                    <li
+                      key={item}
+                      className="flex items-start gap-3 text-sm text-muted"
+                    >
+                      <span className="mt-1.5 block size-1.5 shrink-0 rounded-full bg-primary/40" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <p className="mt-4 text-sm text-muted">
+                  {s.payment.policies}{" "}
+                  <a href="https://chariow.com/privacy" target="_blank" rel="noopener noreferrer" className="font-medium text-primary hover:underline">Chariow</a>,{" "}
+                  <a href="https://moneroo.io/privacy" target="_blank" rel="noopener noreferrer" className="font-medium text-primary hover:underline">Moneroo</a>,{" "}
+                  <a href="https://axazara.com" target="_blank" rel="noopener noreferrer" className="font-medium text-primary hover:underline">Axa Zara LLC</a>.
+                </p>
+              </Section>
+            </FadeInUp>
+
+            <FadeInUp>
               <Section title={s.storage.title}>
                 <p>{s.storage.intro}</p>
                 <ul className="mt-4 space-y-2">

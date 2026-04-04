@@ -62,7 +62,7 @@ const dictionaries = {
     },
     privacy: {
       title: "Politique de Confidentialité",
-      lastUpdated: "Dernière mise à jour : 20 mars 2026",
+      lastUpdated: "Dernière mise à jour : 4 avril 2026",
       developer: "Développeur : LNDEV —",
       sections: {
         intro: {
@@ -95,8 +95,33 @@ const dictionaries = {
             "Locale : les photos sélectionnées ou prises sont stockées uniquement sur votre appareil. Elles ne sont jamais envoyées, partagées ou uploadées vers un serveur",
           ],
         },
+        microphone: {
+          title: "4. Microphone et Reconnaissance vocale",
+          intro:
+            "Tchopé utilise le microphone de votre appareil uniquement dans le cadre de la fonctionnalité TchopAI Live, qui permet de dialoguer vocalement avec l'assistant cuisine pendant que vous cuisinez.",
+          items: [
+            "Activation explicite : le microphone n'est utilisé que lorsque vous lancez une session TchopAI Live et maintenez le bouton de parole. Il n'est jamais activé en arrière-plan.",
+            "Traitement sur l'appareil : l'audio capté par le microphone est converti en texte directement sur votre appareil via les services de reconnaissance vocale du système d'exploitation (Google Speech Services sur Android, Speech Recognition sur iOS). Aucun flux audio n'est envoyé à un serveur distant.",
+            "Aucun enregistrement : aucun enregistrement audio n'est stocké sur l'appareil ni transmis à un tiers.",
+            "Texte uniquement : seul le texte transcrit par la reconnaissance vocale est envoyé à l'API Claude (Anthropic) pour générer une réponse. Anthropic ne reçoit jamais votre voix, uniquement du texte.",
+            "Pas de sauvegarde : les conversations vocales (texte transcrit et réponses de l'IA) ne sont pas sauvegardées après la fin de la session TchopAI Live. Elles sont supprimées de la mémoire dès que vous quittez l'écran.",
+            "Révocable : vous pouvez révoquer la permission microphone à tout moment dans les paramètres de votre téléphone (Réglages > Tchopé > Microphone).",
+          ],
+        },
+        payment: {
+          title: "5. Paiement et Licence",
+          intro:
+            "Les fonctionnalités IA de Tchopé (TchopAI Chat, Recherche IA, Meal Plan IA, TchopAI Live) nécessitent une licence payante. Le processus d'achat implique deux services tiers, tous deux opérés par Axa Zara LLC (axazara.com) :",
+          items: [
+            "Chariow (chariow.com) : plateforme de vente qui gère la licence (génération de clé, activation, expiration). La page d'achat est hébergée sur Chariow, en dehors de l'application.",
+            "Moneroo (moneroo.io) : passerelle de paiement qui traite la transaction financière. C'est Moneroo qui collecte et traite les données de paiement (carte bancaire, mobile money, etc.).",
+            "Aucune donnée bancaire : Tchopé ne collecte, ne stocke et ne traite aucune donnée bancaire ou financière. Aucune donnée de paiement ne transite par l'application. Tout est géré par les services tiers mentionnés ci-dessus.",
+            "Clé de licence : après l'achat, vous recevez une clé de licence que vous saisissez dans l'application. Seule cette clé est stockée localement sur votre appareil pour vérifier votre accès aux fonctionnalités IA.",
+          ],
+          policies: "Pour plus d'informations, consultez les politiques de confidentialité de Chariow, Moneroo et Axa Zara LLC.",
+        },
         storage: {
-          title: "4. Stockage local",
+          title: "6. Stockage local",
           intro:
             "L'application stocke localement sur votre appareil (via AsyncStorage) les données suivantes :",
           items: [
@@ -111,17 +136,17 @@ const dictionaries = {
           ],
         },
         thirdParty: {
-          title: "5. Données de tiers",
+          title: "7. Données de tiers",
           content:
             "L'application charge des images depuis Wikimedia Commons et des miniatures vidéo depuis YouTube pour illustrer les recettes. Ces requêtes sont soumises aux politiques de confidentialité respectives de Wikimedia et Google/YouTube. Lorsque vous choisissez de regarder une vidéo de recette, vous êtes redirigé vers YouTube via votre navigateur. Tchopé n'a aucun contrôle sur les données collectées par YouTube.",
         },
         changes: {
-          title: "6. Modifications",
+          title: "8. Modifications",
           content:
             "Cette politique de confidentialité peut être mise à jour occasionnellement. Toute modification sera reflétée par la date de mise à jour en haut de ce document. Nous vous encourageons à consulter cette page régulièrement.",
         },
         contact: {
-          title: "7. Contact",
+          title: "9. Contact",
           intro:
             "Pour toute question concernant cette politique de confidentialité :",
         },
@@ -182,7 +207,7 @@ const dictionaries = {
     },
     privacy: {
       title: "Privacy Policy",
-      lastUpdated: "Last updated: March 20, 2026",
+      lastUpdated: "Last updated: April 4, 2026",
       developer: "Developer: LNDEV —",
       sections: {
         intro: {
@@ -215,8 +240,33 @@ const dictionaries = {
             "Local: selected or captured photos are stored exclusively on your device. They are never sent, shared, or uploaded to any server",
           ],
         },
+        microphone: {
+          title: "4. Microphone and Speech Recognition",
+          intro:
+            "Tchopé uses your device's microphone only within the TchopAI Live feature, which allows you to have a voice conversation with the cooking assistant while you cook.",
+          items: [
+            "Explicit activation: the microphone is only used when you start a TchopAI Live session and hold the speak button. It is never activated in the background.",
+            "On-device processing: the audio captured by the microphone is converted to text directly on your device using the operating system's built-in speech recognition services (Google Speech Services on Android, Speech Recognition on iOS). No audio stream is sent to a remote server.",
+            "No recordings: no audio recording is stored on the device or transmitted to any third party.",
+            "Text only: only the transcribed text from speech recognition is sent to the Claude API (Anthropic) to generate a response. Anthropic never receives your voice, only text.",
+            "No saving: voice conversations (transcribed text and AI responses) are not saved after the TchopAI Live session ends. They are cleared from memory as soon as you leave the screen.",
+            "Revocable: you can revoke the microphone permission at any time in your phone settings (Settings > Tchopé > Microphone).",
+          ],
+        },
+        payment: {
+          title: "5. Payment and License",
+          intro:
+            "The AI features of Tchopé (TchopAI Chat, AI Search, AI Meal Plan, TchopAI Live) require a paid license. The purchase process involves two third-party services, both operated by Axa Zara LLC (axazara.com):",
+          items: [
+            "Chariow (chariow.com): sales platform that manages the license (key generation, activation, expiration). The purchase page is hosted on Chariow, outside the application.",
+            "Moneroo (moneroo.io): payment gateway that processes the financial transaction. Moneroo collects and processes payment data (credit card, mobile money, etc.).",
+            "No financial data: Tchopé does not collect, store, or process any banking or financial data. No payment data passes through the application. Everything is handled by the third-party services mentioned above.",
+            "License key: after purchase, you receive a license key that you enter in the application. Only this key is stored locally on your device to verify your access to AI features.",
+          ],
+          policies: "For more information, see the privacy policies of Chariow, Moneroo, and Axa Zara LLC.",
+        },
         storage: {
-          title: "4. Local Storage",
+          title: "6. Local Storage",
           intro:
             "The app stores the following data locally on your device (via AsyncStorage):",
           items: [
@@ -231,17 +281,17 @@ const dictionaries = {
           ],
         },
         thirdParty: {
-          title: "5. Third-Party Data",
+          title: "7. Third-Party Data",
           content:
             "The app loads images from Wikimedia Commons and video thumbnails from YouTube to illustrate recipes. These requests are subject to the respective privacy policies of Wikimedia and Google/YouTube. When you choose to watch a recipe video, you are redirected to YouTube via your browser. Tchopé has no control over the data collected by YouTube.",
         },
         changes: {
-          title: "6. Changes",
+          title: "8. Changes",
           content:
             "This privacy policy may be updated from time to time. Any changes will be reflected by the update date at the top of this document. We encourage you to review this page periodically.",
         },
         contact: {
-          title: "7. Contact",
+          title: "9. Contact",
           intro: "For any questions regarding this privacy policy:",
         },
       },
