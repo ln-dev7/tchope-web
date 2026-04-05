@@ -14,12 +14,13 @@ export function Header() {
   const navItems = [
     { label: t.nav.features, href: `/${locale}#features` },
     { label: t.nav.screenshots, href: `/${locale}#screenshots` },
+    { label: t.nav.pricing, href: `/${locale}#pricing` },
   ]
 
   return (
     <header className="fixed top-0 right-0 left-0 z-50">
       <div className="mx-auto max-w-6xl px-4 pt-4">
-        <div className="rounded-xl md:rounded-full border border-foreground/5 bg-surface/80 px-5 py-3 shadow-lg shadow-foreground/5 backdrop-blur-xl"
+        <div className="rounded-xl lg:rounded-full border border-foreground/5 bg-surface/80 px-5 py-3 shadow-lg shadow-foreground/5 backdrop-blur-xl"
         >
           <div className="flex items-center justify-between">
             <Link href={`/${locale}`} className="flex items-center gap-2.5">
@@ -36,7 +37,7 @@ export function Header() {
             </Link>
 
             {/* Desktop nav */}
-            <nav className="hidden items-center gap-1 md:flex">
+            <nav className="hidden items-center gap-1 lg:flex">
               {navItems.map((item) => (
                 <a
                   key={item.href}
@@ -68,7 +69,7 @@ export function Header() {
             </nav>
 
             {/* Mobile toggle */}
-            <div className="flex items-center gap-2 md:hidden">
+            <div className="flex items-center gap-2 lg:hidden">
               <button
                 onClick={switchLocale}
                 className="flex items-center gap-1 rounded-full border border-foreground/10 px-2.5 py-1.5 text-xs font-semibold text-foreground/60"
@@ -97,7 +98,7 @@ export function Header() {
                 animate={{ height: "auto", opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
                 transition={{ duration: 0.25, ease: "easeInOut" }}
-                className="overflow-hidden md:hidden"
+                className="overflow-hidden lg:hidden"
               >
                 <div className="flex flex-col gap-1 pt-4 pb-2">
                   {navItems.map((item) => (
