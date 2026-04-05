@@ -62,7 +62,7 @@ const dictionaries = {
     },
     privacy: {
       title: "Politique de Confidentialité",
-      lastUpdated: "Dernière mise à jour : 4 avril 2026",
+      lastUpdated: "Dernière mise à jour : 5 avril 2026",
       developer: "Développeur : LNDEV —",
       sections: {
         intro: {
@@ -88,11 +88,27 @@ const dictionaries = {
         camera: {
           title: "3. Caméra et Photos",
           intro:
-            "Tchopé demande l'accès à votre caméra et/ou à votre galerie photo uniquement lorsque vous choisissez d'ajouter une photo à une recette personnelle. Cette permission est :",
-          items: [
-            "Optionnelle : vous pouvez créer des recettes sans ajouter de photo",
-            "Ponctuelle : l'accès n'est demandé qu'au moment où vous appuyez sur le bouton d'ajout de photo",
-            "Locale : les photos sélectionnées ou prises sont stockées uniquement sur votre appareil. Elles ne sont jamais envoyées, partagées ou uploadées vers un serveur",
+            "Tchopé demande l'accès à votre caméra et/ou à votre galerie photo dans deux cas :",
+          subsections: [
+            {
+              subtitle: "a) Recettes personnelles",
+              description: "Lorsque vous choisissez d'ajouter une photo à une recette personnelle :",
+              items: [
+                "Optionnelle : vous pouvez créer des recettes sans ajouter de photo",
+                "Ponctuelle : l'accès n'est demandé qu'au moment où vous appuyez sur le bouton d'ajout de photo",
+                "Locale : les photos sélectionnées ou prises sont stockées uniquement sur votre appareil. Elles ne sont jamais envoyées, partagées ou uploadées vers un serveur",
+              ],
+            },
+            {
+              subtitle: "b) TchopAI (analyse photo)",
+              description: "Lorsque vous envoyez une photo à TchopAI pour analyser un plat ou des ingrédients (fonctionnalité réservée aux abonnés Tchopé Plus) :",
+              items: [
+                "Optionnelle : vous pouvez utiliser TchopAI sans envoyer de photo",
+                "Ponctuelle : l'accès n'est demandé qu'au moment où vous appuyez sur le bouton photo dans le chat",
+                "Transmise à l'API Claude : la photo est envoyée à l'API Claude (Anthropic) pour analyse. Anthropic traite l'image uniquement pour générer une réponse et ne la conserve pas",
+                "Non stockée : la photo n'est pas sauvegardée dans l'application après l'envoi. Elle est supprimée de la mémoire dès la réponse reçue",
+              ],
+            },
           ],
         },
         microphone: {
@@ -207,7 +223,7 @@ const dictionaries = {
     },
     privacy: {
       title: "Privacy Policy",
-      lastUpdated: "Last updated: April 4, 2026",
+      lastUpdated: "Last updated: April 5, 2026",
       developer: "Developer: LNDEV —",
       sections: {
         intro: {
@@ -233,11 +249,27 @@ const dictionaries = {
         camera: {
           title: "3. Camera and Photos",
           intro:
-            "Tchopé requests access to your camera and/or photo library only when you choose to add a photo to a personal recipe. This permission is:",
-          items: [
-            "Optional: you can create recipes without adding a photo",
-            "On-demand: access is only requested when you tap the photo button",
-            "Local: selected or captured photos are stored exclusively on your device. They are never sent, shared, or uploaded to any server",
+            "Tchopé requests access to your camera and/or photo library in two cases:",
+          subsections: [
+            {
+              subtitle: "a) Personal Recipes",
+              description: "When you choose to add a photo to a personal recipe:",
+              items: [
+                "Optional: you can create recipes without adding a photo",
+                "On-demand: access is only requested when you tap the photo button",
+                "Local: selected or captured photos are stored exclusively on your device. They are never sent, shared, or uploaded to any server",
+              ],
+            },
+            {
+              subtitle: "b) TchopAI (photo analysis)",
+              description: "When you send a photo to TchopAI to analyze a dish or ingredients (feature reserved for Tchopé Plus subscribers):",
+              items: [
+                "Optional: you can use TchopAI without sending a photo",
+                "On-demand: access is only requested when you tap the photo button in the chat",
+                "Sent to Claude API: the photo is sent to the Claude API (Anthropic) for analysis. Anthropic processes the image solely to generate a response and does not retain it",
+                "Not stored: the photo is not saved in the application after sending. It is cleared from memory once the response is received",
+              ],
+            },
           ],
         },
         microphone: {

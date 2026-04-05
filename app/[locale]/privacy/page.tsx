@@ -78,17 +78,23 @@ export default function PrivacyPage() {
             <FadeInUp>
               <Section title={s.camera.title}>
                 <p>{s.camera.intro}</p>
-                <ul className="mt-4 space-y-2">
-                  {s.camera.items.map((item) => (
-                    <li
-                      key={item}
-                      className="flex items-start gap-3 text-sm text-muted"
-                    >
-                      <span className="mt-1.5 block size-1.5 shrink-0 rounded-full bg-primary/40" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
+                {s.camera.subsections.map((sub) => (
+                  <div key={sub.subtitle} className="mt-5">
+                    <p className="text-sm font-semibold text-foreground/80">{sub.subtitle}</p>
+                    <p className="mt-1">{sub.description}</p>
+                    <ul className="mt-3 space-y-2">
+                      {sub.items.map((item) => (
+                        <li
+                          key={item}
+                          className="flex items-start gap-3 text-sm text-muted"
+                        >
+                          <span className="mt-1.5 block size-1.5 shrink-0 rounded-full bg-primary/40" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
               </Section>
             </FadeInUp>
 
