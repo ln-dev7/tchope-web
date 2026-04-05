@@ -4,7 +4,8 @@ import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import Masonry from "react-masonry-css"
-import { Map, Search, Heart, WifiOff, ChefHat, Flame, ArrowRight } from "lucide-react"
+import { Map, Search, Heart, WifiOff, ChefHat, Flame, ArrowRight, Check, Sparkles, Crown } from "lucide-react"
+import NumberFlow from "@number-flow/react"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { StoreBadges } from "@/components/store-badges"
@@ -30,6 +31,156 @@ const screenshots = [
 const masonryBreakpoints = {
   default: 2,
   640: 1,
+}
+
+function PricingSection() {
+  const { t } = useLocale()
+  const [isYearly, setIsYearly] = useState(false)
+
+  return (
+    <section id="pricing" className="bg-background">
+      <div className="mx-auto max-w-5xl px-6 py-20 lg:py-28">
+        <FadeInUp>
+          <p className="text-center text-sm font-semibold uppercase tracking-widest text-primary">
+            {t.pricing.sectionLabel}
+          </p>
+          <h2 className="mt-3 text-center text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">
+            {t.pricing.title}
+          </h2>
+        </FadeInUp>
+
+        <StaggerContainer className="mt-14 grid items-start gap-6 md:grid-cols-2 lg:gap-8">
+          {/* Free Card */}
+          <FadeInUpChild className="order-2 md:order-1">
+            <div className="rounded-3xl border border-foreground/5 bg-surface p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+              <div className="flex size-12 items-center justify-center rounded-2xl bg-tags text-primary">
+                <ChefHat className="size-5" />
+              </div>
+              <h3 className="mt-5 text-xl font-bold text-foreground">
+                {t.pricing.free}
+              </h3>
+              <p className="mt-1.5 text-sm text-muted">
+                {t.pricing.freeDesc}
+              </p>
+
+              <div className="mt-6">
+                <span className="text-4xl font-extrabold tracking-tight text-foreground">
+                  {t.pricing.freePrice}
+                </span>
+                <span className="ml-2 text-sm text-muted">
+                  {t.pricing.freePeriod}
+                </span>
+              </div>
+
+              <ul className="mt-8 space-y-3">
+                {t.pricing.freeFeatures.map((feature) => (
+                  <li key={feature} className="flex items-start gap-3 text-sm text-foreground">
+                    <Check className="mt-0.5 size-4 shrink-0 text-secondary" />
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+
+              <a
+                href="#download"
+                className="mt-8 block rounded-full border border-foreground/10 py-3 text-center text-sm font-bold text-foreground transition-all hover:bg-foreground/5"
+              >
+                {t.pricing.freeCta}
+              </a>
+            </div>
+          </FadeInUpChild>
+
+          {/* Plus Card */}
+          <FadeInUpChild className="order-1 md:order-2">
+            <div className="relative rounded-3xl border-2 border-primary bg-surface p-8 shadow-xl shadow-primary/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/15">
+              {/* Popular badge */}
+              <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-1 text-xs font-bold text-white shadow-lg">
+                  <Sparkles className="size-3" />
+                  {t.pricing.popular}
+                </span>
+              </div>
+
+              <div className="flex size-12 items-center justify-center rounded-2xl bg-primary text-white">
+                <Crown className="size-5" />
+              </div>
+              <h3 className="mt-5 text-xl font-bold text-foreground">
+                {t.pricing.plus}
+              </h3>
+              <p className="mt-1.5 text-sm text-muted">
+                {t.pricing.plusDesc}
+              </p>
+
+              {/* Toggle */}
+              <div className="mt-6 flex items-center gap-3 flex-wrap">
+                <button
+                  type="button"
+                  onClick={() => setIsYearly(false)}
+                  className={`rounded-full px-4 py-1.5 text-xs font-semibold transition-all ${
+                    !isYearly
+                      ? "bg-primary text-white shadow-md"
+                      : "bg-tags text-muted hover:text-foreground"
+                  }`}
+                >
+                  {t.pricing.monthly}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setIsYearly(true)}
+                  className={`rounded-full px-4 py-1.5 text-xs font-semibold transition-all ${
+                    isYearly
+                      ? "bg-primary text-white shadow-md"
+                      : "bg-tags text-muted hover:text-foreground"
+                  }`}
+                >
+                  {t.pricing.yearly}
+                </button>
+                {isYearly && (
+                  <span className="rounded-full bg-secondary/10 px-3 py-1 text-xs font-bold text-secondary inline-block">
+                    {t.pricing.plusSave}
+                  </span>
+                )}
+              </div>
+
+              <div className="mt-5 flex items-baseline gap-1">
+                <NumberFlow
+                  value={isYearly ? 20000 : 2000}
+                  format={{ useGrouping: true }}
+                  className="text-4xl font-extrabold tracking-tight text-foreground [font-variant-numeric:tabular-nums]"
+                />
+                <span className="text-4xl font-extrabold tracking-tight text-foreground">
+                  {" FCFA"}
+                </span>
+                <span className="ml-1 text-sm text-muted">
+                  {isYearly ? t.pricing.plusPeriodYearly : t.pricing.plusPeriodMonthly}
+                </span>
+              </div>
+
+              <ul className="mt-8 space-y-3">
+                {t.pricing.plusFeatures.map((feature, i) => (
+                  <li key={feature} className="flex items-start gap-3 text-sm text-foreground">
+                    <Check className={`mt-0.5 size-4 shrink-0 ${i === 0 ? "text-secondary" : "text-primary"}`} />
+                    <span className={i === 0 ? "" : "font-medium"}>
+                      {feature}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+
+              <a
+                href={isYearly ? "https://ecaefmew.mychariow.shop/prd_eg9w2m" : "https://ecaefmew.mychariow.shop/prd_nty5tx"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-8 block rounded-full bg-primary py-3 text-center text-sm font-bold text-white transition-all hover:brightness-110"
+              >
+                {t.pricing.plusCta}
+              </a>
+            </div>
+          </FadeInUpChild>
+        </StaggerContainer>
+      </div>
+    </section>
+  )
 }
 
 export default function Home() {
@@ -259,6 +410,9 @@ export default function Home() {
           ))}
         </StaggerContainer>
       </section>
+
+      {/* Pricing */}
+      <PricingSection />
 
       {/* CTA */}
       <section id="download" className="bg-background">
