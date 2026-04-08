@@ -1,3 +1,5 @@
+<!-- Ce projet est sous licence GPL-3.0. Voir le fichier LICENSE pour plus de détails. -->
+
 # Tchopé — Landing Page & Privacy Policy
 
 Landing page and privacy policy for **Tchopé**, a mobile app for authentic Cameroonian recipes.

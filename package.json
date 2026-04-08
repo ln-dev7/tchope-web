@@ -1,6 +1,7 @@
 {
   "name": "tchope-web",
   "version": "0.0.1",
+  "license": "GPL-3.0",
   "type": "module",
   "private": true,
   "scripts": {
