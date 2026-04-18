@@ -121,7 +121,7 @@ export default function SettingsPage() {
       {/* Support */}
       <Section title={t("supportMe")}>
         <a
-          href="https://ecaefmew.mychariow.shop/prd_3cu1s0"
+          href="https://lndev.mychariow.shop/prd_3cu1s0"
           target="_blank"
           rel="noopener noreferrer"
           className="flex w-full cursor-pointer items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-foreground transition-colors hover:bg-foreground/5 dark:text-white dark:hover:bg-white/5"

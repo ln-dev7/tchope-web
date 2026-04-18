@@ -168,7 +168,7 @@ function PricingSection() {
               </ul>
 
               <a
-                href={isYearly ? "https://ecaefmew.mychariow.shop/prd_eg9w2m" : "https://ecaefmew.mychariow.shop/prd_nty5tx"}
+                href={isYearly ? "https://lndev.mychariow.shop/prd_eg9w2m" : "https://lndev.mychariow.shop/prd_nty5tx"}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-8 block rounded-full bg-primary py-3 text-center text-sm font-bold text-white transition-all hover:brightness-110"
