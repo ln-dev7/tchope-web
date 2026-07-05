@@ -109,19 +109,19 @@ const dictionaries = {
           content:
             "Tchopé est une application mobile de recettes camerounaises. Votre vie privée est importante pour nous. Cette politique explique comment l'application gère vos données.",
           summary:
-            "En résumé : Tchopé ne collecte aucune donnée personnelle. Tout reste sur votre appareil.",
+            "En résumé : Tchopé ne collecte aucune donnée personnelle identifiable. Vos données restent sur votre appareil. La version gratuite affiche des annonces via Google AdMob (voir section 8) ; Tchopé+ est sans publicité.",
         },
         data: {
           title: "2. Collecte de données",
           intro:
-            "Tchopé ne collecte, ne transmet et ne stocke aucune donnée personnelle sur un serveur distant. L'application :",
+            "Tchopé ne collecte, ne transmet et ne stocke aucune donnée personnelle identifiable (nom, email, téléphone) sur ses serveurs. L'application :",
           items: [
             "Ne requiert aucune création de compte",
             "Ne demande aucune information personnelle (nom, email, numéro de téléphone)",
             "N'utilise aucun service d'analytics ou de tracking",
-            "N'intègre aucun SDK publicitaire",
-            "Ne se connecte à aucun backend ou base de données distante",
-            "Fonctionne entièrement hors ligne",
+            "Stocke toutes vos données (favoris, notes, plans de repas, recettes personnelles) uniquement sur votre appareil",
+            "Permet de consulter les recettes entièrement hors ligne — seules les fonctionnalités IA (TchopAI) et l'affichage des annonces nécessitent une connexion",
+            "Affiche, dans sa version gratuite, des annonces via Google AdMob : le SDK publicitaire collecte alors certaines données techniques détaillées à la section 8",
           ],
         },
         camera: {
@@ -325,19 +325,19 @@ const dictionaries = {
           content:
             "Tchopé is a mobile app for Cameroonian recipes. Your privacy matters to us. This policy explains how the app handles your data.",
           summary:
-            "In short: Tchopé does not collect any personal data. Everything stays on your device.",
+            "In short: Tchopé does not collect any personally identifiable data. Your data stays on your device. The free version shows ads via Google AdMob (see section 8); Tchopé+ is ad-free.",
         },
         data: {
           title: "2. Data Collection",
           intro:
-            "Tchopé does not collect, transmit, or store any personal data on a remote server. The app:",
+            "Tchopé does not collect, transmit, or store any personally identifiable data (name, email, phone) on its servers. The app:",
           items: [
             "Does not require any account creation",
             "Does not ask for any personal information (name, email, phone number)",
             "Does not use any analytics or tracking services",
-            "Does not integrate any advertising SDK",
-            "Does not connect to any backend or remote database",
-            "Works entirely offline",
+            "Stores all your data (favorites, notes, meal plans, personal recipes) only on your device",
+            "Lets you browse recipes entirely offline — only AI features (TchopAI) and ad display require a connection",
+            "In its free version, displays ads via Google AdMob: the advertising SDK then collects certain technical data detailed in section 8",
           ],
         },
         camera: {
