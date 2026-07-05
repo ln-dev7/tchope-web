@@ -176,6 +176,42 @@ export default function PrivacyPage() {
             </FadeInUp>
 
             <FadeInUp>
+              <Section title={s.ads.title}>
+                <p>{s.ads.intro}</p>
+                <ul className="mt-4 space-y-2">
+                  {s.ads.items.map((item) => (
+                    <li
+                      key={item}
+                      className="flex items-start gap-3 text-sm text-muted"
+                    >
+                      <span className="mt-1.5 block size-1.5 shrink-0 rounded-full bg-primary/40" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <ul className="mt-4 space-y-2">
+                  {s.ads.dataInfo.map((item) => (
+                    <li
+                      key={item}
+                      className="flex items-start gap-3 text-sm text-muted"
+                    >
+                      <span className="mt-1.5 block size-1.5 shrink-0 rounded-full bg-secondary/40" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <p className="mt-4 text-sm text-muted">
+                  {s.ads.policies}{" "}
+                  <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="font-medium text-primary hover:underline">Google</a>{" "}
+                  {locale === "fr" ? "et le fonctionnement des" : "and how"}{" "}
+                  <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer" className="font-medium text-primary hover:underline">
+                    {locale === "fr" ? "annonces Google" : "Google ads work"}
+                  </a>.
+                </p>
+              </Section>
+            </FadeInUp>
+
+            <FadeInUp>
               <Section title={s.changes.title}>
                 <p>{s.changes.content}</p>
               </Section>

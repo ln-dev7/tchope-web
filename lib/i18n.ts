@@ -101,7 +101,7 @@ const dictionaries = {
     },
     privacy: {
       title: "Politique de Confidentialité",
-      lastUpdated: "Dernière mise à jour : 5 avril 2026",
+      lastUpdated: "Dernière mise à jour : 5 juillet 2026",
       developer: "Développeur : LNDEV —",
       sections: {
         intro: {
@@ -195,13 +195,29 @@ const dictionaries = {
           content:
             "L'application charge des images depuis Wikimedia Commons et des miniatures vidéo depuis YouTube pour illustrer les recettes. Ces requêtes sont soumises aux politiques de confidentialité respectives de Wikimedia et Google/YouTube. Lorsque vous choisissez de regarder une vidéo de recette, vous êtes redirigé vers YouTube via votre navigateur. Tchopé n'a aucun contrôle sur les données collectées par YouTube.",
         },
+        ads: {
+          title: "8. Publicité (Google AdMob)",
+          intro:
+            "La version gratuite de Tchopé affiche des bannières publicitaires fournies par Google AdMob. À cette fin, le SDK Google Mobile Ads intégré à l'application collecte et partage avec Google les données suivantes :",
+          items: [
+            "Identifiant publicitaire de l'appareil (Advertising ID) : utilisé pour diffuser les annonces, limiter leur répétition et prévenir la fraude",
+            "Interactions avec les annonces : impressions et clics sur les bannières, à des fins de mesure des performances publicitaires",
+            "Données de diagnostic : informations techniques liées au fonctionnement du SDK publicitaire",
+          ],
+          dataInfo: [
+            "Annonces non personnalisées : Tchopé demande uniquement des annonces non personnalisées. Leur contenu est choisi selon le contexte (application, langue, région) et non selon un profil publicitaire.",
+            "Vous pouvez réinitialiser ou supprimer votre identifiant publicitaire à tout moment dans les paramètres de votre téléphone (Paramètres > Confidentialité > Annonces).",
+            "Les utilisateurs disposant d'une licence Tchopé+ ne voient aucune publicité.",
+          ],
+          policies: "Pour en savoir plus, consultez la politique de confidentialité de",
+        },
         changes: {
-          title: "8. Modifications",
+          title: "9. Modifications",
           content:
             "Cette politique de confidentialité peut être mise à jour occasionnellement. Toute modification sera reflétée par la date de mise à jour en haut de ce document. Nous vous encourageons à consulter cette page régulièrement.",
         },
         contact: {
-          title: "9. Contact",
+          title: "10. Contact",
           intro:
             "Pour toute question concernant cette politique de confidentialité :",
         },
@@ -301,7 +317,7 @@ const dictionaries = {
     },
     privacy: {
       title: "Privacy Policy",
-      lastUpdated: "Last updated: April 5, 2026",
+      lastUpdated: "Last updated: July 5, 2026",
       developer: "Developer: LNDEV —",
       sections: {
         intro: {
@@ -395,13 +411,29 @@ const dictionaries = {
           content:
             "The app loads images from Wikimedia Commons and video thumbnails from YouTube to illustrate recipes. These requests are subject to the respective privacy policies of Wikimedia and Google/YouTube. When you choose to watch a recipe video, you are redirected to YouTube via your browser. Tchopé has no control over the data collected by YouTube.",
         },
+        ads: {
+          title: "8. Advertising (Google AdMob)",
+          intro:
+            "The free version of Tchopé displays ad banners served by Google AdMob. For this purpose, the Google Mobile Ads SDK embedded in the app collects and shares the following data with Google:",
+          items: [
+            "Device advertising identifier (Advertising ID): used to serve ads, cap their frequency, and prevent fraud",
+            "Ad interactions: banner impressions and clicks, for ad performance measurement",
+            "Diagnostic data: technical information related to the operation of the advertising SDK",
+          ],
+          dataInfo: [
+            "Non-personalized ads: Tchopé only requests non-personalized ads. Their content is selected based on context (app, language, region), not on an advertising profile.",
+            "You can reset or delete your advertising identifier at any time in your phone settings (Settings > Privacy > Ads).",
+            "Users with a Tchopé+ license see no ads at all.",
+          ],
+          policies: "For more information, see the privacy policy of",
+        },
         changes: {
-          title: "8. Changes",
+          title: "9. Changes",
           content:
             "This privacy policy may be updated from time to time. Any changes will be reflected by the update date at the top of this document. We encourage you to review this page periodically.",
         },
         contact: {
-          title: "9. Contact",
+          title: "10. Contact",
           intro: "For any questions regarding this privacy policy:",
         },
       },
