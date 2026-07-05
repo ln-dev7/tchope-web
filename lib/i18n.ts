@@ -76,6 +76,7 @@ const dictionaries = {
       plusSave: "Économise 17%",
       plusFeatures: [
         "Tout du plan Gratuit",
+        "Pas de publicité",
         "TchopAI — Assistant cuisine IA illimité",
         "TchopAI Live — Guidage vocal en temps réel",
         "Recherche de recettes en langage naturel",
@@ -292,6 +293,7 @@ const dictionaries = {
       plusSave: "Save 17%",
       plusFeatures: [
         "Everything in Free",
+        "Ad-free",
         "TchopAI — Unlimited AI cooking assistant",
         "TchopAI Live — Real-time voice guidance",
         "Natural language recipe search",
