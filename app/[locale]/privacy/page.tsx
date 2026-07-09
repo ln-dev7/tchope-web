@@ -212,6 +212,23 @@ export default function PrivacyPage() {
             </FadeInUp>
 
             <FadeInUp>
+              <Section title={s.ai.title}>
+                <p>{s.ai.intro}</p>
+                <ul className="mt-4 space-y-2">
+                  {s.ai.items.map((item) => (
+                    <li
+                      key={item}
+                      className="flex items-start gap-3 text-sm text-muted"
+                    >
+                      <span className="mt-1.5 block size-1.5 shrink-0 rounded-full bg-primary/40" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </Section>
+            </FadeInUp>
+
+            <FadeInUp>
               <Section title={s.changes.title}>
                 <p>{s.changes.content}</p>
               </Section>
