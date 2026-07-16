@@ -14,7 +14,6 @@ export function Header() {
   const navItems = [
     { label: t.nav.features, href: `/${locale}#features` },
     { label: t.nav.screenshots, href: `/${locale}#screenshots` },
-    { label: t.nav.pricing, href: `/${locale}#pricing` },
   ]
 
   return (

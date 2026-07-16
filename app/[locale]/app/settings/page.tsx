@@ -14,7 +14,6 @@ import {
   Mail,
   Send,
   Shield,
-  Heart,
 } from "lucide-react"
 import { toast } from "sonner"
 import { useLocale } from "@/lib/locale-context"
@@ -116,20 +115,6 @@ export default function SettingsPage() {
         <div className="flex items-center justify-center px-4 py-3">
           <StoreBadges />
         </div>
-      </Section>
-
-      {/* Support */}
-      <Section title={t("supportMe")}>
-        <a
-          href="https://lndev.mychariow.shop/prd_3cu1s0"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex w-full cursor-pointer items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-foreground transition-colors hover:bg-foreground/5 dark:text-white dark:hover:bg-white/5"
-        >
-          <Heart className="size-4 text-red-500" />
-          <span className="flex-1">{t("supportSubtitle")}</span>
-          <ExternalLink className="size-3.5 text-muted dark:text-dark-muted" />
-        </a>
       </Section>
 
       {/* Data */}
