@@ -129,12 +129,6 @@ export default function PrivacyPage() {
                     </li>
                   ))}
                 </ul>
-                <p className="mt-4 text-sm text-muted">
-                  {s.payment.policies}{" "}
-                  <a href="https://chariow.com/privacy" target="_blank" rel="noopener noreferrer" className="font-medium text-primary hover:underline">Chariow</a>,{" "}
-                  <a href="https://moneroo.io/privacy" target="_blank" rel="noopener noreferrer" className="font-medium text-primary hover:underline">Moneroo</a>,{" "}
-                  <a href="https://axazara.com" target="_blank" rel="noopener noreferrer" className="font-medium text-primary hover:underline">Axa Zara LLC</a>.
-                </p>
               </Section>
             </FadeInUp>
 
