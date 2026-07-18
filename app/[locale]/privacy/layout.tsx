@@ -29,7 +29,7 @@ export async function generateMetadata({
       siteName: SITE_NAME,
       locale: ogLocale(locale === "en" ? "en" : "fr"),
       type: "article",
-      images: [{ url: ogImage, width: 1200, height: 630, alt: title }],
+      images: [{ url: ogImage, width: 1536, height: 1024, alt: title }],
     },
     twitter: {
       card: "summary_large_image",

@@ -5,8 +5,8 @@ export const SITE_NAME = "Tchopé"
 export const SITE_TWITTER = "@tchope_app"
 export const ORG_NAME = "Tchopé"
 export const ORG_LOGO = `${SITE_URL}/brand/logo-with-name.png`
-export const DEFAULT_OG_FR = `${SITE_URL}/brand/banner.png`
-export const DEFAULT_OG_EN = `${SITE_URL}/brand/banner-en.png`
+export const DEFAULT_OG_FR = `${SITE_URL}/brand/banner.jpg`
+export const DEFAULT_OG_EN = `${SITE_URL}/brand/banner-en.jpg`
 
 export type AppLocale = "fr" | "en"
 

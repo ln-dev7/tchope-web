@@ -16,15 +16,28 @@ import {
   FadeInUpChild,
 } from "@/components/motion-wrapper"
 import { useLocale } from "@/lib/locale-context"
+import { recipes } from "@/data/recipes"
 import type { LucideIcon } from "lucide-react"
 
 const screenshots = [
-  { src: "/mockups/home.png", alt: "Home" },
-  { src: "/mockups/search.png", alt: "Search" },
-  { src: "/mockups/recipe.png", alt: "Recipe" },
-  { src: "/mockups/cookbook.png", alt: "Cookbook" },
-  { src: "/mockups/recipe-video.png", alt: "Video" },
-  { src: "/mockups/settings.png", alt: "Settings" },
+  { src: "/mockups/home.png", alt: "Écran d'accueil de l'app Tchopé : recettes camerounaises classées par région" },
+  { src: "/mockups/search.png", alt: "Recherche de recettes camerounaises par ingrédient et temps de cuisson dans Tchopé" },
+  { src: "/mockups/recipe.png", alt: "Fiche recette camerounaise détaillée dans Tchopé : ingrédients et étapes" },
+  { src: "/mockups/cookbook.png", alt: "Cookbook personnel Tchopé avec recettes favorites sauvegardées" },
+  { src: "/mockups/recipe-video.png", alt: "Vidéos de préparation d'une recette camerounaise dans Tchopé" },
+  { src: "/mockups/settings.png", alt: "Réglages de l'app Tchopé : langue française ou anglaise, thème" },
+]
+
+// Recettes phares liées depuis la landing (maillage interne vers les fiches).
+const POPULAR_RECIPE_IDS = [
+  "ndole",
+  "poulet-dg",
+  "eru",
+  "mbongo-tchobi",
+  "okok-sale",
+  "kondre",
+  "beignets-koki",
+  "foufou-manioc",
 ]
 
 const masonryBreakpoints = {
@@ -236,6 +249,49 @@ export default function Home() {
         open={!!lightbox}
         onClose={() => setLightbox(null)}
       />
+
+      {/* Recettes populaires — maillage interne vers les fiches recettes */}
+      <section id="recipes" className="bg-background">
+        <div className="mx-auto max-w-6xl px-6 py-20 lg:py-28">
+          <FadeInUp>
+            <p className="text-center text-sm font-semibold uppercase tracking-widest text-primary">
+              {t.popular.sectionLabel}
+            </p>
+            <h2 className="mt-3 text-center text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">
+              {t.popular.title}
+            </h2>
+          </FadeInUp>
+
+          <StaggerContainer className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-4">
+            {POPULAR_RECIPE_IDS.map((id) => {
+              const recipe = recipes.find((r) => r.id === id)
+              if (!recipe) return null
+              return (
+                <FadeInUpChild key={id}>
+                  <Link
+                    href={`/${locale}/app/recipe/${id}`}
+                    className="group flex h-full items-center justify-between gap-2 rounded-2xl border border-foreground/10 bg-surface px-5 py-4 transition-colors hover:border-primary"
+                  >
+                    <span className="font-semibold text-foreground">{recipe.name}</span>
+                    <ArrowRight className="size-4 shrink-0 text-primary transition-transform group-hover:translate-x-0.5" />
+                  </Link>
+                </FadeInUpChild>
+              )
+            })}
+          </StaggerContainer>
+
+          <FadeInUp>
+            <p className="mt-8 text-center">
+              <Link
+                href={`/${locale}/app`}
+                className="font-semibold text-primary hover:underline"
+              >
+                {t.popular.viewAll}
+              </Link>
+            </p>
+          </FadeInUp>
+        </div>
+      </section>
 
       {/* Stats */}
       <section className="relative overflow-hidden bg-primary">

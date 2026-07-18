@@ -7,7 +7,7 @@ export const translations = {
     tabSettings: "Paramètres",
 
     // Home
-    welcome: "Bienvenue,",
+    welcome: "Les recettes camerounaises, région par région",
     searchPlaceholder: "Rechercher une recette, un ingrédient...",
     regions: "Régions du Cameroun",
     seeAll: "Tout voir",
@@ -382,7 +382,7 @@ export const translations = {
     tabSettings: "Settings",
 
     // Home
-    welcome: "Welcome,",
+    welcome: "Cameroonian recipes, region by region",
     searchPlaceholder: "Search a recipe, an ingredient...",
     regions: "Regions of Cameroon",
     seeAll: "See all",

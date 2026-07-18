@@ -82,7 +82,7 @@ export default function AppHomePage() {
 
       {/* Header */}
       <h1 className="text-2xl font-extrabold text-foreground dark:text-white">
-        {t("welcome")} 👋
+        {t("welcome")}
       </h1>
 
       {/* Search bar */}

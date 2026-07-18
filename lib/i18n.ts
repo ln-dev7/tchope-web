@@ -19,7 +19,7 @@ const dictionaries = {
       badge: "100+ recettes",
       title: "La cuisine camerounaise dans ta poche",
       subtitle:
-        "Découvre des recettes traditionnelles authentiques, filtre par région et crée ton propre cookbook. 100% gratuit, 100% hors ligne.",
+        "Découvre des recettes camerounaises traditionnelles et authentiques, filtre par région et crée ton propre cookbook. 100% gratuit, 100% hors ligne.",
     },
     features: {
       sectionLabel: "Fonctionnalités",
@@ -46,10 +46,15 @@ const dictionaries = {
       languages: "Langues (FR & EN)",
       free: "Gratuit & hors ligne",
     },
+    popular: {
+      sectionLabel: "Recettes",
+      title: "Les grands classiques de la cuisine camerounaise",
+      viewAll: "Voir les 140 recettes camerounaises →",
+    },
     cta: {
       title: "Prêt à tchoper ?",
       subtitle:
-        "Télécharge Tchopé gratuitement et commence à cuisiner.",
+        "Télécharge l'application de recettes camerounaises gratuite et cuisine hors ligne.",
       openWeb: "Ouvrir la version web",
     },
     footer: {
@@ -205,7 +210,7 @@ const dictionaries = {
       badge: "100+ recipes",
       title: "Cameroonian cuisine in your pocket",
       subtitle:
-        "Discover authentic traditional recipes, filter by region and create your own cookbook. 100% free, 100% offline.",
+        "Discover authentic traditional Cameroonian recipes, filter by region and create your own cookbook. 100% free, 100% offline.",
     },
     features: {
       sectionLabel: "Features",
@@ -232,10 +237,15 @@ const dictionaries = {
       languages: "Languages (FR & EN)",
       free: "Free & offline",
     },
+    popular: {
+      sectionLabel: "Recipes",
+      title: "The great classics of Cameroonian cuisine",
+      viewAll: "Browse all 140 Cameroonian recipes →",
+    },
     cta: {
       title: "Ready to tchoper?",
       subtitle:
-        "Download Tchopé for free and start cooking.",
+        "Download the free Cameroonian recipes app and cook offline.",
       openWeb: "Open web version",
     },
     footer: {

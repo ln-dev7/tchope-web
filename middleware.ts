@@ -21,7 +21,9 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    // Match all paths except _next, api, static files
-    "/((?!_next|api|brand|mockups|fonts|store|favicon.ico|app-ads.txt).*)",
+    // Match all paths except _next, api, static files — et les fichiers SEO
+    // (robots.txt, sitemap.xml, manifest) qui doivent répondre à la racine
+    // sans redirection de locale.
+    "/((?!_next|api|brand|mockups|fonts|store|favicon.ico|app-ads.txt|robots.txt|sitemap.xml|manifest.webmanifest|.well-known).*)",
   ],
 }

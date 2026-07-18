@@ -31,15 +31,18 @@ export async function generateMetadata({
     ? "Tchopé — Recettes Camerounaises Authentiques"
     : "Tchopé — Authentic Cameroonian Recipes"
   const description = isFr
-    ? "Découvre 140+ recettes traditionnelles camerounaises authentiques. Filtre par région, sauvegarde tes favoris et crée ton cookbook. 100% gratuit, 100% hors ligne."
-    : "Discover 140+ authentic traditional Cameroonian recipes. Filter by region, save your favorites and create your cookbook. 100% free, 100% offline."
+    ? "Tchopé, l'application de recettes camerounaises gratuite et hors ligne : 140+ plats traditionnels (ndolé, eru, poulet DG), filtres par région et cookbook."
+    : "Tchopé, the free offline Cameroonian recipes app: 140+ traditional dishes (ndolé, eru, poulet DG), region filters and a personal cookbook."
   const shortDescription = isFr
     ? "La cuisine camerounaise dans ta poche."
     : "Cameroonian cuisine in your pocket."
   const ogImage = isFr ? DEFAULT_OG_FR : DEFAULT_OG_EN
 
   return {
-    title,
+    // `absolute` : le template « %s | Tchopé » du layout racine dupliquait la
+    // marque (« Tchopé — … | Tchopé ») sur la home. Les pages internes gardent
+    // le template.
+    title: { absolute: title },
     description,
     keywords: isFr
       ? [
@@ -85,8 +88,8 @@ export async function generateMetadata({
       images: [
         {
           url: ogImage,
-          width: 1200,
-          height: 630,
+          width: 1536,
+          height: 1024,
           alt: title,
         },
       ],
