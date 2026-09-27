@@ -36,6 +36,12 @@ export function Footer() {
               {t.footer.links}
             </p>
             <Link
+              href={`/${locale}/download`}
+              className="text-sm text-dark-muted transition-colors hover:text-white"
+            >
+              {t.footer.download}
+            </Link>
+            <Link
               href={`/${locale}/privacy`}
               className="text-sm text-dark-muted transition-colors hover:text-white"
             >

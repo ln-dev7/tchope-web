@@ -17,6 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const publicStaticPages: { path: string; priority: number; changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"] }[] = [
     { path: "", priority: 1, changeFrequency: "weekly" },
+    { path: "/download", priority: 0.8, changeFrequency: "monthly" },
     { path: "/privacy", priority: 0.4, changeFrequency: "yearly" },
     { path: "/app", priority: 0.9, changeFrequency: "weekly" },
     { path: "/app/search", priority: 0.7, changeFrequency: "weekly" },
