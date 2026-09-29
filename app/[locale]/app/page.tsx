@@ -16,6 +16,7 @@ import {
   Map,
   Ship,
   ChevronRight,
+  Sparkles,
 } from "lucide-react"
 import { useLocale } from "@/lib/locale-context"
 import { useAppTranslations } from "@/hooks/use-app-translations"
@@ -44,18 +45,18 @@ const POPULAR_IDS = [
   "poisson-braise", "ekwang", "met-de-pistache", "okok-sale",
 ]
 
-const regionIcons: Record<Region, LucideIcon> = {
+const regionIcons: Record<Exclude<Region, "TchopAI">, LucideIcon> = {
   Littoral: Droplets, Ouest: Triangle, Centre: Building2, Sud: Compass,
   Nord: Sun, Est: Leaf, Adamaoua: Signpost, "Extrême-Nord": Thermometer,
   "Nord-Ouest": Map, "Sud-Ouest": Ship,
 }
 
-const ALL_REGIONS: Region[] = [
+const ALL_REGIONS: Exclude<Region, "TchopAI">[] = [
   "Littoral", "Ouest", "Centre", "Sud", "Nord", "Est",
   "Adamaoua", "Extrême-Nord", "Nord-Ouest", "Sud-Ouest",
 ]
 
-const regionTranslationKeys: Record<Region, string> = {
+const regionTranslationKeys: Record<Exclude<Region, "TchopAI">, string> = {
   Littoral: "regionLittoral", Ouest: "regionOuest", Centre: "regionCentre",
   Sud: "regionSud", Nord: "regionNord", Est: "regionEst",
   Adamaoua: "regionAdamaoua", "Extrême-Nord": "regionExtremeNord",
@@ -82,7 +83,8 @@ export default function AppHomePage() {
 
       {/* Header */}
       <h1 className="text-2xl font-extrabold text-foreground dark:text-white">
-        {t("welcome")}
+        {/* Texte propre au web : pas dans constants/translations.ts, qui est copié depuis l'app mobile (pnpm sync) */}
+        {locale === "fr" ? "Les recettes camerounaises, région par région" : "Cameroonian recipes, region by region"}
       </h1>
 
       {/* Search bar */}
@@ -92,6 +94,21 @@ export default function AppHomePage() {
       >
         <Search className="size-4 shrink-0" />
         <span className="truncate">{t("searchPlaceholder")}</span>
+      </Link>
+
+      {/* Qu'est-ce que je peux cuisiner ? (comme l'accueil mobile) */}
+      <Link
+        href={`/${locale}/app/ai-recipes`}
+        className="flex cursor-pointer items-center gap-4 rounded-3xl border-[1.5px] border-[#A855F7]/15 bg-[#A855F7]/8 p-5 transition-colors hover:border-[#A855F7]/30 hover:bg-[#A855F7]/12 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#A855F7]"
+      >
+        <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-[#A855F7]/15">
+          <Sparkles className="size-6 fill-[#A855F7]/20 text-[#A855F7]" />
+        </div>
+        <div className="min-w-0 flex-1">
+          <p className="text-base font-bold text-foreground dark:text-white">{t("aiCta")}</p>
+          <p className="mt-0.5 text-[13px] text-muted dark:text-dark-muted">{t("aiCtaSubtitle")}</p>
+        </div>
+        <ChevronRight className="size-[18px] shrink-0 text-[#A855F7]" />
       </Link>
 
       {/* Regions */}

@@ -32,7 +32,13 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale, id } = await params
   const recipe = recipes.find((r) => r.id === id)
-  if (!recipe) return { title: "Recipe not found" }
+  if (!recipe) {
+    // Recette créée par l'utilisateur (ou enregistrée depuis TchopAI) : elle n'existe que dans son navigateur.
+    if (id.startsWith("user-")) {
+      return { title: locale === "en" ? "My recipe" : "Ma recette", robots: { index: false, follow: false } }
+    }
+    return { title: "Recipe not found" }
+  }
 
   const en = recipesEn[id]
   const isFr = locale !== "en"
@@ -105,6 +111,9 @@ export default async function RecipePage({
 }) {
   const { locale, id } = await params
   const recipe = recipes.find((r) => r.id === id)
+  // Les recettes créées par l'utilisateur ou enregistrées depuis TchopAI (id « user-… ») sont lues
+  // dans son navigateur par RecipeDetail ; tout autre id inconnu reste une vraie 404.
+  if (!recipe && id.startsWith("user-")) return <RecipeDetail />
   if (!recipe) notFound()
 
   const typedLocale = (locale === "en" ? "en" : "fr") as Locale

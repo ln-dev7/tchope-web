@@ -1,8 +1,8 @@
 <!-- Ce projet est sous licence GPL-3.0. Voir le fichier LICENSE pour plus de détails. -->
 
-# Tchopé — Landing Page & Privacy Policy
+# Tchopé — Website & Web App
 
-Landing page and privacy policy for **Tchopé**, a mobile app for authentic Cameroonian recipes.
+Landing page, privacy policy and web version of **Tchopé**, the app for authentic Cameroonian recipes.
 
 **Live:** [tchope.lndev.me](https://tchope.lndev.me)
 
@@ -17,7 +17,7 @@ Landing page and privacy policy for **Tchopé**, a mobile app for authentic Came
 
 ## Features
 
-- Fully static, no backend
+- Static landing page and recipe pages, plus two small API routes for TchopAI (see below)
 - Bilingual (French / English) with route-based i18n (`/fr`, `/en`)
 - Responsive design (mobile-first)
 - Screenshot lightbox on click
@@ -57,6 +57,26 @@ public/
 ├── mockups/                   # App screenshots
 └── store/                     # App Store & Play Store badges (SVG, per locale)
 ```
+
+## Web app (`/fr/app`, `/en/app`)
+
+The web version of the mobile app (`../tchope`, the source of truth: `pnpm sync` copies its data, types and translations here):
+
+- Recipes by region, search, recipe pages (adjustable servings, share), cookbook (favorites, own recipes), settings
+- **TchopAI** chat (text, photo, recipe links, save a recipe or a note from the answer, history)
+- **Cuisine avec ce que j'ai**: recipes from the ingredients you have, or a free-text request (local search when offline)
+- **Mon Plan**: AI meal plan for the week, meal swap, saved plans, PDF export, shopping list
+- **Notes** (block editor), **cooking mode** (step by step, step timers, read aloud), **timers**, **TchopAI Live** (voice with the Web Speech API, camera)
+
+Everything the user creates is kept in the browser (`localStorage`, keys `tchope_*`).
+
+### TchopAI (API routes)
+
+- `POST /api/claude`: relays requests to the Anthropic API with the server key, only for `claude-haiku-4-5-20251001`, max 2048 tokens
+- `POST /api/fetch-recipe-url`: reads the text of a recipe page pasted in the chat (internal addresses refused)
+
+Both only accept calls from the site's own pages (same origin) and are rate-limited per IP (`lib/server/ai-guard.ts`).
+They need `TCHOPE_SECRET_KEY` (an Anthropic API key) in `.env` locally and in the Vercel project settings. `ANTHROPIC_API_KEY` also works.
 
 ## i18n
 

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useSyncExternalStore } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import {
@@ -14,6 +14,9 @@ import {
   Mail,
   Send,
   Shield,
+  Timer,
+  ChevronRight,
+  RotateCcw,
 } from "lucide-react"
 import { toast } from "sonner"
 import { useLocale } from "@/lib/locale-context"
@@ -38,7 +41,11 @@ type Theme = "light" | "dark" | "system"
 
 function getStoredTheme(): Theme {
   if (typeof window === "undefined") return "light"
-  return (localStorage.getItem("tchope_theme") as Theme) || "light"
+  try {
+    return (localStorage.getItem("tchope_theme") as Theme) || "light"
+  } catch {
+    return "light"
+  }
 }
 
 function applyTheme(theme: Theme) {
@@ -46,8 +53,14 @@ function applyTheme(theme: Theme) {
     theme === "dark" ||
     (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches)
   document.documentElement.classList.toggle("dark", isDark)
-  localStorage.setItem("tchope_theme", theme)
+  try {
+    localStorage.setItem("tchope_theme", theme)
+  } catch {
+    // stockage bloqué : thème appliqué pour cette visite seulement
+  }
 }
+
+const noopSubscribe = () => () => {}
 
 export default function SettingsPage() {
   const { locale } = useLocale()
@@ -55,11 +68,44 @@ export default function SettingsPage() {
   const router = useRouter()
   const clearFavorites = useFavorites((s) => s.clearAll)
   const clearUserRecipes = useUserRecipes((s) => s.clearAll)
-  const [theme, setTheme] = useState<Theme>(getStoredTheme)
+  // Thème enregistré lu seulement côté client (null au rendu serveur et à l'hydratation,
+  // sinon la coche différerait entre serveur et client : erreur d'hydratation React #418).
+  const storedTheme = useSyncExternalStore(noopSubscribe, getStoredTheme, () => null)
+  const [chosenTheme, setTheme] = useState<Theme | null>(null)
+  const theme = chosenTheme ?? storedTheme
 
   useEffect(() => {
-    applyTheme(theme)
-  }, [theme])
+    applyTheme(chosenTheme ?? getStoredTheme())
+  }, [chosenTheme])
+
+  // Comme le mobile : tout effacer (favoris, recettes, notes, plans, minuteurs, conversations, cache IA,
+  // thème, consentement IA) sauf le quota de photos du jour, puis recharger pour repartir de zéro.
+  function resetAllData() {
+    try {
+      const keep = new Set(["tchope_image_quota"])
+      const toRemove: string[] = []
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i)
+        if (key && (key.startsWith("tchope_") || key.startsWith("ai_cache:")) && !keep.has(key)) toRemove.push(key)
+      }
+      toRemove.forEach((key) => localStorage.removeItem(key))
+      sessionStorage.setItem("tchope_reset_done", "1")
+    } catch {
+      // stockage bloqué : rien à effacer
+    }
+    window.location.replace(`/${locale}/app/settings`)
+  }
+
+  useEffect(() => {
+    try {
+      if (sessionStorage.getItem("tchope_reset_done")) {
+        sessionStorage.removeItem("tchope_reset_done")
+        toast.success(t("resetAllDataDone"))
+      }
+    } catch {
+      // stockage bloqué
+    }
+  }, [t])
 
   function switchLanguage() {
     const target = locale === "fr" ? "en" : "fr"
@@ -108,6 +154,18 @@ export default function SettingsPage() {
             {locale === lang.key && <Check className="size-4 text-primary" />}
           </button>
         ))}
+      </Section>
+
+      {/* Minuteur (comme la ligne « Minuteur » des paramètres mobiles) */}
+      <Section title={locale === "fr" ? "En cuisine" : "In the kitchen"}>
+        <Link
+          href={`/${locale}/app/timer`}
+          className="flex w-full cursor-pointer items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-foreground transition-colors hover:bg-foreground/5 dark:text-white dark:hover:bg-white/5"
+        >
+          <Timer className="size-4 text-[#EA580C]" />
+          <span className="flex-1">{t("timerPageTitle")}</span>
+          <ChevronRight className="size-4 text-muted dark:text-dark-muted" />
+        </Link>
       </Section>
 
       {/* Store badges */}
@@ -170,6 +228,27 @@ export default function SettingsPage() {
               >
                 {t("confirm")}
               </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <button className="flex w-full cursor-pointer items-start gap-3 rounded-xl px-4 py-3 text-left text-sm font-medium text-red-500 transition-colors hover:bg-red-500/5">
+              <RotateCcw className="mt-0.5 size-4 shrink-0" />
+              <span className="flex-1">
+                {t("resetAllData")}
+                <span className="mt-0.5 block text-xs font-normal text-muted dark:text-dark-muted">{t("resetAllDataDesc")}</span>
+              </span>
+            </button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>{t("resetAllData")}</AlertDialogTitle>
+              <AlertDialogDescription>{t("resetAllDataConfirm")}</AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
+              <AlertDialogAction onClick={resetAllData}>{t("confirm")}</AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>

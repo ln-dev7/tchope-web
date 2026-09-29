@@ -8,7 +8,8 @@ export type Region =
   | 'Adamaoua'
   | 'Extrême-Nord'
   | 'Nord-Ouest'
-  | 'Sud-Ouest';
+  | 'Sud-Ouest'
+  | 'TchopAI';
 
 export type Category =
   | 'Plat'
@@ -61,4 +62,28 @@ export type Settings = {
   theme: 'light' | 'dark' | 'system';
   language: 'fr' | 'en';
   notifications: NotificationPreferences;
+  aiConsent: boolean; // consentement explicite avant tout envoi vers TchopAI (Anthropic)
+};
+
+export type NoteBlockType =
+  | 'paragraph'
+  | 'heading1'
+  | 'heading2'
+  | 'bullet'
+  | 'numbered'
+  | 'checklist';
+
+export type NoteBlock = {
+  id: string;
+  type: NoteBlockType;
+  content: string;
+  checked?: boolean;
+};
+
+export type Note = {
+  id: string;
+  title: string;
+  blocks: NoteBlock[];
+  createdAt: string;
+  updatedAt: string;
 };

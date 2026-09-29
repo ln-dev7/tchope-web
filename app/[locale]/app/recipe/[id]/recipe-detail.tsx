@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { useState, useMemo, useCallback, useSyncExternalStore } from "react"
 import { useParams, useRouter } from "next/navigation"
 import Link from "next/link"
 import {
@@ -15,6 +15,12 @@ import {
   Youtube,
   ChevronRight,
   Pencil,
+  Share2,
+  Minus,
+  Plus,
+  Mic,
+  CirclePlay,
+  Timer,
 } from "lucide-react"
 import { toast } from "sonner"
 import { useLocale } from "@/lib/locale-context"
@@ -29,6 +35,12 @@ import {
   getRecipeVideos,
   getRecipeVideosEn,
 } from "@/constants/videos"
+import { scaleQuantity } from "@/lib/quantity"
+import { useTimerStore } from "@/stores/timers"
+import type { UserRecipe } from "@/types/recipe"
+
+const noopSubscribe = () => () => {}
+const NO_USER_RECIPES: UserRecipe[] = []
 
 export default function RecipeDetail() {
   const params = useParams()
@@ -36,9 +48,17 @@ export default function RecipeDetail() {
   const { locale } = useLocale()
   const { t } = useAppTranslations(locale)
   const recipes = useLocalizedRecipes(locale)
+  // Favoris et recettes créées vivent dans le localStorage : ignorés au rendu serveur et
+  // à l'hydratation (sinon le cœur et les recettes perso diffèrent : erreur d'hydratation #418).
+  const isClient = useSyncExternalStore(noopSubscribe, () => true, () => false)
   const { isFavorite, toggleFavorite } = useFavorites()
-  const { userRecipes } = useUserRecipes()
+  const { userRecipes: storedUserRecipes } = useUserRecipes()
+  const userRecipes = isClient ? storedUserRecipes : NO_USER_RECIPES
   const [activeTab, setActiveTab] = useState<"ingredients" | "steps">("ingredients")
+  const [servings, setServings] = useState<number | null>(null)
+  // Seulement « y a-t-il un minuteur de recette ? » : pas d'abonnement à l'horloge (pas de rendu 4 fois par seconde).
+  const hasRecipeTimers = useTimerStore((s) => s.recipeTimers.length > 0)
+  const isTimerRunning = isClient && hasRecipeTimers
 
   const recipeId = params.id as string
 
@@ -55,6 +75,24 @@ export default function RecipeDetail() {
     const en = getRecipeVideosEn(recipeId)
     return fr ?? en ?? null
   }, [recipeId])
+
+  // Portions ajustables, quantités recalculées (comme la fiche recette mobile)
+  const currentServings = servings ?? recipe?.servings ?? 1
+  const portionRatio = recipe ? currentServings / recipe.servings : 1
+  const scaledIngredients = useMemo(() => {
+    if (!recipe) return []
+    return recipe.ingredients.map((ing) => ({
+      name: ing.name,
+      quantity: scaleQuantity(ing.quantity, portionRatio),
+    }))
+  }, [recipe, portionRatio])
+
+  const adjustServings = useCallback(
+    (delta: number) => {
+      setServings((prev) => Math.max(1, (prev ?? recipe?.servings ?? 1) + delta))
+    },
+    [recipe?.servings]
+  )
 
   // JSON-LD
   const jsonLd = recipe
@@ -78,15 +116,16 @@ export default function RecipeDetail() {
     : null
 
   if (!recipe) {
+    // Avant l'hydratation, une recette créée par l'utilisateur n'est pas encore lue : rien à afficher.
     return (
       <div className="flex min-h-[50vh] items-center justify-center text-muted dark:text-dark-muted">
-        Recipe not found
+        {isClient ? (locale === "fr" ? "Recette introuvable" : "Recipe not found") : null}
       </div>
     )
   }
 
   const isUserCreated = userRecipes.some((r) => r.id === recipe.id)
-  const fav = isFavorite(recipe.id)
+  const fav = isClient && isFavorite(recipe.id)
 
   const difficultyLabel =
     recipe.difficulty === "Easy"
@@ -101,6 +140,46 @@ export default function RecipeDetail() {
       : recipe.difficulty === "Medium"
         ? "bg-primary text-white"
         : "bg-red-600 text-white"
+
+  function buildRecipeText(): string {
+    const r = recipe!
+    let text = `🍽️ ${r.name}\n`
+    text += `📍 ${r.region} | ⏱️ ${r.duration} min | 👥 ${r.servings} pers.\n\n`
+    if (r.description) text += `📝 ${r.description}\n\n`
+    text += `🛒 INGRÉDIENTS\n`
+    r.ingredients.forEach((ing) => {
+      text += `  • ${ing.name} — ${ing.quantity}\n`
+    })
+    text += `\n👨‍🍳 PRÉPARATION\n`
+    r.steps.forEach((step, i) => {
+      text += `  ${i + 1}. ${step}\n`
+    })
+    if (r.tips) text += `\n💡 ASTUCE DU CHEF\n${r.tips}\n`
+    if (videos && videos.length > 0) {
+      text += `\n🎥 VIDÉOS\n`
+      videos.forEach((v) => {
+        text += `  ▶ ${v.title}\n    https://youtube.com/watch?v=${v.id}\n`
+      })
+    }
+    text += `\n— Partagé via Tchopé 🇨🇲 by https://tchope.lndev.me`
+    return text
+  }
+
+  // Partage natif (téléphone) : la recette en texte + le lien ; sinon, comme avant, copie du lien ou de la recette.
+  async function handleShare() {
+    const url = `${window.location.origin}/${locale}/app/recipe/${recipe!.id}`
+    if (typeof navigator.share === "function") {
+      try {
+        await navigator.share(isUserCreated ? { title: recipe!.name, text: buildRecipeText() } : { title: recipe!.name, text: buildRecipeText(), url })
+        toast.success(locale === "fr" ? "Recette partagée" : "Recipe shared")
+        return
+      } catch (err) {
+        if ((err as Error)?.name === "AbortError") return
+      }
+    }
+    if (isUserCreated) handleCopyRecipe()
+    else handleCopyLink()
+  }
 
   function handleCopyLink() {
     const url = `${window.location.origin}/${locale}/app/recipe/${recipe!.id}`
@@ -151,16 +230,27 @@ export default function RecipeDetail() {
         <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
           <button
             onClick={() => router.back()}
+            aria-label={locale === "fr" ? "Retour" : "Back"}
             className="flex size-10 cursor-pointer items-center justify-center rounded-full bg-black/30 text-white backdrop-blur-sm"
           >
             <ArrowLeft className="size-5" />
           </button>
-          <button
-            onClick={isUserCreated ? handleCopyRecipe : handleCopyLink}
-            className="flex size-10 cursor-pointer items-center justify-center rounded-full bg-black/30 text-white backdrop-blur-sm"
-          >
-            {isUserCreated ? <Copy className="size-5" /> : <Link2 className="size-5" />}
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={isUserCreated ? handleCopyRecipe : handleCopyLink}
+              aria-label={isUserCreated ? (locale === "fr" ? "Copier la recette" : "Copy recipe") : (locale === "fr" ? "Copier le lien" : "Copy link")}
+              className="flex size-10 cursor-pointer items-center justify-center rounded-full bg-black/30 text-white backdrop-blur-sm"
+            >
+              {isUserCreated ? <Copy className="size-5" /> : <Link2 className="size-5" />}
+            </button>
+            <button
+              onClick={handleShare}
+              aria-label={t("share")}
+              className="flex size-10 cursor-pointer items-center justify-center rounded-full bg-black/30 text-white backdrop-blur-sm"
+            >
+              <Share2 className="size-5" />
+            </button>
+          </div>
         </div>
       </div>
 
@@ -177,6 +267,7 @@ export default function RecipeDetail() {
             {isUserCreated && (
               <Link
                 href={`/${locale}/app/add-recipe?edit=${recipe.id}`}
+                aria-label={t("editRecipe")}
                 className="flex size-9 items-center justify-center rounded-full bg-primary/10 text-primary transition-colors hover:bg-primary/20"
               >
                 <Pencil className="size-4" />
@@ -191,6 +282,7 @@ export default function RecipeDetail() {
                     : locale === "fr" ? "Ajouté aux favoris" : "Added to favorites"
                 )
               }}
+              aria-label={t("favorites")}
               className="cursor-pointer"
             >
               <Heart
@@ -222,13 +314,55 @@ export default function RecipeDetail() {
           </div>
           <div className="flex flex-col items-center rounded-2xl bg-surface p-3 dark:bg-dark-surface">
             <Users className="size-5 text-primary" />
-            <span className="mt-1 text-sm font-bold text-foreground dark:text-white">
-              {recipe.servings}
-            </span>
+            <div className="mt-1 flex items-center gap-2">
+              <button
+                onClick={() => adjustServings(-1)}
+                disabled={currentServings <= 1}
+                aria-label={locale === "fr" ? "Une portion de moins" : "One serving less"}
+                className="flex size-6 cursor-pointer items-center justify-center rounded-full bg-primary text-white transition-colors hover:bg-primary-dark disabled:cursor-default disabled:bg-foreground/10 disabled:text-muted dark:disabled:bg-white/10 dark:disabled:text-dark-muted"
+              >
+                <Minus className="size-3.5" />
+              </button>
+              <span className="min-w-5 text-center text-sm font-bold text-foreground tabular-nums dark:text-white" aria-live="polite">
+                {currentServings}
+              </span>
+              <button
+                onClick={() => adjustServings(1)}
+                aria-label={locale === "fr" ? "Une portion de plus" : "One serving more"}
+                className="flex size-6 cursor-pointer items-center justify-center rounded-full bg-primary text-white transition-colors hover:bg-primary-dark"
+              >
+                <Plus className="size-3.5" />
+              </button>
+            </div>
             <span className="text-[10px] text-muted dark:text-dark-muted">
               {t("portions")}
             </span>
           </div>
+        </div>
+
+        {/* Actions : TchopAI Live et mode cuisine (comme sur mobile) */}
+        <div className="grid gap-3 sm:grid-cols-2">
+          <button
+            type="button"
+            onClick={() => router.push(`/${locale}/app/live-cooking?id=${encodeURIComponent(recipe.id)}`)}
+            className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-[20px] border-[1.5px] border-[#A855F7]/20 bg-[#A855F7]/[0.08] py-3.5 text-sm font-bold text-[#A855F7] transition-colors hover:bg-[#A855F7]/[0.12] dark:border-[#A855F7]/30 dark:bg-[#A855F7]/[0.12]"
+          >
+            <Mic className="size-[18px]" />
+            {t("startLiveCooking")}
+          </button>
+          <button
+            type="button"
+            onClick={() => router.push(`/${locale}/app/cooking-mode?id=${encodeURIComponent(recipe.id)}`)}
+            disabled={isTimerRunning}
+            className={`flex w-full items-center justify-center gap-2 rounded-[20px] py-3.5 text-sm font-bold transition-colors ${
+              isTimerRunning
+                ? "cursor-default bg-surface text-muted dark:bg-dark-surface dark:text-dark-muted"
+                : "cursor-pointer bg-primary text-white hover:bg-primary-dark"
+            }`}
+          >
+            {isTimerRunning ? <Timer className="size-[18px]" /> : <CirclePlay className="size-[18px]" />}
+            {isTimerRunning ? "Timer..." : t("startCooking")}
+          </button>
         </div>
 
         {/* Video button */}
@@ -268,10 +402,10 @@ export default function RecipeDetail() {
         {activeTab === "ingredients" ? (
           <div>
             <p className="mb-3 text-xs font-medium text-muted dark:text-dark-muted">
-              {t("shoppingList")} — {recipe.ingredients.length} {t("items")}
+              {t("shoppingList")} — {scaledIngredients.length} {t("items")}
             </p>
             <div className="space-y-2">
-              {recipe.ingredients.map((ing, i) => (
+              {scaledIngredients.map((ing, i) => (
                 <div
                   key={i}
                   className="flex items-center justify-between rounded-xl bg-surface px-4 py-3 dark:bg-dark-surface"

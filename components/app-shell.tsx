@@ -3,21 +3,24 @@
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { Home, Search, BookOpen, Settings, Globe } from "lucide-react"
+import { Home, Search, BookOpen, Settings, Globe, CalendarDays, MessageCircleMore } from "lucide-react"
 import { useLocale } from "@/lib/locale-context"
 import { useAppTranslations } from "@/hooks/use-app-translations"
 import type { Locale } from "@/lib/i18n"
+import { AiConsentProvider } from "@/components/ai-consent-provider"
+import { TimerHost } from "@/components/timer/timer-host"
 
 type NavItem = {
   href: string
   icon: typeof Home
-  labelKey: "tabHome" | "tabSearch" | "tabCookbook" | "tabSettings"
+  labelKey: "tabHome" | "tabSearch" | "tabPlanner" | "tabCookbook" | "tabSettings"
 }
 
 function getNavItems(locale: Locale): NavItem[] {
   return [
     { href: `/${locale}/app`, icon: Home, labelKey: "tabHome" },
     { href: `/${locale}/app/search`, icon: Search, labelKey: "tabSearch" },
+    { href: `/${locale}/app/planner`, icon: CalendarDays, labelKey: "tabPlanner" },
     {
       href: `/${locale}/app/cookbook`,
       icon: BookOpen,
@@ -37,6 +40,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   const navItems = getNavItems(locale)
 
+  // Écrans plein écran (comme les écrans empilés de l'app mobile) : pas de barre
+  // d'onglets en bas ni de bouton TchopAI, pour laisser la place au chat ou à la cuisine.
+  const immersive = /\/app\/(tchop-ai|live-cooking|cooking-mode)(\/|$)/.test(pathname)
+
   function isActive(href: string) {
     if (href === `/${locale}/app`) {
       return pathname === `/${locale}/app`
@@ -45,6 +52,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   }
 
   return (
+    <AiConsentProvider>
     <div className="flex min-h-dvh bg-background dark:bg-dark">
       {/* Sidebar — desktop */}
       <aside className="fixed top-0 left-0 z-40 hidden h-dvh w-[220px] flex-col border-r border-foreground/5 bg-surface px-4 py-6 dark:border-white/5 dark:bg-dark-surface lg:flex">
@@ -135,6 +143,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       </aside>
 
       {/* Main content */}
+      {immersive ? (
+        <main className="h-dvh w-full md:ml-[72px] lg:ml-[220px]">{children}</main>
+      ) : (
       <main className="min-h-dvh pb-20 md:ml-[72px] lg:ml-[220px] w-full">
         <div className="mx-auto max-w-2xl px-4 py-5 sm:px-6 md:py-6 lg:max-w-4xl">
           {children}
@@ -151,8 +162,24 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </div>
       </main>
 
+      )}
+
+      <TimerHost />
+
+      {/* Bouton TchopAI flottant (comme components/TchopAI.tsx sur mobile) */}
+      {!immersive && (
+        <Link
+          href={`/${locale}/app/tchop-ai`}
+          aria-label="TchopAI"
+          title="TchopAI"
+          className="fixed right-4 bottom-24 z-50 flex size-14 items-center justify-center rounded-full bg-[#A855F7] text-white shadow-lg shadow-[#A855F7]/35 transition-transform hover:scale-105 md:right-6 md:bottom-6"
+        >
+          <MessageCircleMore className="size-7" />
+        </Link>
+      )}
+
       {/* Bottom tabs — mobile */}
-      <nav className="fixed bottom-0 left-0 right-0 z-40 border-t border-foreground/5 bg-surface/90 backdrop-blur-xl dark:border-white/5 dark:bg-dark-surface/90 md:hidden">
+      <nav className={`fixed bottom-0 left-0 right-0 z-40 border-t border-foreground/5 bg-surface/90 backdrop-blur-xl dark:border-white/5 dark:bg-dark-surface/90 md:hidden ${immersive ? "hidden" : ""}`}>
         <div className="flex items-center justify-around px-2 py-2">
           {navItems.map((item) => {
             const active = isActive(item.href)
@@ -174,5 +201,6 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </div>
       </nav>
     </div>
+    </AiConsentProvider>
   )
 }
