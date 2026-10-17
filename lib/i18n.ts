@@ -108,7 +108,7 @@ const dictionaries = {
     },
     privacy: {
       title: "Politique de Confidentialité",
-      lastUpdated: "Dernière mise à jour : 16 juillet 2026",
+      lastUpdated: "Dernière mise à jour : 17 octobre 2026",
       developer: "Développeur : LNDEV —",
       sections: {
         intro: {
@@ -116,7 +116,7 @@ const dictionaries = {
           content:
             "Tchopé est une application mobile de recettes camerounaises. Votre vie privée est importante pour nous. Cette politique explique comment l'application gère vos données.",
           summary:
-            "En résumé : Tchopé ne collecte aucune donnée personnelle identifiable. Vos données restent sur votre appareil, sauf lorsque vous utilisez TchopAI, qui envoie vos messages et le contexte utile à notre prestataire d'IA (voir section 9). L'application affiche des annonces via Google AdMob et certaines fonctionnalités IA se débloquent en visionnant une publicité récompensée (voir section 8).",
+            "En résumé : Tchopé ne collecte aucune donnée personnelle identifiable. Vos données restent sur votre appareil, sauf lorsque vous utilisez TchopAI, qui envoie vos messages et le contexte utile à notre prestataire d'IA (voir section 8). L'application n'affiche aucune publicité ; les fonctions IA font partie de l'abonnement Tchopé Pro (voir section 5).",
         },
         data: {
           title: "2. Collecte de données",
@@ -126,9 +126,9 @@ const dictionaries = {
             "Ne requiert aucune création de compte",
             "Ne demande aucune information personnelle (nom, email, numéro de téléphone)",
             "N'utilise aucun service d'analytics ou de tracking",
-            "Stocke toutes vos données (favoris, notes, plans de repas, recettes personnelles) sur votre appareil — elles ne sont transmises à un tiers que si vous utilisez TchopAI, qui envoie ce contexte à l'IA pour personnaliser ses réponses (voir section 9)",
-            "Permet de consulter les recettes entièrement hors ligne — seules les fonctionnalités IA (TchopAI) et l'affichage des annonces nécessitent une connexion",
-            "Affiche des annonces via Google AdMob : le SDK publicitaire collecte certaines données techniques détaillées à la section 8",
+            "Stocke toutes vos données (favoris, notes, plans de repas, recettes personnelles) sur votre appareil — elles ne sont transmises à un tiers que si vous utilisez TchopAI, qui envoie ce contexte à l'IA pour personnaliser ses réponses (voir section 8)",
+            "Permet de consulter les recettes entièrement hors ligne — seules les fonctionnalités IA (TchopAI) nécessitent une connexion",
+            "N'affiche aucune publicité et n'intègre aucune régie publicitaire active",
           ],
         },
         camera: {
@@ -171,11 +171,15 @@ const dictionaries = {
           ],
         },
         payment: {
-          title: "5. Paiement et Achats",
+          title: "5. Paiement et Achats — Tchopé Pro",
           intro:
-            "Tchopé est entièrement gratuit et ne propose aucun achat intégré, abonnement ou licence. Les fonctionnalités IA (TchopAI Chat, Recherche IA, Meal Plan IA, TchopAI Live) se débloquent gratuitement en visionnant des publicités récompensées (voir section 8).",
+            "Les recettes, le planning manuel, la liste de courses, les notes, les minuteurs et le mode cuisson sont gratuits. Les fonctions d'intelligence artificielle (TchopAI au-delà de 3 messages gratuits, photo, recherche par ingrédients et recherche libre par IA, planning IA, guidage vocal TchopAI Live) font partie de Tchopé Pro, un abonnement mensuel sans engagement, souscrit sans créer de compte.",
           items: [
-            "Aucune donnée bancaire : Tchopé ne collecte, ne stocke et ne traite aucune donnée bancaire ou financière. Aucune donnée de paiement ne transite par l'application.",
+            "Paiement par le store : le paiement est effectué par l'App Store (Apple) ou Google Play. Nous ne voyons ni ne stockons vos coordonnées bancaires.",
+            "Validation de l'abonnement : l'application s'appuie sur RevenueCat, Inc. (États-Unis), notre sous-traitant de gestion des abonnements. RevenueCat reçoit un identifiant anonyme généré par l'application (sans lien avec votre identité), le reçu d'achat transmis par le store et des données techniques (plate-forme, version de l'application, pays du store), uniquement pour valider l'abonnement, le restaurer sur un nouvel appareil et établir des statistiques de ventes agrégées.",
+            "Contrôle par notre serveur : quand vous utilisez une fonction IA, l'application envoie aussi cet identifiant anonyme à notre serveur, qui demande à RevenueCat si votre abonnement est actif. Notre serveur garde cette réponse quelques minutes en mémoire et compte les requêtes par identifiant (24 heures au plus) pour appliquer les limites d'usage ; il ne la relie ni à votre identité ni au contenu de vos demandes.",
+            "Résiliation : vous pouvez consulter, modifier ou résilier l'abonnement à tout moment dans les réglages de votre compte App Store ou Google Play (l'application y mène depuis Réglages → Tchopé Pro). La résiliation prend effet à la fin de la période en cours.",
+            "Messages gratuits : le nombre de messages TchopAI gratuits déjà utilisés est compté sur votre appareil.",
           ],
         },
         storage: {
@@ -188,8 +192,8 @@ const dictionaries = {
             "Vos préférences : le thème choisi (clair/sombre/système) et la langue (français/anglais)",
           ],
           dataInfo: [
-            "Sont stockées sur votre appareil",
-            "Ne sont pas transmises à un tiers, sauf le contexte que vous choisissez d'envoyer à TchopAI (voir section 9)",
+            "Sont stockées exclusivement sur votre appareil",
+            "Ne sont pas transmises à un tiers, sauf le contexte que vous choisissez d'envoyer à TchopAI (voir section 8)",
             "Peuvent être supprimées à tout moment depuis les paramètres de l'application ou en désinstallant l'application",
           ],
         },
@@ -198,23 +202,8 @@ const dictionaries = {
           content:
             "L'application charge des images depuis Wikimedia Commons et des miniatures vidéo depuis YouTube pour illustrer les recettes. Ces requêtes sont soumises aux politiques de confidentialité respectives de Wikimedia et Google/YouTube. Lorsque vous choisissez de regarder une vidéo de recette, vous êtes redirigé vers YouTube via votre navigateur. Tchopé n'a aucun contrôle sur les données collectées par YouTube.",
         },
-        ads: {
-          title: "8. Publicité (Google AdMob)",
-          intro:
-            "Tchopé affiche des bannières publicitaires et propose des publicités récompensées (visionnées volontairement pour débloquer les fonctionnalités IA), fournies par Google AdMob. À cette fin, le SDK Google Mobile Ads intégré à l'application collecte et partage avec Google les données suivantes :",
-          items: [
-            "Identifiant publicitaire de l'appareil (Advertising ID) : utilisé pour diffuser les annonces, limiter leur répétition et prévenir la fraude",
-            "Interactions avec les annonces : impressions et clics sur les bannières, à des fins de mesure des performances publicitaires",
-            "Données de diagnostic : informations techniques liées au fonctionnement du SDK publicitaire",
-          ],
-          dataInfo: [
-            "Annonces non personnalisées : Tchopé demande uniquement des annonces non personnalisées. Leur contenu est choisi selon le contexte (application, langue, région) et non selon un profil publicitaire.",
-            "Vous pouvez réinitialiser ou supprimer votre identifiant publicitaire à tout moment dans les paramètres de votre téléphone (Paramètres > Confidentialité > Annonces).",
-          ],
-          policies: "Pour en savoir plus, consultez la politique de confidentialité de",
-        },
         ai: {
-          title: "9. Assistant IA (TchopAI)",
+          title: "8. Assistant IA (TchopAI)",
           intro:
             "TchopAI regroupe les fonctionnalités d'intelligence artificielle de Tchopé (chat, recherche IA, plans de repas IA, TchopAI Live). Lorsque, et uniquement lorsque, vous les utilisez, certaines données sont envoyées à notre serveur proxy puis à l'API Claude d'Anthropic afin de générer une réponse :",
           items: [
@@ -228,12 +217,12 @@ const dictionaries = {
           ],
         },
         changes: {
-          title: "10. Modifications",
+          title: "9. Modifications",
           content:
             "Cette politique de confidentialité peut être mise à jour occasionnellement. Toute modification sera reflétée par la date de mise à jour en haut de ce document. Nous vous encourageons à consulter cette page régulièrement.",
         },
         contact: {
-          title: "11. Contact",
+          title: "10. Contact",
           intro:
             "Pour toute question concernant cette politique de confidentialité :",
         },
@@ -339,7 +328,7 @@ const dictionaries = {
     },
     privacy: {
       title: "Privacy Policy",
-      lastUpdated: "Last updated: July 16, 2026",
+      lastUpdated: "Last updated: October 17, 2026",
       developer: "Developer: LNDEV —",
       sections: {
         intro: {
@@ -347,7 +336,7 @@ const dictionaries = {
           content:
             "Tchopé is a mobile app for Cameroonian recipes. Your privacy matters to us. This policy explains how the app handles your data.",
           summary:
-            "In short: Tchopé does not collect any personally identifiable data. Your data stays on your device, except when you use TchopAI, which sends your messages and relevant context to our AI provider (see section 9). The app shows ads via Google AdMob, and some AI features are unlocked by watching a rewarded ad (see section 8).",
+            "In short: Tchopé does not collect any personally identifiable data. Your data stays on your device, except when you use TchopAI, which sends your messages and relevant context to our AI provider (see section 8). The app shows no ads; the AI features are part of the Tchopé Pro subscription (see section 5).",
         },
         data: {
           title: "2. Data Collection",
@@ -357,9 +346,9 @@ const dictionaries = {
             "Does not require any account creation",
             "Does not ask for any personal information (name, email, phone number)",
             "Does not use any analytics or tracking services",
-            "Stores all your data (favorites, notes, meal plans, personal recipes) on your device — it is only transmitted to a third party if you use TchopAI, which sends this context to the AI to personalize its answers (see section 9)",
-            "Lets you browse recipes entirely offline — only AI features (TchopAI) and ad display require a connection",
-            "Displays ads via Google AdMob: the advertising SDK collects certain technical data detailed in section 8",
+            "Stores all your data (favorites, notes, meal plans, personal recipes) on your device — it is only transmitted to a third party if you use TchopAI, which sends this context to the AI to personalize its answers (see section 8)",
+            "Lets you browse recipes entirely offline — only AI features (TchopAI) require a connection",
+            "Shows no ads and includes no active ad network",
           ],
         },
         camera: {
@@ -402,11 +391,15 @@ const dictionaries = {
           ],
         },
         payment: {
-          title: "5. Payment and Purchases",
+          title: "5. Payment and Purchases — Tchopé Pro",
           intro:
-            "Tchopé is entirely free and offers no in-app purchases, subscriptions, or licenses. The AI features (TchopAI Chat, AI Search, AI Meal Plan, TchopAI Live) are unlocked for free by watching rewarded ads (see section 8).",
+            "Recipes, manual meal planning, the shopping list, notes, timers and cooking mode are free. The artificial-intelligence features (TchopAI beyond 3 free messages, photos, AI ingredient and free-text search, AI meal planning, TchopAI Live voice guidance) are part of Tchopé Pro, a monthly subscription with no commitment, purchased without creating an account.",
           items: [
-            "No financial data: Tchopé does not collect, store, or process any banking or financial data. No payment data passes through the application.",
+            "Payment through the store: payment is handled by the App Store (Apple) or Google Play. We never see or store your payment details.",
+            "Subscription validation: the app relies on RevenueCat, Inc. (United States), our subscription-management processor. RevenueCat receives an anonymous identifier generated by the app (not linked to your identity), the purchase receipt passed on by the store and technical data (platform, app version, store country), solely to validate the subscription, restore it on a new device and compile aggregated sales statistics.",
+            "Check by our server: when you use an AI feature, the app also sends this anonymous identifier to our server, which asks RevenueCat whether your subscription is active. Our server keeps that answer in memory for a few minutes and counts requests per identifier (for at most 24 hours) to apply usage limits; it links it neither to your identity nor to the content of your requests.",
+            "Cancellation: you can review, change or cancel the subscription at any time in your App Store or Google Play account settings (the app links there from Settings → Tchopé Pro). Cancellation takes effect at the end of the current period.",
+            "Free messages: the number of free TchopAI messages already used is counted on your device.",
           ],
         },
         storage: {
@@ -419,8 +412,8 @@ const dictionaries = {
             "Your preferences: your chosen theme (light/dark/system) and language (French/English)",
           ],
           dataInfo: [
-            "Is stored on your device",
-            "Is not transmitted to any third party, except the context you choose to send to TchopAI (see section 9)",
+            "Is stored exclusively on your device",
+            "Is not transmitted to any third party, except the context you choose to send to TchopAI (see section 8)",
             "Can be deleted at any time from the app settings or by uninstalling the app",
           ],
         },
@@ -429,23 +422,8 @@ const dictionaries = {
           content:
             "The app loads images from Wikimedia Commons and video thumbnails from YouTube to illustrate recipes. These requests are subject to the respective privacy policies of Wikimedia and Google/YouTube. When you choose to watch a recipe video, you are redirected to YouTube via your browser. Tchopé has no control over the data collected by YouTube.",
         },
-        ads: {
-          title: "8. Advertising (Google AdMob)",
-          intro:
-            "Tchopé displays ad banners and offers rewarded ads (watched voluntarily to unlock AI features), served by Google AdMob. For this purpose, the Google Mobile Ads SDK embedded in the app collects and shares the following data with Google:",
-          items: [
-            "Device advertising identifier (Advertising ID): used to serve ads, cap their frequency, and prevent fraud",
-            "Ad interactions: banner impressions and clicks, for ad performance measurement",
-            "Diagnostic data: technical information related to the operation of the advertising SDK",
-          ],
-          dataInfo: [
-            "Non-personalized ads: Tchopé only requests non-personalized ads. Their content is selected based on context (app, language, region), not on an advertising profile.",
-            "You can reset or delete your advertising identifier at any time in your phone settings (Settings > Privacy > Ads).",
-          ],
-          policies: "For more information, see the privacy policy of",
-        },
         ai: {
-          title: "9. AI Assistant (TchopAI)",
+          title: "8. AI Assistant (TchopAI)",
           intro:
             "TchopAI covers Tchopé's artificial-intelligence features (chat, AI search, AI meal plans, TchopAI Live). When, and only when, you use them, certain data is sent to our proxy server and then to Anthropic's Claude API in order to generate a response:",
           items: [
@@ -459,13 +437,14 @@ const dictionaries = {
           ],
         },
         changes: {
-          title: "10. Changes",
+          title: "9. Changes",
           content:
             "This privacy policy may be updated from time to time. Any changes will be reflected by the update date at the top of this document. We encourage you to review this page periodically.",
         },
         contact: {
-          title: "11. Contact",
-          intro: "For any questions regarding this privacy policy:",
+          title: "10. Contact",
+          intro:
+            "For any questions regarding this privacy policy:",
         },
       },
     },

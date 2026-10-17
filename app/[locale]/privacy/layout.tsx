@@ -10,8 +10,8 @@ export async function generateMetadata({
   const isFr = locale !== "en"
   const title = isFr ? "Politique de confidentialité" : "Privacy Policy"
   const description = isFr
-    ? "Comment Tchopé gère tes données. Aucun compte, aucun tracking, aucun envoi serveur. Tout reste sur ton appareil."
-    : "How Tchopé handles your data. No account, no tracking, no server. Everything stays on your device."
+    ? "Comment Tchopé gère tes données : aucun compte, aucun tracking, aucune publicité. Tes données restent sur ton appareil, sauf ce que tu envoies à TchopAI (Tchopé Pro)."
+    : "How Tchopé handles your data: no account, no tracking, no ads. Your data stays on your device, except what you send to TchopAI (Tchopé Pro)."
   const ogImage = isFr ? DEFAULT_OG_FR : DEFAULT_OG_EN
   const path = "/privacy"
 
