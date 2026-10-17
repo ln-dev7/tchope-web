@@ -24,6 +24,6 @@ export const config = {
     // Match all paths except _next, api, static files — et les fichiers SEO
     // (robots.txt, sitemap.xml, manifest) qui doivent répondre à la racine
     // sans redirection de locale.
-    "/((?!_next|api|brand|mockups|fonts|store|favicon.ico|app-ads.txt|robots.txt|sitemap.xml|manifest.webmanifest|.well-known).*)",
+    "/((?!_next|api|brand|mockups|fonts|store|favicon.ico|robots.txt|sitemap.xml|manifest.webmanifest|.well-known).*)",
   ],
 }

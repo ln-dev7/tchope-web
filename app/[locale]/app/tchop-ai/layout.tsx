@@ -10,8 +10,8 @@ export async function generateMetadata({
   const isFr = locale !== "en"
   const title = "TchopAI"
   const description = isFr
-    ? "TchopAI, ton assistant culinaire camerounais : pose tes questions sur les recettes, les ingrédients et les techniques, ou envoie une photo de ton plat."
-    : "TchopAI, your Cameroonian cooking assistant: ask about recipes, ingredients and techniques, or send a photo of your dish."
+    ? "TchopAI, ton assistant culinaire camerounais, est dans l'app Tchopé (Tchopé Pro) : questions sur les recettes, les ingrédients et les techniques, photo de ton plat."
+    : "TchopAI, your Cameroonian cooking assistant, is in the Tchopé app (Tchopé Pro): questions about recipes, ingredients and techniques, a photo of your dish."
   const path = "/app/tchop-ai"
 
   return {

@@ -10,8 +10,8 @@ export async function generateMetadata({
   const isFr = locale !== "en"
   const title = "TchopAI Live"
   const description = isFr
-    ? "Cuisine avec TchopAI à la voix : pose tes questions pendant la recette, montre ta préparation à la caméra et reçois des conseils en temps réel."
-    : "Cook with TchopAI by voice: ask questions during the recipe, show your preparation to the camera and get real-time advice."
+    ? "Cuisine avec TchopAI à la voix, dans l'app Tchopé (Tchopé Pro) : pose tes questions pendant la recette et reçois des conseils en temps réel."
+    : "Cook with TchopAI by voice, in the Tchopé app (Tchopé Pro): ask questions during the recipe and get real-time advice."
   const path = "/app/live-cooking"
 
   return {

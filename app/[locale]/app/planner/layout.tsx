@@ -10,8 +10,8 @@ export async function generateMetadata({
   const isFr = locale !== "en"
   const title = isFr ? "Plan de la semaine" : "Weekly Plan"
   const description = isFr
-    ? "Planifie tes repas de la semaine avec TchopAI : plan de repas camerounais, liste de courses et export PDF."
-    : "Plan your weekly meals with TchopAI: Cameroonian meal plan, shopping list and PDF export."
+    ? "Ton plan de repas camerounais de la semaine, ta liste de courses et l'export PDF. Le planning par l'IA est dans l'app Tchopé."
+    : "Your weekly Cameroonian meal plan, shopping list and PDF export. AI meal planning is in the Tchopé app."
   const path = "/app/planner"
 
   return {

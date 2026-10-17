@@ -88,7 +88,7 @@ Verrouillage constaté en tête de SERP « recettes camerounaises » : 750g, Che
 ```ts
 export const config = {
   matcher: [
-    "/((?!_next|api|brand|mockups|fonts|store|favicon.ico|app-ads.txt|robots.txt|sitemap.xml|manifest.webmanifest|.well-known).*)",
+    "/((?!_next|api|brand|mockups|fonts|store|favicon.ico|robots.txt|sitemap.xml|manifest.webmanifest|.well-known).*)",
   ],
 }
 ```

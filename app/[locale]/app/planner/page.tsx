@@ -1,30 +1,23 @@
 "use client"
 
-import { useCallback, useMemo, useState } from "react"
+import { useCallback, useMemo } from "react"
 import { CalendarDays } from "lucide-react"
 import { toast } from "sonner"
 import { useLocale } from "@/lib/locale-context"
 import { useAppTranslations } from "@/hooks/use-app-translations"
 import { useLocalizedRecipes } from "@/hooks/use-localized-recipes"
 import { StoreBanner } from "@/components/store-banner"
-import { AiConsentError } from "@/lib/ai/client"
 import { buildRecipeMap, getShoppingItemCount } from "@/lib/shopping"
 import { exportMealPlanPDF } from "@/lib/export-plan"
-import { generatePlanId, toDateKey, useMealPlanner, type MealPlan } from "@/stores/meal-planner"
-import type { TranslationKey } from "@/constants/translations"
+import { toDateKey, useMealPlanner, type MealPlan } from "@/stores/meal-planner"
 import { useStoreHydrated } from "@/components/planner/use-store-hydrated"
-import { adjustMealPlanAI, formatDate, generateMealPlanAI, type Lang } from "@/components/planner/planner-utils"
+import { formatDate, type Lang } from "@/components/planner/planner-utils"
+import { useAppOnly } from "@/components/app-only"
 import { DaySection } from "@/components/planner/day-section"
 import { GenerateForm } from "@/components/planner/generate-form"
 import { AdjustPanel } from "@/components/planner/adjust-panel"
 import { PlanActions } from "@/components/planner/plan-actions"
 import { SavedPlans } from "@/components/planner/saved-plans"
-
-type ErrorKey = Extract<TranslationKey, "plannerError" | "plannerNoConnection">
-
-function isOffline() {
-  return typeof navigator !== "undefined" && navigator.onLine === false
-}
 
 export default function PlannerPage() {
   const { locale } = useLocale()
@@ -32,91 +25,21 @@ export default function PlannerPage() {
   const isFr = locale === "fr"
   const lang: Lang = isFr ? "fr" : "en"
   const recipes = useLocalizedRecipes(locale)
+  const { openAppOnly } = useAppOnly()
 
   const hydrated = useStoreHydrated(useMealPlanner.persist)
   const currentPlan = useMealPlanner((s) => s.currentPlan)
   const savedPlans = useMealPlanner((s) => s.savedPlans)
-  const setCurrentPlan = useMealPlanner((s) => s.setCurrentPlan)
   const savePlan = useMealPlanner((s) => s.savePlan)
   const deleteSavedPlan = useMealPlanner((s) => s.deleteSavedPlan)
   const reusePlan = useMealPlanner((s) => s.reusePlan)
   const resetPlan = useMealPlanner((s) => s.resetPlan)
   const swapMeal = useMealPlanner((s) => s.swapMeal)
 
-  const [preferences, setPreferences] = useState("")
-  const [isGenerating, setIsGenerating] = useState(false)
-  const [generateError, setGenerateError] = useState<ErrorKey | null>(null)
-  const [showAdjust, setShowAdjust] = useState(false)
-  const [adjustText, setAdjustText] = useState("")
-  const [isAdjusting, setIsAdjusting] = useState(false)
-  const [adjustError, setAdjustError] = useState<ErrorKey | null>(null)
-
   const recipeMap = useMemo(() => buildRecipeMap(recipes), [recipes])
   const shoppingCount = useMemo(() => getShoppingItemCount(currentPlan, recipeMap), [currentPlan, recipeMap])
   const sortedDays = useMemo(() => (currentPlan ? Object.keys(currentPlan.days).sort() : []), [currentPlan])
   const todayKey = useMemo(() => (hydrated ? toDateKey(new Date()) : ""), [hydrated])
-
-  // ── Générer ──
-  const handleGenerate = useCallback(async () => {
-    if (isGenerating) return
-    setGenerateError(null)
-    if (isOffline()) {
-      setGenerateError("plannerNoConnection")
-      return
-    }
-    setIsGenerating(true)
-    try {
-      const today = new Date()
-      const days: string[] = []
-      for (let i = 0; i < 7; i++) {
-        const d = new Date(today)
-        d.setDate(d.getDate() + i)
-        days.push(toDateKey(d))
-      }
-      const result = await generateMealPlanAI(recipes, preferences, days, isFr)
-      const plan: MealPlan = {
-        id: generatePlanId(),
-        startDate: days[0],
-        endDate: days[6],
-        preferences,
-        days: result,
-        createdAt: new Date().toISOString(),
-      }
-      setCurrentPlan(plan)
-      window.scrollTo({ top: 0, behavior: "smooth" })
-    } catch (error) {
-      // Consentement IA refusé : on revient simplement à l'état précédent.
-      if (!(error instanceof AiConsentError)) setGenerateError("plannerError")
-    } finally {
-      setIsGenerating(false)
-    }
-  }, [isGenerating, recipes, preferences, isFr, setCurrentPlan])
-
-  // ── Ajuster ──
-  const handleAdjust = useCallback(async () => {
-    if (!currentPlan || !adjustText.trim() || isAdjusting) return
-    setAdjustError(null)
-    if (isOffline()) {
-      setAdjustError("plannerNoConnection")
-      return
-    }
-    setIsAdjusting(true)
-    const plan = currentPlan
-    try {
-      const result = await adjustMealPlanAI(recipes, plan, adjustText, isFr)
-      // Le plan a pu être réinitialisé ou remplacé pendant l'appel : on n'écrase rien.
-      const latest = useMealPlanner.getState().currentPlan
-      if (latest && latest.id === plan.id) {
-        setCurrentPlan({ ...latest, days: result })
-      }
-      setAdjustText("")
-      setShowAdjust(false)
-    } catch (error) {
-      if (!(error instanceof AiConsentError)) setAdjustError("plannerError")
-    } finally {
-      setIsAdjusting(false)
-    }
-  }, [currentPlan, adjustText, isAdjusting, recipes, isFr, setCurrentPlan])
 
   // ── Échanger un repas (recette au hasard, comme le mobile) ──
   const handleSwap = useCallback(
@@ -136,9 +59,6 @@ export default function PlannerPage() {
 
   const handleReset = useCallback(() => {
     resetPlan()
-    setShowAdjust(false)
-    setAdjustText("")
-    setAdjustError(null)
   }, [resetPlan])
 
   const handleDeleteSaved = useCallback(
@@ -152,7 +72,6 @@ export default function PlannerPage() {
   const handleReuse = useCallback(
     (plan: MealPlan) => {
       reusePlan(plan)
-      setGenerateError(null)
       window.scrollTo({ top: 0, behavior: "smooth" })
     },
     [reusePlan]
@@ -216,18 +135,7 @@ export default function PlannerPage() {
           {/* Ajuster + actions (colonne collante sur desktop) */}
           <aside className="flex flex-col gap-4 lg:sticky lg:top-6">
             <div className="order-1 lg:order-2">
-              <AdjustPanel
-                open={showAdjust}
-                onToggle={() => setShowAdjust((v) => !v)}
-                value={adjustText}
-                onChange={setAdjustText}
-                onSubmit={handleAdjust}
-                isAdjusting={isAdjusting}
-                errorMessage={adjustError ? t(adjustError) : null}
-                onDismissError={() => setAdjustError(null)}
-                isFr={isFr}
-                t={t}
-              />
+              <AdjustPanel onOpen={openAppOnly} t={t} />
             </div>
             <div className="order-2 lg:order-1">
               <PlanActions
@@ -242,16 +150,7 @@ export default function PlannerPage() {
           </aside>
         </div>
       ) : (
-        <GenerateForm
-          value={preferences}
-          onChange={setPreferences}
-          onSubmit={handleGenerate}
-          isGenerating={isGenerating}
-          errorMessage={generateError ? t(generateError) : null}
-          onDismissError={() => setGenerateError(null)}
-          isFr={isFr}
-          t={t}
-        />
+        <GenerateForm onSubmit={openAppOnly} t={t} />
       )}
 
       {hydrated && (

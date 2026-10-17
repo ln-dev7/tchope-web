@@ -78,15 +78,14 @@ export default function SettingsPage() {
     applyTheme(chosenTheme ?? getStoredTheme())
   }, [chosenTheme])
 
-  // Comme le mobile : tout effacer (favoris, recettes, notes, plans, minuteurs, conversations, cache IA,
-  // thème, consentement IA) sauf le quota de photos du jour, puis recharger pour repartir de zéro.
+  // Comme le mobile : tout effacer (favoris, recettes, notes, plans, minuteurs, thème, et les restes
+  // de l'ancienne IA du site), puis recharger pour repartir de zéro.
   function resetAllData() {
     try {
-      const keep = new Set(["tchope_image_quota"])
       const toRemove: string[] = []
       for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i)
-        if (key && (key.startsWith("tchope_") || key.startsWith("ai_cache:")) && !keep.has(key)) toRemove.push(key)
+        if (key && (key.startsWith("tchope_") || key.startsWith("ai_cache:"))) toRemove.push(key)
       }
       toRemove.forEach((key) => localStorage.removeItem(key))
       sessionStorage.setItem("tchope_reset_done", "1")

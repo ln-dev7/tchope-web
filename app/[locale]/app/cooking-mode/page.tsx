@@ -1,7 +1,6 @@
 "use client"
 
 import { Suspense, useEffect, useEffectEvent, useMemo, useRef, useState } from "react"
-import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion"
 import {
@@ -30,6 +29,7 @@ import { formatDuration, parseTimeFromStep } from "@/lib/timer-utils"
 import { useWakeLock } from "@/lib/timer-wake-lock"
 import { speechSupported, stopSpeaking, useCookingVoice, useSpeakOnChange } from "@/lib/cooking-voice"
 import { RecipeImage } from "@/components/recipe-image"
+import { useAppOnly } from "@/components/app-only"
 import { RecipeTimerCard, RecipeTimerPill } from "@/components/timer/recipe-timer-card"
 import type { Recipe, UserRecipe } from "@/types/recipe"
 
@@ -96,6 +96,7 @@ function RecipeNotFound() {
 function CookingMode({ recipe, stepParam }: { recipe: Recipe | UserRecipe; stepParam: string | null }) {
   const router = useRouter()
   const { locale } = useLocale()
+  const { openAppOnly } = useAppOnly()
   const { t } = useAppTranslations(locale)
   const isFr = locale === "fr"
   const reduceMotion = useReducedMotion()
@@ -333,14 +334,17 @@ function CookingMode({ recipe, stepParam }: { recipe: Recipe | UserRecipe; stepP
               {t("steps")} {currentStep + 1} {t("stepOf")} {totalSteps}
             </p>
           </div>
-          <Link
-            href={`/${locale}/app/live-cooking?id=${encodeURIComponent(recipe.id)}&step=${currentStep}`}
-            onClick={() => stopSpeaking()}
-            className="flex h-9 shrink-0 items-center justify-center gap-1 rounded-full bg-[#A855F7]/12 px-3 text-xs font-bold text-[#A855F7] transition-colors hover:bg-[#A855F7]/20"
+          <button
+            type="button"
+            onClick={() => {
+              stopSpeaking()
+              openAppOnly()
+            }}
+            className="flex h-9 shrink-0 cursor-pointer items-center justify-center gap-1 rounded-full bg-[#A855F7]/12 px-3 text-xs font-bold text-[#A855F7] transition-colors hover:bg-[#A855F7]/20"
           >
             <Mic className="size-4" />
             Live
-          </Link>
+          </button>
           {canSpeak && (
             <button
               type="button"

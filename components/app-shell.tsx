@@ -7,7 +7,7 @@ import { Home, Search, BookOpen, Settings, Globe, CalendarDays, MessageCircleMor
 import { useLocale } from "@/lib/locale-context"
 import { useAppTranslations } from "@/hooks/use-app-translations"
 import type { Locale } from "@/lib/i18n"
-import { AiConsentProvider } from "@/components/ai-consent-provider"
+import { AppOnlyProvider, useAppOnly } from "@/components/app-only"
 import { TimerHost } from "@/components/timer/timer-host"
 
 type NavItem = {
@@ -40,9 +40,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   const navItems = getNavItems(locale)
 
-  // Écrans plein écran (comme les écrans empilés de l'app mobile) : pas de barre
-  // d'onglets en bas ni de bouton TchopAI, pour laisser la place au chat ou à la cuisine.
-  const immersive = /\/app\/(tchop-ai|live-cooking|cooking-mode)(\/|$)/.test(pathname)
+  // Écran plein écran (comme les écrans empilés de l'app mobile) : pas de barre
+  // d'onglets en bas ni de bouton TchopAI, pour laisser la place à la cuisine.
+  const immersive = /\/app\/cooking-mode(\/|$)/.test(pathname)
 
   function isActive(href: string) {
     if (href === `/${locale}/app`) {
@@ -52,7 +52,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <AiConsentProvider>
+    <AppOnlyProvider>
     <div className="flex min-h-dvh bg-background dark:bg-dark">
       {/* Sidebar — desktop */}
       <aside className="fixed top-0 left-0 z-40 hidden h-dvh w-[220px] flex-col border-r border-foreground/5 bg-surface px-4 py-6 dark:border-white/5 dark:bg-dark-surface lg:flex">
@@ -166,17 +166,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
       <TimerHost />
 
-      {/* Bouton TchopAI flottant (comme components/TchopAI.tsx sur mobile) */}
-      {!immersive && (
-        <Link
-          href={`/${locale}/app/tchop-ai`}
-          aria-label="TchopAI"
-          title="TchopAI"
-          className="fixed right-4 bottom-24 z-50 flex size-14 items-center justify-center rounded-full bg-[#A855F7] text-white shadow-lg shadow-[#A855F7]/35 transition-transform hover:scale-105 md:right-6 md:bottom-6"
-        >
-          <MessageCircleMore className="size-7" />
-        </Link>
-      )}
+      {/* Bouton TchopAI flottant (comme components/TchopAI.tsx sur mobile) : TchopAI est dans l'app. */}
+      {!immersive && <TchopAiFab />}
 
       {/* Bottom tabs — mobile */}
       <nav className={`fixed bottom-0 left-0 right-0 z-40 border-t border-foreground/5 bg-surface/90 backdrop-blur-xl dark:border-white/5 dark:bg-dark-surface/90 md:hidden ${immersive ? "hidden" : ""}`}>
@@ -201,6 +192,21 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </div>
       </nav>
     </div>
-    </AiConsentProvider>
+    </AppOnlyProvider>
+  )
+}
+
+function TchopAiFab() {
+  const { openAppOnly } = useAppOnly()
+  return (
+    <button
+      type="button"
+      onClick={openAppOnly}
+      aria-label="TchopAI"
+      title="TchopAI"
+      className="fixed right-4 bottom-24 z-50 flex size-14 cursor-pointer items-center justify-center rounded-full bg-[#A855F7] text-white shadow-lg shadow-[#A855F7]/35 transition-transform hover:scale-105 md:right-6 md:bottom-6"
+    >
+      <MessageCircleMore className="size-7" />
+    </button>
   )
 }

@@ -30,6 +30,7 @@ import { useFavorites } from "@/stores/favorites"
 import { useUserRecipes } from "@/stores/user-recipes"
 import { RecipeImage } from "@/components/recipe-image"
 import { StoreBanner } from "@/components/store-banner"
+import { useAppOnly } from "@/components/app-only"
 import { getRecipeImage } from "@/constants/images"
 import {
   getRecipeVideos,
@@ -45,6 +46,7 @@ const NO_USER_RECIPES: UserRecipe[] = []
 export default function RecipeDetail() {
   const params = useParams()
   const router = useRouter()
+  const { openAppOnly } = useAppOnly()
   const { locale } = useLocale()
   const { t } = useAppTranslations(locale)
   const recipes = useLocalizedRecipes(locale)
@@ -340,11 +342,11 @@ export default function RecipeDetail() {
           </div>
         </div>
 
-        {/* Actions : TchopAI Live et mode cuisine (comme sur mobile) */}
+        {/* Actions : TchopAI Live (dans l'app : components/app-only.tsx) et mode cuisine */}
         <div className="grid gap-3 sm:grid-cols-2">
           <button
             type="button"
-            onClick={() => router.push(`/${locale}/app/live-cooking?id=${encodeURIComponent(recipe.id)}`)}
+            onClick={openAppOnly}
             className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-[20px] border-[1.5px] border-[#A855F7]/20 bg-[#A855F7]/[0.08] py-3.5 text-sm font-bold text-[#A855F7] transition-colors hover:bg-[#A855F7]/[0.12] dark:border-[#A855F7]/30 dark:bg-[#A855F7]/[0.12]"
           >
             <Mic className="size-[18px]" />
