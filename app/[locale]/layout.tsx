@@ -31,8 +31,8 @@ export async function generateMetadata({
     ? "Tchopé — Recettes Camerounaises Authentiques"
     : "Tchopé — Authentic Cameroonian Recipes"
   const description = isFr
-    ? "Tchopé, l'application de recettes camerounaises gratuite et hors ligne : 140+ plats traditionnels (ndolé, eru, poulet DG), filtres par région et cookbook."
-    : "Tchopé, the free offline Cameroonian recipes app: 140+ traditional dishes (ndolé, eru, poulet DG), region filters and a personal cookbook."
+    ? "Cuisinez les saveurs du Cameroun avec Tchopé : recettes traditionnelles, portions ajustables, planning des repas, liste de courses et carnet personnel."
+    : "Cook the flavours of Cameroon with Tchopé: traditional recipes, adjustable servings, meal planning, shopping lists and your personal cookbook."
   const shortDescription = isFr
     ? "La cuisine camerounaise dans ta poche."
     : "Cameroonian cuisine in your pocket."

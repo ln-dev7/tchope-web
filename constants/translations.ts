@@ -1,11 +1,60 @@
 export const translations = {
   fr: {
-    supportMe: "Me soutenir",
-    supportSubtitle: "Soutenir le projet",
+    tchopaiNewChat: "Nouvelle conversation",
+    tchopaiHistory: "Historique des conversations",
+    tchopaiPhoto: "Joindre une photo",
+    tchopaiSend: "Envoyer le message",
+
+    homeEyebrow: "LA CUISINE, EN PARTAGE",
+    homeSelection: "À cuisiner aujourd’hui",
+    searchTitle: "Une envie, une recette.",
+    searchSubtitle: "Trouvez votre prochain plat, à votre façon.",
+    cookbookSubtitle: "Vos favoris, vos créations, vos petits secrets.",
+    plannerSubtitle: "De bonnes idées pour chaque jour.",
+    settingsSubtitle: "Tchopé, à votre goût.",
+    regionSubtitle: "Dix régions. Mille façons de se régaler.",
+    aiEyebrow: "UN COUP DE MAIN EN CUISINE",
+
+    homeHeadline: "On mange quoi aujourd’hui ?",
+    homeSubtitle: "Les saveurs du Cameroun, à votre table.",
+    quickRecipes: "Prêt en moins de 30 min",
+    withIngredients: "Avec mes ingrédients",
+    askAI: "Poser une question à TchopAI",
+    askAISubtitle: "Une technique, une substitution, un conseil.",
+    voiceGuide: "Guidage vocal IA",
+    planRecipe: "Planifier ce repas",
+    addToShopping: "Ajouter aux courses",
+    addedToShopping: "Ingrédients ajoutés aux courses",
+    manualMeal: "Ajouter un repas",
+    mealDate: "Choisissez un jour",
+    mealSlot: "Quel repas ?",
+    chooseRecipe: "Choisissez une recette",
+    breakfastMeal: "Petit-déjeuner",
+    lunchMeal: "Déjeuner",
+    dinnerMeal: "Dîner",
+    mealAdded: "Repas ajouté au planning",
+    removeMeal: "Retirer ce repas",
+    planWithAI: "Ou composez votre semaine avec l’IA",
+    extraShopping: "Recettes ajoutées aux courses",
+    removeShoppingRecipe: "Retirer des courses",
+    shoppingSources: "Planning et recettes ajoutées",
+    shoppingEmptyHint:
+      "Ajoutez les ingrédients depuis une recette ou planifiez un repas.",
+    browseRecipes: "Explorer les recettes",
+    discoverRecipes: "À découvrir",
+    decreaseServings: "Diminuer les portions",
+    increaseServings: "Augmenter les portions",
+    addFavorite: "Ajouter aux favoris",
+    removeFavorite: "Retirer des favoris",
+    favoriteAdded: "Ajouté aux favoris",
+    favoriteRemoved: "Retiré des favoris",
+    back: "Retour",
+    storageError: "Enregistrement impossible. Réessayez.",
+
     // Tabs
     tabHome: "Accueil",
     tabSearch: "Rechercher",
-    tabCookbook: "Cookbook",
+    tabCookbook: "Recettes",
     tabSettings: "Paramètres",
 
     // Home
@@ -61,7 +110,7 @@ export const translations = {
     filter: "Filtrer",
 
     // Cookbook
-    myCookbook: "Mon Cookbook",
+    myCookbook: "Mes recettes",
     savedRecipes: "Recettes Sauvées",
     collections: "Collections",
     addRecipe: "Ajouter une recette",
@@ -128,8 +177,10 @@ export const translations = {
     irreversibleAction: "Action irréversible",
     allCreationsDeleted: "Toutes vos créations ont été supprimées",
     resetAllData: "Réinitialiser toutes les données",
-    resetAllDataDesc: "Supprime tout : thème, langue, favoris, recettes, plans, cache, etc.",
-    resetAllDataConfirm: "Toutes les données de l'application seront supprimées. Cette action est irréversible.",
+    resetAllDataDesc:
+      "Supprime tout : thème, langue, favoris, recettes, plans, cache, etc.",
+    resetAllDataConfirm:
+      "Toutes les données de l'application seront supprimées. Cette action est irréversible.",
     resetAllDataDone: "Toutes les données ont été supprimées",
 
     // Regions
@@ -170,25 +221,36 @@ export const translations = {
     contactMe: "Me contacter",
     contactSubtitle: "Par email ou Telegram",
     privacyPolicy: "Politique de confidentialité",
+    photoCredits: "Crédits photos",
+    photoCreditsIntro:
+      "Les photos des plats sont sous licence libre. Merci à leurs auteurs. Touchez une ligne pour ouvrir la page d'origine.",
 
     // AI Recipes
     aiTitle: "Cuisine avec ce que j'ai",
     aiModeIngredients: "Ingrédients",
     aiModeFree: "Recherche libre",
-    aiDescription: "Ajoutez les ingrédients que vous avez chez vous et trouvez les recettes camerounaises que vous pouvez préparer.",
-    aiFreeDescription: "Décrivez ce que vous cherchez : type de plat, ingrédients, nombre de personnes, difficulté... L'IA trouvera les meilleures recettes pour vous.",
-    aiFreePlaceholder: "Ex : un plat épicé avec du poulet, un dessert facile et rapide...",
-    aiFreeUnavailable: "La recherche libre nécessite une connexion internet. Utilisez le mode ingrédients pour une recherche hors-ligne.",
+    aiDescription:
+      "Ajoutez les ingrédients que vous avez chez vous et trouvez les recettes camerounaises que vous pouvez préparer.",
+    aiFreeDescription:
+      "Décrivez ce que vous cherchez : type de plat, ingrédients, nombre de personnes, difficulté... L'IA trouvera les meilleures recettes pour vous.",
+    aiFreePlaceholder:
+      "Ex : un plat épicé avec du poulet, un dessert facile et rapide...",
+    aiFreeUnavailable:
+      "La recherche libre nécessite une connexion internet. Utilisez le mode ingrédients pour une recherche hors-ligne.",
     aiInputPlaceholder: "Ex: tomate, oignon, poulet...",
     aiYourIngredients: "Vos ingrédients",
     aiSearch: "Trouver des recettes",
     aiSearching: "Recherche en cours...",
     aiResults: "Recettes trouvées",
     aiNoResults: "Aucune recette trouvée",
-    aiNoResultsHint: "Essayez d'ajouter plus d'ingrédients ou des ingrédients différents",
-    aiError: "Erreur lors de la recherche. Vérifiez votre connexion et réessayez.",
-    aiInvalidIngredient: "Cet ingrédient n'est pas reconnu. Vérifiez l'orthographe.",
-    aiFallback: "Recherche locale utilisée (mode hors-ligne). Les résultats peuvent être moins précis.",
+    aiNoResultsHint:
+      "Essayez d'ajouter plus d'ingrédients ou des ingrédients différents",
+    aiError:
+      "Erreur lors de la recherche. Vérifiez votre connexion et réessayez.",
+    aiInvalidIngredient:
+      "Cet ingrédient n'est pas reconnu. Vérifiez l'orthographe.",
+    aiFallback:
+      "Recherche locale utilisée (mode hors-ligne). Les résultats peuvent être moins précis.",
     aiCta: "Qu'est-ce que je peux cuisiner ?",
     aiCtaSubtitle: "Trouvez des recettes avec vos ingrédients",
 
@@ -196,7 +258,8 @@ export const translations = {
     rateApp: "Noter l'application",
     rateAppSubtitle: "Donnez-nous votre avis sur le store",
     rateTitle: "Vous aimez Tchope ?",
-    rateMessage: "Si l'app vous plait, prenez un moment pour la noter. Cela nous aide beaucoup !",
+    rateMessage:
+      "Si l'app vous plait, prenez un moment pour la noter. Cela nous aide beaucoup !",
     rateNow: "Noter maintenant",
     rateLater: "Plus tard",
 
@@ -246,7 +309,8 @@ export const translations = {
     plannerTitle: "Plan de la semaine",
     plannerCta: "Planifier ma semaine",
     plannerCtaSubtitle: "L'IA compose vos repas de la semaine",
-    plannerDescribePlaceholder: "Décrivez vos envies : plats légers, cuisine du Littoral, pas de poisson, invités samedi...",
+    plannerDescribePlaceholder:
+      "Décrivez vos envies : plats légers, cuisine du Littoral, pas de poisson, invités samedi...",
     plannerGenerate: "Générer mon plan",
     plannerGenerating: "Votre plan est en cours de création...",
     plannerLunch: "Déjeuner",
@@ -271,11 +335,13 @@ export const translations = {
     plannerError: "Erreur lors de la génération. Vérifiez votre connexion.",
     plannerNoConnection: "La génération nécessite une connexion internet.",
     plannerAdjust: "Ajuster le plan",
-    plannerAdjustPlaceholder: "Qu'est-ce que vous voulez changer ? Ex: remplacer le poisson du mercredi, ajouter un petit-déj le samedi...",
+    plannerAdjustPlaceholder:
+      "Qu'est-ce que vous voulez changer ? Ex: remplacer le poisson du mercredi, ajouter un petit-déj le samedi...",
     plannerAdjusting: "Ajustement en cours...",
     plannerBreakfast: "Petit-déj",
     plannerEmptyState: "Planifiez vos repas de la semaine",
-    plannerEmptyStateSubtitle: "Décrivez vos envies et l'IA composera vos repas",
+    plannerEmptyStateSubtitle:
+      "Choisissez vos recettes, ou laissez l’IA vous inspirer.",
 
     // Shopping List
     shoppingListTitle: "Liste de courses",
@@ -292,7 +358,7 @@ export const translations = {
     // General
     allRecipes: "Toutes les recettes",
     favorites: "Favoris",
-    myRecipes: "Mes Recettes",
+    myRecipes: "Créations",
     recipes: "Recettes",
 
     // Network
@@ -302,14 +368,18 @@ export const translations = {
     // Notifications
     notifications: "Notifications",
     notificationsSubtitle: "Gérer les alertes et rappels",
-    notifPermissionRequired: "Les notifications sont désactivées. Activez-les dans les réglages de votre téléphone pour recevoir des alertes.",
+    notifPermissionRequired:
+      "Les notifications sont désactivées. Activez-les dans les réglages de votre téléphone pour recevoir des alertes.",
     notifOpenSettings: "Ouvrir les réglages",
     notifMealReminder: "Rappel de repas",
-    notifMealReminderDesc: "Recevez une notification avant chaque repas avec la recette du jour prévue dans votre plan.",
+    notifMealReminderDesc:
+      "Recevez une notification avant chaque repas avec la recette du jour prévue dans votre plan.",
     notifRecipeOfTheDay: "Recette du jour",
-    notifRecipeOfTheDayDesc: "Découvrez une nouvelle recette camerounaise chaque jour.",
+    notifRecipeOfTheDayDesc:
+      "Découvrez une nouvelle recette camerounaise chaque jour.",
     notifShoppingReminder: "Rappel liste de courses",
-    notifShoppingReminderDesc: "Un rappel quand vous avez une liste de courses en attente.",
+    notifShoppingReminderDesc:
+      "Un rappel quand vous avez une liste de courses en attente.",
     notifTime: "Heure",
     notifNoMealPlan: "Créez un plan de repas pour activer cette notification.",
 
@@ -336,18 +406,24 @@ export const translations = {
     onboardingNext: "Suivant",
     onboardingStart: "C'est parti !",
     onboarding1Title: "Bienvenue sur Tchopé",
-    onboarding1Desc: "Explorez plus de 100 recettes authentiques des 10 régions du Cameroun.",
+    onboarding1Desc:
+      "Explorez plus de 100 recettes authentiques des 10 régions du Cameroun.",
     onboarding2Title: "Cuisine pas-à-pas",
-    onboarding2Desc: "Lancez le mode cuisine et laissez-vous guider étape par étape, avec timer et lecture vocale.",
+    onboarding2Desc:
+      "Lancez le mode cuisine et laissez-vous guider étape par étape, avec timer et lecture vocale.",
     onboarding3Title: "Planifiez vos repas",
-    onboarding3Desc: "L'IA génère votre plan de la semaine et votre liste de courses automatiquement.",
+    onboarding3Desc:
+      "L'IA génère votre plan de la semaine et votre liste de courses automatiquement.",
     onboarding4Title: "Votre carnet de recettes",
-    onboarding4Desc: "Sauvegardez vos favoris, créez vos propres recettes et ajustez les portions.",
+    onboarding4Desc:
+      "Sauvegardez vos favoris, créez vos propres recettes et ajustez les portions.",
 
     // Update modal
     updateAvailable: "Mise à jour disponible",
-    updateMessage: "Une nouvelle version de Tchopé est disponible. Mettez à jour pour profiter des dernières fonctionnalités et améliorations.",
-    updateForceMessage: "Cette version de Tchopé n'est plus supportée. Veuillez mettre à jour pour continuer à utiliser l'application.",
+    updateMessage:
+      "Une nouvelle version de Tchopé est disponible. Mettez à jour pour profiter des dernières fonctionnalités et améliorations.",
+    updateForceMessage:
+      "Cette version de Tchopé n'est plus supportée. Veuillez mettre à jour pour continuer à utiliser l'application.",
     updateNow: "Mettre à jour",
     updateLater: "Plus tard",
 
@@ -355,13 +431,18 @@ export const translations = {
     tchopaiTitle: "TchopAI",
     tchopaiSubtitle: "Votre assistant culinaire",
     tchopaiPlaceholder: "Posez-moi une question...",
-    tchopaiWelcome: "Salut ! Je suis TchopAI, votre assistant culinaire camerounais. Posez-moi vos questions sur les recettes, les ingrédients, les techniques de cuisine camerounaise et plus encore !",
+    tchopaiWelcome:
+      "Salut ! Je suis TchopAI, votre assistant culinaire camerounais. Posez-moi vos questions sur les recettes, les ingrédients, les techniques de cuisine camerounaise et plus encore !",
     tchopaiError: "Désolé, une erreur s'est produite. Réessayez.",
-    tchopaiOffline: "Vous êtes hors ligne. TchopAI a besoin d'une connexion internet.",
+    tchopaiOffline:
+      "Vous êtes hors ligne. TchopAI a besoin d'une connexion internet.",
     aiConsentTitle: "Avant d'utiliser TchopAI",
-    aiConsentBody: "TchopAI est un assistant culinaire IA. Pour te répondre, ton message est envoyé à nos serveurs puis à notre prestataire d'IA. Selon ta demande, nous transmettons :",
-    aiConsentData: "Le texte de tes messages\nLe contexte utile de l'app : tes favoris, tes recettes enregistrées, ton plan de repas et tes notes\nLes photos que tu choisis d'envoyer (analyse de plat)",
-    aiConsentProvider: "Ces données sont traitées par Anthropic (Claude), notre prestataire d'IA, aux États-Unis, uniquement pour générer une réponse. Anthropic ne les utilise pas pour entraîner ses modèles et ne les conserve pas. Nous ne les relions pas à ton identité et ne les revendons pas.",
+    aiConsentBody:
+      "TchopAI est un assistant culinaire IA. Pour te répondre, ton message est envoyé à nos serveurs puis à notre prestataire d'IA. Selon ta demande, nous transmettons :",
+    aiConsentData:
+      "Le texte de tes messages\nLe contexte utile de l'app : tes favoris, tes recettes enregistrées, ton plan de repas et tes notes\nLes photos que tu choisis d'envoyer (analyse de plat)",
+    aiConsentProvider:
+      "Ces données sont traitées par Anthropic (Claude), notre prestataire d'IA, aux États-Unis, uniquement pour générer une réponse. Anthropic ne les utilise pas pour entraîner ses modèles et ne les conserve pas. Nous ne les relions pas à ton identité et ne les revendons pas.",
     aiConsentPrivacy: "Lire la politique de confidentialité",
     aiConsentAgree: "J'accepte et je continue",
     addToCookbook: "Ajouter au Cookbook",
@@ -394,24 +475,35 @@ export const translations = {
     liveCookingOffline: "TchopAI Live nécessite une connexion internet",
     liveCameraMode: "Mode caméra",
     audioOnlyMode: "Mode audio",
-    cameraCaptureHint: "L'image est capturée automatiquement quand vous relâchez le micro",
+    cameraCaptureHint:
+      "L'image est capturée automatiquement quand vous relâchez le micro",
     imageQuota: "photos restantes aujourd'hui",
-    imageQuotaReached: "Limite journalière de photos atteinte. Le compteur se réinitialise demain. Le mode vocal continue de fonctionner.",
+    imageQuotaReached:
+      "Limite journalière de photos atteinte. Le compteur se réinitialise demain. Le mode vocal continue de fonctionner.",
     flipCamera: "Retourner la caméra",
-    cameraPermissionNeeded: "La permission caméra est nécessaire pour le mode Live Camera",
+    cameraPermissionNeeded:
+      "La permission caméra est nécessaire pour le mode Live Camera",
     switchToAudioMode: "Passer en mode audio",
-    errorNetwork: "Impossible de contacter le serveur. Vérifie ta connexion internet et réessaie.",
-    errorServerBusy: "Le serveur est surchargé. Réessaie dans quelques secondes.",
-    errorServerUnavailable: "Le serveur est temporairement indisponible. Réessaie plus tard.",
+    errorNetwork:
+      "Impossible de contacter le serveur. Vérifie ta connexion internet et réessaie.",
+    errorServerBusy:
+      "Le serveur est surchargé. Réessaie dans quelques secondes.",
+    errorServerUnavailable:
+      "Le serveur est temporairement indisponible. Réessaie plus tard.",
     errorAIResponse: "TchopAI n'a pas pu répondre. Réessaie ta question.",
-    errorPhotoCapture: "La capture photo a échoué. Ton message a été envoyé sans photo.",
-    errorPhotoPermission: "L'accès à la caméra a été refusé. Active-le dans les réglages pour envoyer des photos.",
-    errorGalleryPermission: "L'accès à la galerie a été refusé. Active-le dans les réglages pour choisir des photos.",
-    errorPhotoLoad: "Impossible de charger la photo. Réessaie avec une autre image.",
+    errorPhotoCapture:
+      "La capture photo a échoué. Ton message a été envoyé sans photo.",
+    errorPhotoPermission:
+      "L'accès à la caméra a été refusé. Active-le dans les réglages pour envoyer des photos.",
+    errorGalleryPermission:
+      "L'accès à la galerie a été refusé. Active-le dans les réglages pour choisir des photos.",
+    errorPhotoLoad:
+      "Impossible de charger la photo. Réessaie avec une autre image.",
 
     // Pubs récompensées (déblocage des fonctionnalités IA)
     liveExplainTitle: "TchopAI Live",
-    liveExplainDesc: "Parlez avec l'IA en temps réel pendant que vous cuisinez. L'IA écoute vos questions, comprend et répond vocalement.",
+    liveExplainDesc:
+      "Parlez avec l'IA en temps réel pendant que vous cuisinez. L'IA écoute vos questions, comprend et répond vocalement.",
     liveExplainFeature1: "Guidage vocal étape par étape",
     liveExplainFeature2: "Prenez une photo et demandez un avis",
     liveExplainFeature3: "Conseils et astuces en temps réel",
@@ -444,20 +536,72 @@ export const translations = {
     // What's new modal
     whatsNewLabel: "Nouveauté",
     whatsNewTitle: "Tes Notes sont arrivées",
-    whatsNewDescription: "Garde tes idées, astuces et pense-bêtes à portée de main, directement dans Tchopé.",
+    whatsNewDescription:
+      "Garde tes idées, astuces et pense-bêtes à portée de main, directement dans Tchopé.",
     whatsNewFeature1Title: "Crée tes notes en un instant",
-    whatsNewFeature1Desc: "Titres, sous-titres, puces, listes numérotées et cases à cocher.",
+    whatsNewFeature1Desc:
+      "Titres, sous-titres, puces, listes numérotées et cases à cocher.",
     whatsNewFeature2Title: "Retrouve-les facilement",
-    whatsNewFeature2Desc: "Toutes tes notes sont rangées dans le Cookbook, triées par dernière modification.",
+    whatsNewFeature2Desc:
+      "Toutes tes notes sont rangées dans le Cookbook, triées par dernière modification.",
     whatsNewFeature3Title: "TchopAI les connaît",
-    whatsNewFeature3Desc: "Demande à TchopAI de créer ou de retrouver une note pour toi.",
+    whatsNewFeature3Desc:
+      "Demande à TchopAI de créer ou de retrouver une note pour toi.",
     whatsNewCta: "Découvrir mes notes",
     whatsNewLater: "Plus tard",
   },
 
   en: {
-    supportMe: "Support Me",
-    supportSubtitle: "Support the project",
+    tchopaiNewChat: "New conversation",
+    tchopaiHistory: "Conversation history",
+    tchopaiPhoto: "Attach a photo",
+    tchopaiSend: "Send message",
+
+    homeEyebrow: "GOOD FOOD, SHARED",
+    homeSelection: "On the menu today",
+    searchTitle: "Find your next favourite.",
+    searchSubtitle: "Discover a dish that fits your mood.",
+    cookbookSubtitle: "Your favourites, your recipes, your kitchen secrets.",
+    plannerSubtitle: "Good ideas for every day.",
+    settingsSubtitle: "Make Tchopé your own.",
+    regionSubtitle: "Ten regions. A world of flavour.",
+    aiEyebrow: "A HELPING HAND IN THE KITCHEN",
+
+    homeHeadline: "What’s cooking today?",
+    homeSubtitle: "Bring the flavours of Cameroon to your table.",
+    quickRecipes: "Ready in under 30 min",
+    withIngredients: "Use my ingredients",
+    askAI: "Ask TchopAI a question",
+    askAISubtitle: "Techniques, substitutions and cooking advice.",
+    voiceGuide: "AI voice guidance",
+    planRecipe: "Plan this meal",
+    addToShopping: "Add to shopping list",
+    addedToShopping: "Ingredients added to your shopping list",
+    manualMeal: "Add a meal",
+    mealDate: "Choose a day",
+    mealSlot: "Which meal?",
+    chooseRecipe: "Choose a recipe",
+    breakfastMeal: "Breakfast",
+    lunchMeal: "Lunch",
+    dinnerMeal: "Dinner",
+    mealAdded: "Meal added to your plan",
+    removeMeal: "Remove this meal",
+    planWithAI: "Or let AI help plan your week",
+    extraShopping: "Recipes added to your shopping list",
+    removeShoppingRecipe: "Remove from shopping list",
+    shoppingSources: "Your meal plan and added recipes",
+    shoppingEmptyHint: "Add ingredients from a recipe or plan a meal.",
+    browseRecipes: "Explore recipes",
+    discoverRecipes: "Discover",
+    decreaseServings: "Decrease servings",
+    increaseServings: "Increase servings",
+    addFavorite: "Add to favourites",
+    removeFavorite: "Remove from favourites",
+    favoriteAdded: "Added to favourites",
+    favoriteRemoved: "Removed from favourites",
+    back: "Back",
+    storageError: "Could not save. Please try again.",
+
     // Tabs
     tabHome: "Home",
     tabSearch: "Search",
@@ -582,8 +726,10 @@ export const translations = {
     irreversibleAction: "Irreversible Action",
     allCreationsDeleted: "All your creations have been deleted",
     resetAllData: "Reset all data",
-    resetAllDataDesc: "Deletes everything: theme, language, favorites, recipes, plans, cache, etc.",
-    resetAllDataConfirm: "All app data will be deleted. This action cannot be undone.",
+    resetAllDataDesc:
+      "Deletes everything: theme, language, favorites, recipes, plans, cache, etc.",
+    resetAllDataConfirm:
+      "All app data will be deleted. This action cannot be undone.",
     resetAllDataDone: "All data has been deleted",
 
     // Regions
@@ -624,15 +770,21 @@ export const translations = {
     contactMe: "Contact Me",
     contactSubtitle: "By email or Telegram",
     privacyPolicy: "Privacy Policy",
+    photoCredits: "Photo credits",
+    photoCreditsIntro:
+      "The dish photos are under free licences. Thanks to their authors. Tap a line to open the original page.",
 
     // AI Recipes
     aiTitle: "Cook with what I have",
     aiModeIngredients: "Ingredients",
     aiModeFree: "Free search",
-    aiDescription: "Add the ingredients you have at home and find the Cameroonian recipes you can make.",
-    aiFreeDescription: "Describe what you're looking for: type of dish, ingredients, servings, difficulty... AI will find the best recipes for you.",
+    aiDescription:
+      "Add the ingredients you have at home and find the Cameroonian recipes you can make.",
+    aiFreeDescription:
+      "Describe what you're looking for: type of dish, ingredients, servings, difficulty... AI will find the best recipes for you.",
     aiFreePlaceholder: "E.g: a spicy chicken dish, a quick and easy dessert...",
-    aiFreeUnavailable: "Free search requires an internet connection. Use ingredients mode for offline search.",
+    aiFreeUnavailable:
+      "Free search requires an internet connection. Use ingredients mode for offline search.",
     aiInputPlaceholder: "E.g: tomato, onion, chicken...",
     aiYourIngredients: "Your ingredients",
     aiSearch: "Find recipes",
@@ -641,8 +793,10 @@ export const translations = {
     aiNoResults: "No recipes found",
     aiNoResultsHint: "Try adding more or different ingredients",
     aiError: "Search error. Check your connection and try again.",
-    aiInvalidIngredient: "This ingredient is not recognized. Check your spelling.",
-    aiFallback: "Local search used (offline mode). Results may be less precise.",
+    aiInvalidIngredient:
+      "This ingredient is not recognized. Check your spelling.",
+    aiFallback:
+      "Local search used (offline mode). Results may be less precise.",
     aiCta: "What can I cook?",
     aiCtaSubtitle: "Find recipes with your ingredients",
 
@@ -650,7 +804,8 @@ export const translations = {
     rateApp: "Rate the App",
     rateAppSubtitle: "Give us your feedback on the store",
     rateTitle: "Enjoying Tchope?",
-    rateMessage: "If you like the app, take a moment to rate it. It helps us a lot!",
+    rateMessage:
+      "If you like the app, take a moment to rate it. It helps us a lot!",
     rateNow: "Rate Now",
     rateLater: "Later",
 
@@ -700,7 +855,8 @@ export const translations = {
     plannerTitle: "Weekly Plan",
     plannerCta: "Plan my week",
     plannerCtaSubtitle: "AI composes your meals for the week",
-    plannerDescribePlaceholder: "Describe your preferences: light meals, Littoral cuisine, no fish, guests on Saturday...",
+    plannerDescribePlaceholder:
+      "Describe your preferences: light meals, Littoral cuisine, no fish, guests on Saturday...",
     plannerGenerate: "Generate my plan",
     plannerGenerating: "Creating your plan...",
     plannerLunch: "Lunch",
@@ -725,11 +881,12 @@ export const translations = {
     plannerError: "Generation error. Check your connection.",
     plannerNoConnection: "Generation requires an internet connection.",
     plannerAdjust: "Adjust plan",
-    plannerAdjustPlaceholder: "What would you like to change? E.g: replace Wednesday's fish, add breakfast on Saturday...",
+    plannerAdjustPlaceholder:
+      "What would you like to change? E.g: replace Wednesday's fish, add breakfast on Saturday...",
     plannerAdjusting: "Adjusting...",
     plannerBreakfast: "Breakfast",
     plannerEmptyState: "Plan your weekly meals",
-    plannerEmptyStateSubtitle: "Describe your preferences and AI will compose your meals",
+    plannerEmptyStateSubtitle: "Choose your recipes, or let AI inspire you.",
 
     // Shopping List
     shoppingListTitle: "Shopping List",
@@ -746,7 +903,7 @@ export const translations = {
     // General
     allRecipes: "All Recipes",
     favorites: "Favorites",
-    myRecipes: "My Recipes",
+    myRecipes: "My creations",
     recipes: "Recipes",
 
     // Network
@@ -756,14 +913,17 @@ export const translations = {
     // Notifications
     notifications: "Notifications",
     notificationsSubtitle: "Manage alerts and reminders",
-    notifPermissionRequired: "Notifications are disabled. Enable them in your phone settings to receive alerts.",
+    notifPermissionRequired:
+      "Notifications are disabled. Enable them in your phone settings to receive alerts.",
     notifOpenSettings: "Open settings",
     notifMealReminder: "Meal reminder",
-    notifMealReminderDesc: "Get notified before each meal with the recipe from your meal plan.",
+    notifMealReminderDesc:
+      "Get notified before each meal with the recipe from your meal plan.",
     notifRecipeOfTheDay: "Recipe of the day",
     notifRecipeOfTheDayDesc: "Discover a new Cameroonian recipe every day.",
     notifShoppingReminder: "Shopping list reminder",
-    notifShoppingReminderDesc: "A reminder when you have a pending shopping list.",
+    notifShoppingReminderDesc:
+      "A reminder when you have a pending shopping list.",
     notifTime: "Time",
     notifNoMealPlan: "Create a meal plan to enable this notification.",
 
@@ -790,18 +950,24 @@ export const translations = {
     onboardingNext: "Next",
     onboardingStart: "Let's go!",
     onboarding1Title: "Welcome to Tchopé",
-    onboarding1Desc: "Explore over 100 authentic recipes from all 10 regions of Cameroon.",
+    onboarding1Desc:
+      "Explore over 100 authentic recipes from all 10 regions of Cameroon.",
     onboarding2Title: "Step-by-step cooking",
-    onboarding2Desc: "Launch cooking mode and let yourself be guided step by step, with timer and voice reading.",
+    onboarding2Desc:
+      "Launch cooking mode and let yourself be guided step by step, with timer and voice reading.",
     onboarding3Title: "Plan your meals",
-    onboarding3Desc: "AI generates your weekly meal plan and shopping list automatically.",
+    onboarding3Desc:
+      "AI generates your weekly meal plan and shopping list automatically.",
     onboarding4Title: "Your recipe book",
-    onboarding4Desc: "Save favorites, create your own recipes and adjust portions.",
+    onboarding4Desc:
+      "Save favorites, create your own recipes and adjust portions.",
 
     // Update modal
     updateAvailable: "Update Available",
-    updateMessage: "A new version of Tchopé is available. Update now to enjoy the latest features and improvements.",
-    updateForceMessage: "This version of Tchopé is no longer supported. Please update to continue using the app.",
+    updateMessage:
+      "A new version of Tchopé is available. Update now to enjoy the latest features and improvements.",
+    updateForceMessage:
+      "This version of Tchopé is no longer supported. Please update to continue using the app.",
     updateNow: "Update",
     updateLater: "Later",
 
@@ -809,13 +975,17 @@ export const translations = {
     tchopaiTitle: "TchopAI",
     tchopaiSubtitle: "Your Cameroonian cooking assistant",
     tchopaiPlaceholder: "Ask me a question...",
-    tchopaiWelcome: "Hi! I'm TchopAI, your Cameroonian cooking assistant. Ask me anything about recipes, ingredients, cooking techniques and more!",
+    tchopaiWelcome:
+      "Hi! I'm TchopAI, your Cameroonian cooking assistant. Ask me anything about recipes, ingredients, cooking techniques and more!",
     tchopaiError: "Sorry, an error occurred. Please try again.",
     tchopaiOffline: "You're offline. TchopAI needs an internet connection.",
     aiConsentTitle: "Before using TchopAI",
-    aiConsentBody: "TchopAI is an AI cooking assistant. To answer you, your message is sent to our servers and then to our AI provider. Depending on your request, we send:",
-    aiConsentData: "The text of your messages\nRelevant app context: your favorites, saved recipes, meal plan and notes\nThe photos you choose to send (dish analysis)",
-    aiConsentProvider: "This data is processed by Anthropic (Claude), our AI provider, in the United States, solely to generate a reply. Anthropic does not use it to train its models and does not retain it. We do not link it to your identity and do not sell it.",
+    aiConsentBody:
+      "TchopAI is an AI cooking assistant. To answer you, your message is sent to our servers and then to our AI provider. Depending on your request, we send:",
+    aiConsentData:
+      "The text of your messages\nRelevant app context: your favorites, saved recipes, meal plan and notes\nThe photos you choose to send (dish analysis)",
+    aiConsentProvider:
+      "This data is processed by Anthropic (Claude), our AI provider, in the United States, solely to generate a reply. Anthropic does not use it to train its models and does not retain it. We do not link it to your identity and do not sell it.",
     aiConsentPrivacy: "Read the privacy policy",
     aiConsentAgree: "I agree and continue",
     addToCookbook: "Add to Cookbook",
@@ -849,23 +1019,32 @@ export const translations = {
     liveCookingOffline: "TchopAI Live requires an internet connection",
     liveCameraMode: "Camera mode",
     audioOnlyMode: "Audio mode",
-    cameraCaptureHint: "The image is captured automatically when you release the mic",
+    cameraCaptureHint:
+      "The image is captured automatically when you release the mic",
     imageQuota: "photos remaining today",
-    imageQuotaReached: "Daily photo limit reached. The counter resets tomorrow. Voice mode continues to work.",
+    imageQuotaReached:
+      "Daily photo limit reached. The counter resets tomorrow. Voice mode continues to work.",
     flipCamera: "Flip camera",
-    cameraPermissionNeeded: "Camera permission is required for Live Camera mode",
+    cameraPermissionNeeded:
+      "Camera permission is required for Live Camera mode",
     switchToAudioMode: "Switch to audio mode",
-    errorNetwork: "Unable to reach the server. Check your internet connection and try again.",
+    errorNetwork:
+      "Unable to reach the server. Check your internet connection and try again.",
     errorServerBusy: "The server is overloaded. Try again in a few seconds.",
-    errorServerUnavailable: "The server is temporarily unavailable. Try again later.",
+    errorServerUnavailable:
+      "The server is temporarily unavailable. Try again later.",
     errorAIResponse: "TchopAI couldn't respond. Try asking again.",
-    errorPhotoCapture: "Photo capture failed. Your message was sent without a photo.",
-    errorPhotoPermission: "Camera access was denied. Enable it in Settings to send photos.",
-    errorGalleryPermission: "Gallery access was denied. Enable it in Settings to choose photos.",
+    errorPhotoCapture:
+      "Photo capture failed. Your message was sent without a photo.",
+    errorPhotoPermission:
+      "Camera access was denied. Enable it in Settings to send photos.",
+    errorGalleryPermission:
+      "Gallery access was denied. Enable it in Settings to choose photos.",
     errorPhotoLoad: "Unable to load the photo. Try again with another image.",
 
     liveExplainTitle: "TchopAI Live",
-    liveExplainDesc: "Talk to the AI in real-time while you cook. The AI listens to your questions, understands and responds vocally.",
+    liveExplainDesc:
+      "Talk to the AI in real-time while you cook. The AI listens to your questions, understands and responds vocally.",
     liveExplainFeature1: "Voice-guided step by step",
     liveExplainFeature2: "Take a photo and ask for feedback",
     liveExplainFeature3: "Real-time tips and advice",
@@ -898,16 +1077,19 @@ export const translations = {
     // What's new modal
     whatsNewLabel: "What's new",
     whatsNewTitle: "Your Notes are here",
-    whatsNewDescription: "Keep your ideas, tips and reminders at hand, right inside Tchopé.",
+    whatsNewDescription:
+      "Keep your ideas, tips and reminders at hand, right inside Tchopé.",
     whatsNewFeature1Title: "Create notes in a snap",
-    whatsNewFeature1Desc: "Headings, subheadings, bullets, numbered lists and checkboxes.",
+    whatsNewFeature1Desc:
+      "Headings, subheadings, bullets, numbered lists and checkboxes.",
     whatsNewFeature2Title: "Find them easily",
-    whatsNewFeature2Desc: "All your notes live in your Cookbook, sorted by last update.",
+    whatsNewFeature2Desc:
+      "All your notes live in your Cookbook, sorted by last update.",
     whatsNewFeature3Title: "TchopAI knows them",
     whatsNewFeature3Desc: "Ask TchopAI to create or find a note for you.",
     whatsNewCta: "Discover my notes",
     whatsNewLater: "Later",
   },
-} as const;
+} as const
 
-export type TranslationKey = keyof typeof translations.fr;
+export type TranslationKey = keyof typeof translations.fr

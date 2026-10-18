@@ -7,25 +7,25 @@
 @theme inline {
   --font-sans: var(--font-sans);
 
-  --color-primary: #E8762A;
-  --color-primary-dark: #C9601A;
-  --color-primary-foreground: #FFFFFF;
-  --color-secondary: #2D5A27;
-  --color-secondary-foreground: #FFFFFF;
-  --color-background: #FFF8F0;
-  --color-surface: #FFFFFF;
-  --color-foreground: #1A1A1A;
-  --color-muted: #6B7280;
-  --color-tags: #FFF0E6;
-  --color-dark: #111111;
-  --color-dark-surface: #1A1A1A;
-  --color-dark-muted: #9CA3AF;
+  --color-primary: var(--tchope-primary);
+  --color-primary-dark: var(--tchope-primary-hover);
+  --color-primary-foreground: var(--tchope-on-primary);
+  --color-secondary: var(--tchope-secondary);
+  --color-secondary-foreground: var(--tchope-on-secondary);
+  --color-background: #faf8f4;
+  --color-surface: #ffffff;
+  --color-foreground: #29241f;
+  --color-muted: #70675d;
+  --color-tags: #f7e7de;
+  --color-dark: #191713;
+  --color-dark-surface: #2d2923;
+  --color-dark-muted: #c8bfb2;
 
-  --color-border: #e5e5e5;
+  --color-border: var(--tchope-border);
   --color-input: #e5e5e5;
-  --color-ring: #E8762A;
-  --color-accent: #FFF0E6;
-  --color-accent-foreground: #1A1A1A;
+  --color-ring: #a84027;
+  --color-accent: #f7e7de;
+  --color-accent-foreground: #1a1a1a;
   --color-destructive: #ef4444;
 
   --radius-sm: 0.375rem;
@@ -35,6 +35,15 @@
   --radius-2xl: 1rem;
   --radius-3xl: 1.25rem;
   --radius-4xl: 1.5rem;
+}
+
+:root {
+  --tchope-primary: #a84027;
+  --tchope-primary-hover: #86321f;
+  --tchope-on-primary: #fff;
+  --tchope-secondary: #41634b;
+  --tchope-on-secondary: #fff;
+  --tchope-border: #e4ddd3;
 }
 
 @layer base {
@@ -61,4 +70,1002 @@
 }
 .masonry-grid_column > div {
   margin-bottom: 1.25rem;
+}
+
+/* Tchopé website: editorial journey, warm colours, authentic app imagery. */
+.brand-site {
+  --brand-cream: #f6efe4;
+  --brand-ink: #2c241e;
+  --brand-green: #273e30;
+  color: var(--brand-ink);
+  background: var(--brand-cream);
+}
+.brand-container {
+  width: min(1240px, 100% - 64px);
+  margin-inline: auto;
+}
+.brand-site h1,
+.brand-site h2,
+.brand-site h3,
+.brand-logo,
+.brand-wordmark {
+  font-family: var(--font-display), sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+.brand-site h1 {
+  font-size: clamp(52px, 6.4vw, 92px);
+  line-height: 0.98;
+}
+.brand-site h2 {
+  font-size: clamp(36px, 4.8vw, 64px);
+  line-height: 1.02;
+}
+.brand-site h3 {
+  font-size: clamp(28px, 3vw, 42px);
+  line-height: 1.08;
+}
+.brand-site em {
+  font-style: normal;
+  color: #a84027;
+}
+.brand-eyebrow {
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 0.15em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 22px;
+  line-height: 1.7;
+}
+.brand-lead {
+  font-size: 18px;
+  line-height: 1.75;
+  max-width: 520px;
+}
+.brand-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: #a84027;
+  color: white;
+  padding: 14px 23px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 14px;
+  box-shadow: 0 4px 0 #773520;
+  transition: background 0.15s;
+}
+.brand-button:hover {
+  background: #87341f;
+}
+.brand-site :focus-visible,
+.brand-header :focus-visible {
+  outline: 3px solid #a84027;
+  outline-offset: 5px;
+}
+.brand-skip {
+  position: absolute;
+  left: 20px;
+  top: -100px;
+  background: #fff;
+  padding: 12px;
+}
+.brand-skip:focus {
+  top: 12px;
+  z-index: 100;
+}
+.brand-header {
+  background: #f6efe4;
+  color: #2c241e;
+  position: relative;
+  z-index: 40;
+  border-bottom: 1px solid #2c241e12;
+}
+.brand-nav-wrap {
+  width: min(1240px, 100% - 64px);
+  margin: auto;
+  min-height: 94px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 30px;
+}
+.brand-logo img {
+  border-radius: 11px;
+}
+.brand-desktop-nav {
+  display: flex;
+  gap: 30px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.brand-desktop-nav a:hover {
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}
+.brand-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.brand-language {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  font-size: 13px;
+  font-weight: 700;
+}
+.brand-menu-toggle {
+  display: none;
+}
+.brand-mobile-menu {
+  display: none;
+}
+.brand-hero {
+  background: linear-gradient(#f6efe4, #f3e8d7);
+}
+.brand-hero-grid {
+  display: grid;
+  grid-template-columns: 1.08fr 1fr;
+  gap: 45px;
+  align-items: center;
+  padding-block: 74px 64px;
+}
+.brand-hero-copy > .brand-lead {
+  margin-block: 25px 30px;
+}
+.brand-platform-note {
+  font-size: 11px;
+  margin-top: 12px;
+  opacity: 0.65;
+}
+.brand-text-link {
+  display: inline-flex;
+  gap: 12px;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 700;
+  margin-top: 32px;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+.brand-hero-art {
+  position: relative;
+  height: 620px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  isolation: isolate;
+}
+.brand-hero-art:before {
+  content: "";
+  position: absolute;
+  inset: 14% -5% 6%;
+  border-radius: 48% 52% 42% 50%;
+  background: #dfc3a0;
+  z-index: -1;
+}
+.brand-poster {
+  display: block;
+  border: 1px solid #6b462420;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #f5eee7;
+  box-shadow: 0 16px 30px #3624111c;
+  cursor: zoom-in;
+  width: 100%;
+  transition: box-shadow 0.2s;
+}
+.brand-poster:hover {
+  box-shadow: 0 20px 40px #36241130;
+}
+.brand-poster img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.brand-hero-art .poster-home {
+  width: 263px;
+  transform: rotate(-7deg);
+  z-index: 2;
+}
+.brand-hero-art .poster-recipe {
+  width: 232px;
+  margin-left: -35px;
+  transform: rotate(8deg) translateY(32px);
+}
+.brand-seal {
+  position: absolute;
+  z-index: 3;
+  right: -10px;
+  top: 5px;
+  width: 112px;
+  height: 112px;
+  background: #41634b;
+  color: #fff6e9;
+  border-radius: 50%;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 750;
+  line-height: 1.2;
+  transform: rotate(9deg);
+  border: 5px double #bdc5a7;
+}
+.brand-facts {
+  display: flex;
+  gap: 24px;
+  justify-content: space-between;
+  padding-block: 28px;
+  border-top: 1px solid #2c241e25;
+  flex-wrap: wrap;
+}
+.brand-facts span {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 12px;
+}
+.brand-facts strong {
+  font: 800 30px var(--font-display);
+}
+.brand-journey {
+  background: #f3e8d7;
+  padding-block: 110px;
+}
+.brand-section-heading {
+  max-width: 690px;
+  margin-bottom: 65px;
+}
+.brand-section-heading > p:last-child {
+  font-size: 17px;
+  line-height: 1.75;
+  max-width: 600px;
+  margin-top: 22px;
+}
+.brand-steps {
+  position: relative;
+  display: grid;
+  gap: 100px;
+}
+.brand-steps:before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 120px;
+  bottom: 120px;
+  border-left: 2px dashed #b8855e70;
+}
+.brand-step {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 130px;
+  align-items: center;
+}
+.brand-step-visual {
+  background: #e0c8a9;
+  max-width: 465px;
+  border-radius: 240px 240px 38px 38px;
+  padding: 32px 54px 0;
+  overflow: hidden;
+  height: 510px;
+  justify-self: center;
+  width: 100%;
+}
+.brand-step-visual .brand-poster {
+  max-width: 300px;
+  margin: auto;
+  transform: rotate(-4deg);
+}
+.brand-step-copy {
+  max-width: 460px;
+}
+.brand-step-copy p {
+  margin-top: 20px;
+  line-height: 1.8;
+  font-size: 17px;
+}
+.brand-step-number {
+  font: 800 20px var(--font-display);
+  color: #a84027;
+  display: block;
+  margin-bottom: 25px;
+}
+.brand-step.is-reversed .brand-step-visual {
+  grid-column: 2;
+  grid-row: 1;
+  background: #c7d0bb;
+}
+.brand-step.is-reversed .brand-step-copy {
+  grid-column: 1;
+  grid-row: 1;
+}
+.brand-step.is-reversed .brand-poster {
+  transform: rotate(4deg);
+}
+.brand-regions {
+  background: #e5cc9f;
+  padding: 100px 0 80px;
+  border-radius: 50% 50% 0 0 / 35px 35px 0 0;
+  margin-top: -35px;
+  position: relative;
+}
+.brand-food-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+}
+.brand-food-card > div {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 50% 50% 18px 18px;
+}
+.brand-food-card > span {
+  display: block;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin: 17px 0 7px;
+}
+.brand-food-card h3 {
+  font-size: 23px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.brand-region-names {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 13px 24px;
+  border-top: 1px solid #2c241e30;
+  margin-top: 50px;
+  padding-top: 25px;
+  font-size: 12px;
+}
+.brand-week {
+  background: #e5cc9f;
+  padding: 60px 0 110px;
+}
+.brand-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 90px;
+}
+.brand-split .brand-lead {
+  margin-top: 25px;
+}
+.brand-week ul {
+  display: grid;
+  gap: 16px;
+  margin-top: 30px;
+  font-size: 14px;
+}
+.brand-week li {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.brand-week li svg {
+  color: #41634b;
+  flex-shrink: 0;
+}
+.brand-poster-pair {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+.brand-poster-pair .brand-poster {
+  width: calc(50% - 9px);
+}
+.brand-poster-pair .brand-poster:last-child {
+  margin-top: 85px;
+}
+.brand-personal {
+  padding: 110px 0;
+  background: #d6dfcc;
+}
+.brand-personal-visual {
+  background: #b7c4a8;
+  border-radius: 250px 250px 32px 32px;
+  height: 565px;
+  overflow: hidden;
+  padding: 40px 65px 0;
+}
+.brand-personal-visual .brand-poster {
+  max-width: 320px;
+  margin: auto;
+  transform: rotate(-4deg);
+}
+.brand-small-facts {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+.brand-small-facts span {
+  border: 1px solid #273e3035;
+  padding: 8px 13px;
+  border-radius: 6px;
+  font-size: 12px;
+}
+.brand-ai {
+  background: #a84027;
+  color: #fff4e8;
+  padding: 100px 0;
+}
+.brand-ai .brand-button {
+  background: #fff1d8;
+  color: #642d20;
+  box-shadow: 0 4px 0 #792c1c;
+  margin-top: 28px;
+}
+.brand-ai-visual {
+  height: 535px;
+  overflow: hidden;
+  background: #c56a4e;
+  border-radius: 50% 50% 24px 24px;
+  padding: 36px 72px 0;
+}
+.brand-ai-visual .brand-poster {
+  max-width: 300px;
+  margin: auto;
+  transform: rotate(5deg);
+}
+.brand-fine-print {
+  font-size: 12px;
+  line-height: 1.65;
+  max-width: 430px;
+  margin-top: 20px;
+  opacity: 0.85;
+}
+.brand-faq {
+  background: #f6efe4;
+  padding: 100px 0;
+}
+.brand-faq-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 95px;
+}
+.brand-faq details {
+  border-bottom: 1px solid #2c241e30;
+  padding: 24px 0;
+}
+.brand-faq details:first-child {
+  padding-top: 0;
+}
+.brand-faq summary {
+  font-size: 18px;
+  font-weight: 650;
+  list-style: none;
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+.brand-faq summary::-webkit-details-marker {
+  display: none;
+}
+.brand-faq summary svg {
+  flex-shrink: 0;
+}
+.brand-faq details[open] svg {
+  transform: rotate(45deg);
+}
+.brand-faq details p {
+  font-size: 15px;
+  line-height: 1.8;
+  margin-top: 18px;
+  max-width: 560px;
+  color: #625447;
+}
+.brand-footer {
+  background: #273e30;
+  color: #fff6e9;
+  padding-top: 76px;
+}
+.brand-footer-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 50px;
+}
+.brand-footer h2 {
+  font-size: clamp(44px, 5vw, 72px);
+  line-height: 1.1;
+}
+.brand-footer p:not(.brand-eyebrow) {
+  margin-block: 18px 24px;
+  color: #d2dacb;
+}
+.brand-footer nav {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+  padding-top: 16px;
+  font-size: 13px;
+}
+.brand-footer nav a {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+.brand-footer nav a:hover {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+.brand-wordmark {
+  font-size: clamp(100px, 22vw, 310px);
+  line-height: 0.95;
+  letter-spacing: -0.07em;
+  margin: 70px 0 35px;
+  opacity: 0.18;
+}
+.brand-footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  border-top: 1px solid #ffffff25;
+  padding-block: 24px;
+  font-size: 11px;
+  color: #d2dacb;
+}
+.brand-download {
+  padding: 70px 0 100px;
+  background: linear-gradient(#f6efe4, #e5cc9f);
+}
+.brand-download-heading {
+  max-width: 760px;
+  margin-bottom: 60px;
+}
+.brand-download-heading p:last-child {
+  margin-top: 25px;
+  font-size: 18px;
+  line-height: 1.75;
+  max-width: 600px;
+}
+.brand-download-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 70px;
+  align-items: center;
+}
+.brand-download-image {
+  max-width: 330px;
+  margin: auto;
+  transform: rotate(-5deg);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px #36241120;
+}
+.brand-download-stores {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.brand-download-extras {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 35px;
+  border-top: 1px solid #2c241e30;
+  padding-top: 40px;
+  margin-top: 80px;
+}
+.brand-download-extras h2 {
+  font-size: 25px;
+  margin: 15px 0;
+}
+.brand-download-extras p {
+  font-size: 14px;
+  line-height: 1.8;
+}
+.brand-web-link {
+  display: block;
+  text-align: center;
+  margin-top: 30px;
+  font-size: 12px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.brand-legal {
+  background: linear-gradient(#eee3d0, #faf8f4 650px);
+  padding: 70px 0 100px;
+}
+.brand-legal > div {
+  max-width: 850px;
+}
+.brand-legal h1 {
+  font-size: clamp(44px, 6vw, 76px);
+}
+.brand-legal section {
+  border-top: 1px solid #2c241e20;
+  padding-top: 24px;
+}
+.brand-legal section h2 {
+  font-size: 28px;
+}
+.brand-legal section p,
+.brand-legal section li {
+  font-size: 15px;
+  line-height: 1.8;
+}
+.brand-legal section > div {
+  color: #625b52;
+}
+/* Shared web-app presentation; routes, stores and handlers stay unchanged. */
+.tchope-app {
+  --tchope-primary: #a84027;
+  --tchope-border: #e4ddd3;
+}
+.dark .tchope-app {
+  --tchope-primary: #e8a184;
+  --tchope-primary-hover: #f0b49b;
+  --tchope-on-primary: #301c13;
+  --tchope-secondary: #a6c5a6;
+  --tchope-on-secondary: #1e3024;
+  --tchope-border: #423b32;
+}
+.tchope-app h1 {
+  letter-spacing: -0.04em;
+}
+.tchope-app h2 {
+  letter-spacing: -0.025em;
+}
+.tchope-app .app-display {
+  font:
+    36px/1.15 Georgia,
+    serif;
+  letter-spacing: -1px;
+  max-width: 560px;
+}
+.app-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  font-weight: 700;
+  color: var(--tchope-primary);
+  margin-bottom: -12px;
+}
+.tchope-app input:not([type="checkbox"]),
+.tchope-app textarea {
+  border-color: #e4ddd3;
+}
+.dark .tchope-app input:not([type="checkbox"]),
+.dark .tchope-app textarea {
+  border-color: #423b32;
+}
+.tchope-app .bg-primary.text-white {
+  color: var(--tchope-on-primary);
+}
+.tchope-app a:focus-visible,
+.tchope-app button:focus-visible {
+  outline: 2px solid var(--tchope-primary);
+  outline-offset: 3px;
+}
+.tchope-app nav a {
+  min-height: 44px;
+}
+.tchope-app nav[aria-label] {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+@media (max-width: 1000px) {
+  .brand-desktop-nav {
+    gap: 17px;
+    font-size: 12px;
+  }
+  .brand-nav-wrap {
+    gap: 16px;
+  }
+  .brand-nav-actions {
+    gap: 12px;
+  }
+  .brand-hero-grid {
+    gap: 20px;
+  }
+  .brand-hero-art {
+    height: 520px;
+  }
+  .brand-hero-art .poster-home {
+    width: 220px;
+  }
+  .brand-hero-art .poster-recipe {
+    width: 190px;
+  }
+  .brand-seal {
+    right: 0;
+    top: 0;
+    width: 90px;
+    height: 90px;
+    font-size: 12px;
+  }
+  .brand-step {
+    gap: 85px;
+  }
+  .brand-split {
+    gap: 45px;
+  }
+  .brand-faq-grid {
+    gap: 45px;
+  }
+  .brand-download-grid {
+    gap: 30px;
+    grid-template-columns: 1fr 1.8fr;
+  }
+  .brand-download-stores {
+    gap: 12px;
+  }
+}
+@media (max-width: 760px) {
+  .brand-container,
+  .brand-nav-wrap {
+    width: calc(100% - 40px);
+  }
+  .brand-nav-wrap {
+    min-height: 78px;
+  }
+  .brand-desktop-nav,
+  .brand-nav-download {
+    display: none;
+  }
+  .brand-menu-toggle {
+    display: grid;
+    place-items: center;
+    min-width: 44px;
+    min-height: 44px;
+  }
+  .brand-mobile-menu {
+    display: grid;
+    padding: 10px 20px 25px;
+    gap: 0;
+  }
+  .brand-mobile-menu a {
+    padding: 18px 0;
+    border-bottom: 1px solid #2c241e25;
+    font-weight: 650;
+    display: flex;
+    justify-content: space-between;
+  }
+  .brand-hero-grid {
+    grid-template-columns: 1fr;
+    padding-block: 50px 40px;
+  }
+  .brand-hero h1 {
+    font-size: clamp(46px, 11.8vw, 72px);
+  }
+  .brand-hero-art {
+    height: 530px;
+    max-width: 470px;
+    width: 100%;
+    margin: 30px auto 0;
+  }
+  .brand-hero-art .poster-home {
+    width: 55%;
+  }
+  .brand-hero-art .poster-recipe {
+    width: 49%;
+  }
+  .brand-hero-art:before {
+    inset: 10% 0;
+  }
+  .brand-seal {
+    right: 0;
+  }
+  .brand-lead {
+    font-size: 16px;
+  }
+  .brand-facts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 12px;
+  }
+  .brand-facts span {
+    font-size: 10px;
+    gap: 7px;
+  }
+  .brand-facts strong {
+    font-size: 25px;
+  }
+  .brand-journey,
+  .brand-personal,
+  .brand-ai,
+  .brand-faq {
+    padding-block: 65px;
+  }
+  .brand-section-heading {
+    margin-bottom: 40px;
+  }
+  .brand-steps {
+    gap: 60px;
+  }
+  .brand-steps:before {
+    display: none;
+  }
+  .brand-step,
+  .brand-step.is-reversed {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  .brand-step-visual,
+  .brand-step.is-reversed .brand-step-visual {
+    grid-column: 1;
+    grid-row: 2;
+    height: 470px;
+    max-width: 400px;
+    padding: 28px 50px 0;
+  }
+  .brand-step-copy,
+  .brand-step.is-reversed .brand-step-copy {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .brand-step-number {
+    margin-bottom: 12px;
+  }
+  .brand-step-copy p {
+    font-size: 15px;
+    margin-top: 14px;
+  }
+  .brand-food-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px 16px;
+  }
+  .brand-food-card h3 {
+    font-size: 19px;
+  }
+  .brand-food-card > span {
+    font-size: 9px;
+  }
+  .brand-regions {
+    padding: 70px 0 50px;
+  }
+  .brand-region-names {
+    gap: 12px 17px;
+    font-size: 10px;
+  }
+  .brand-week {
+    padding: 30px 0 60px;
+  }
+  .brand-split {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .brand-poster-pair {
+    max-width: 520px;
+    margin: auto;
+  }
+  .brand-personal-visual {
+    grid-row: 2;
+    height: 490px;
+    max-width: 400px;
+    width: 100%;
+    margin: auto;
+    padding: 30px 50px 0;
+  }
+  .brand-ai-visual {
+    height: 480px;
+    max-width: 400px;
+    width: 100%;
+    margin: auto;
+    padding: 32px 50px 0;
+  }
+  .brand-faq-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .brand-faq summary {
+    font-size: 16px;
+  }
+  .brand-footer {
+    padding-top: 55px;
+  }
+  .brand-footer-top {
+    flex-direction: column;
+    gap: 30px;
+  }
+  .brand-footer nav {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .brand-wordmark {
+    margin: 50px 0 25px;
+    font-size: 24vw;
+  }
+  .brand-footer-bottom {
+    flex-direction: column;
+    gap: 7px;
+  }
+  .brand-download {
+    padding-block: 45px 65px;
+  }
+  .brand-download-grid {
+    grid-template-columns: 1fr;
+  }
+  .brand-download-image {
+    width: 220px;
+  }
+  .brand-download-extras {
+    grid-template-columns: 1fr;
+    margin-top: 50px;
+    gap: 25px;
+  }
+  .brand-legal {
+    padding-block: 40px 65px;
+  }
+  .brand-legal section h2 {
+    font-size: 25px;
+  }
+}
+@media (max-width: 390px) {
+  .brand-hero-art {
+    height: 460px;
+  }
+  .brand-hero .brand-lead {
+    font-size: 15px;
+  }
+  .brand-download-stores {
+    grid-template-columns: 1fr;
+  }
+  .brand-footer nav {
+    grid-template-columns: 1fr;
+  }
+  .brand-facts {
+    grid-template-columns: 1fr 1fr;
+  }
+  .brand-step-visual,
+  .brand-step.is-reversed .brand-step-visual {
+    height: 420px;
+    padding-inline: 36px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .brand-site * {
+    transition: none !important;
+  }
+}
+
+.tchope-app .bg-secondary.text-white {
+  color: var(--tchope-on-secondary);
+}
+.tchope-app h1:not(.app-display) {
+  font-family: Georgia, serif;
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+.tchope-app .app-recipe-card {
+  border: 1px solid var(--tchope-border);
+  box-shadow: 0 3px 0 #29241f06;
+}
+.tchope-app .app-recipe-card:hover {
+  border-color: var(--tchope-primary);
+}
+.tchope-app .app-featured-title {
+  font:
+    500 22px/1.15 Georgia,
+    serif;
+  letter-spacing: -0.5px;
+}
+.tchope-app aside {
+  background-color: #f3eee5;
+}
+.dark .tchope-app aside {
+  background-color: #24211c;
 }

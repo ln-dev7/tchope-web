@@ -32,10 +32,7 @@ import { RecipeImage } from "@/components/recipe-image"
 import { StoreBanner } from "@/components/store-banner"
 import { useAppOnly } from "@/components/app-only"
 import { getRecipeImage } from "@/constants/images"
-import {
-  getRecipeVideos,
-  getRecipeVideosEn,
-} from "@/constants/videos"
+import { getRecipeVideos, getRecipeVideosEn } from "@/constants/videos"
 import { scaleQuantity } from "@/lib/quantity"
 import { useTimerStore } from "@/stores/timers"
 import type { UserRecipe } from "@/types/recipe"
@@ -52,11 +49,17 @@ export default function RecipeDetail() {
   const recipes = useLocalizedRecipes(locale)
   // Favoris et recettes créées vivent dans le localStorage : ignorés au rendu serveur et
   // à l'hydratation (sinon le cœur et les recettes perso diffèrent : erreur d'hydratation #418).
-  const isClient = useSyncExternalStore(noopSubscribe, () => true, () => false)
+  const isClient = useSyncExternalStore(
+    noopSubscribe,
+    () => true,
+    () => false
+  )
   const { isFavorite, toggleFavorite } = useFavorites()
   const { userRecipes: storedUserRecipes } = useUserRecipes()
   const userRecipes = isClient ? storedUserRecipes : NO_USER_RECIPES
-  const [activeTab, setActiveTab] = useState<"ingredients" | "steps">("ingredients")
+  const [activeTab, setActiveTab] = useState<"ingredients" | "steps">(
+    "ingredients"
+  )
   const [servings, setServings] = useState<number | null>(null)
   // Seulement « y a-t-il un minuteur de recette ? » : pas d'abonnement à l'horloge (pas de rendu 4 fois par seconde).
   const hasRecipeTimers = useTimerStore((s) => s.recipeTimers.length > 0)
@@ -91,7 +94,9 @@ export default function RecipeDetail() {
 
   const adjustServings = useCallback(
     (delta: number) => {
-      setServings((prev) => Math.max(1, (prev ?? recipe?.servings ?? 1) + delta))
+      setServings((prev) =>
+        Math.max(1, (prev ?? recipe?.servings ?? 1) + delta)
+      )
     },
     [recipe?.servings]
   )
@@ -108,7 +113,9 @@ export default function RecipeDetail() {
         recipeCuisine: "Cameroonian",
         recipeYield: `${recipe.servings} portions`,
         image: getRecipeImage(recipe.id, recipe.category),
-        recipeIngredient: recipe.ingredients.map((i) => `${i.quantity} ${i.name}`),
+        recipeIngredient: recipe.ingredients.map(
+          (i) => `${i.quantity} ${i.name}`
+        ),
         recipeInstructions: recipe.steps.map((step, i) => ({
           "@type": "HowToStep",
           position: i + 1,
@@ -121,7 +128,11 @@ export default function RecipeDetail() {
     // Avant l'hydratation, une recette créée par l'utilisateur n'est pas encore lue : rien à afficher.
     return (
       <div className="flex min-h-[50vh] items-center justify-center text-muted dark:text-dark-muted">
-        {isClient ? (locale === "fr" ? "Recette introuvable" : "Recipe not found") : null}
+        {isClient
+          ? locale === "fr"
+            ? "Recette introuvable"
+            : "Recipe not found"
+          : null}
       </div>
     )
   }
@@ -172,7 +183,11 @@ export default function RecipeDetail() {
     const url = `${window.location.origin}/${locale}/app/recipe/${recipe!.id}`
     if (typeof navigator.share === "function") {
       try {
-        await navigator.share(isUserCreated ? { title: recipe!.name, text: buildRecipeText() } : { title: recipe!.name, text: buildRecipeText(), url })
+        await navigator.share(
+          isUserCreated
+            ? { title: recipe!.name, text: buildRecipeText() }
+            : { title: recipe!.name, text: buildRecipeText(), url }
+        )
         toast.success(locale === "fr" ? "Recette partagée" : "Recipe shared")
         return
       } catch (err) {
@@ -219,17 +234,19 @@ export default function RecipeDetail() {
       )}
 
       {/* Hero image */}
-      <div className="relative aspect-4/3 w-full overflow-hidden sm:aspect-video md:aspect-2/1 md:max-h-[400px] rounded-bl-3xl rounded-br-3xl">
+      <div className="relative aspect-4/3 w-full overflow-hidden rounded-br-3xl rounded-bl-3xl sm:aspect-video md:aspect-2/1 md:max-h-[400px]">
         <RecipeImage
           recipeId={recipe.id}
           category={recipe.category}
           alt={recipe.name}
           fill
-          imageUri={"imageUri" in recipe ? (recipe.imageUri as string) : undefined}
+          imageUri={
+            "imageUri" in recipe ? (recipe.imageUri as string) : undefined
+          }
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
 
-        <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
+        <div className="absolute top-4 right-4 left-4 flex items-center justify-between">
           <button
             onClick={() => router.back()}
             aria-label={locale === "fr" ? "Retour" : "Back"}
@@ -240,10 +257,22 @@ export default function RecipeDetail() {
           <div className="flex items-center gap-2">
             <button
               onClick={isUserCreated ? handleCopyRecipe : handleCopyLink}
-              aria-label={isUserCreated ? (locale === "fr" ? "Copier la recette" : "Copy recipe") : (locale === "fr" ? "Copier le lien" : "Copy link")}
+              aria-label={
+                isUserCreated
+                  ? locale === "fr"
+                    ? "Copier la recette"
+                    : "Copy recipe"
+                  : locale === "fr"
+                    ? "Copier le lien"
+                    : "Copy link"
+              }
               className="flex size-10 cursor-pointer items-center justify-center rounded-full bg-black/30 text-white backdrop-blur-sm"
             >
-              {isUserCreated ? <Copy className="size-5" /> : <Link2 className="size-5" />}
+              {isUserCreated ? (
+                <Copy className="size-5" />
+              ) : (
+                <Link2 className="size-5" />
+              )}
             </button>
             <button
               onClick={handleShare}
@@ -280,8 +309,12 @@ export default function RecipeDetail() {
                 toggleFavorite(recipe.id)
                 toast.success(
                   fav
-                    ? locale === "fr" ? "Retiré des favoris" : "Removed from favorites"
-                    : locale === "fr" ? "Ajouté aux favoris" : "Added to favorites"
+                    ? locale === "fr"
+                      ? "Retiré des favoris"
+                      : "Removed from favorites"
+                    : locale === "fr"
+                      ? "Ajouté aux favoris"
+                      : "Added to favorites"
                 )
               }}
               aria-label={t("favorites")}
@@ -307,7 +340,9 @@ export default function RecipeDetail() {
           </div>
           <div className="flex flex-col items-center rounded-2xl bg-surface p-3 dark:bg-dark-surface">
             <ChefHat className="size-5 text-primary" />
-            <span className={`mt-1 rounded-full px-2 py-0.5 text-[11px] font-bold ${difficultyColor}`}>
+            <span
+              className={`mt-1 rounded-full px-2 py-0.5 text-[11px] font-bold ${difficultyColor}`}
+            >
               {difficultyLabel}
             </span>
             <span className="mt-0.5 text-[10px] text-muted dark:text-dark-muted">
@@ -320,17 +355,24 @@ export default function RecipeDetail() {
               <button
                 onClick={() => adjustServings(-1)}
                 disabled={currentServings <= 1}
-                aria-label={locale === "fr" ? "Une portion de moins" : "One serving less"}
+                aria-label={
+                  locale === "fr" ? "Une portion de moins" : "One serving less"
+                }
                 className="flex size-6 cursor-pointer items-center justify-center rounded-full bg-primary text-white transition-colors hover:bg-primary-dark disabled:cursor-default disabled:bg-foreground/10 disabled:text-muted dark:disabled:bg-white/10 dark:disabled:text-dark-muted"
               >
                 <Minus className="size-3.5" />
               </button>
-              <span className="min-w-5 text-center text-sm font-bold text-foreground tabular-nums dark:text-white" aria-live="polite">
+              <span
+                className="min-w-5 text-center text-sm font-bold text-foreground tabular-nums dark:text-white"
+                aria-live="polite"
+              >
                 {currentServings}
               </span>
               <button
                 onClick={() => adjustServings(1)}
-                aria-label={locale === "fr" ? "Une portion de plus" : "One serving more"}
+                aria-label={
+                  locale === "fr" ? "Une portion de plus" : "One serving more"
+                }
                 className="flex size-6 cursor-pointer items-center justify-center rounded-full bg-primary text-white transition-colors hover:bg-primary-dark"
               >
                 <Plus className="size-3.5" />
@@ -347,14 +389,18 @@ export default function RecipeDetail() {
           <button
             type="button"
             onClick={openAppOnly}
-            className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-[20px] border-[1.5px] border-[#A855F7]/20 bg-[#A855F7]/[0.08] py-3.5 text-sm font-bold text-[#A855F7] transition-colors hover:bg-[#A855F7]/[0.12] dark:border-[#A855F7]/30 dark:bg-[#A855F7]/[0.12]"
+            className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-[20px] border-[1.5px] border-primary/20 bg-primary/[0.08] py-3.5 text-sm font-bold text-primary transition-colors hover:bg-primary/[0.12] dark:border-primary/30 dark:bg-primary/[0.12]"
           >
             <Mic className="size-[18px]" />
             {t("startLiveCooking")}
           </button>
           <button
             type="button"
-            onClick={() => router.push(`/${locale}/app/cooking-mode?id=${encodeURIComponent(recipe.id)}`)}
+            onClick={() =>
+              router.push(
+                `/${locale}/app/cooking-mode?id=${encodeURIComponent(recipe.id)}`
+              )
+            }
             disabled={isTimerRunning}
             className={`flex w-full items-center justify-center gap-2 rounded-[20px] py-3.5 text-sm font-bold transition-colors ${
               isTimerRunning
@@ -362,7 +408,11 @@ export default function RecipeDetail() {
                 : "cursor-pointer bg-primary text-white hover:bg-primary-dark"
             }`}
           >
-            {isTimerRunning ? <Timer className="size-[18px]" /> : <CirclePlay className="size-[18px]" />}
+            {isTimerRunning ? (
+              <Timer className="size-[18px]" />
+            ) : (
+              <CirclePlay className="size-[18px]" />
+            )}
             {isTimerRunning ? "Timer..." : t("startCooking")}
           </button>
         </div>

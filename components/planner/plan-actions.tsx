@@ -1,7 +1,13 @@
 "use client"
 
 import Link from "next/link"
-import { Bookmark, ChevronRight, FileText, RefreshCw, ShoppingCart } from "lucide-react"
+import {
+  Bookmark,
+  ChevronRight,
+  FileText,
+  RefreshCw,
+  ShoppingCart,
+} from "lucide-react"
 import type { TranslationKey } from "@/constants/translations"
 import {
   AlertDialog,
@@ -38,7 +44,9 @@ export function PlanActions({
         className="group flex items-center gap-3 rounded-2xl bg-primary p-4 text-white shadow-lg shadow-primary/20 transition-colors hover:bg-primary-dark"
       >
         <ShoppingCart className="size-[18px] shrink-0" />
-        <span className="flex-1 text-[15px] font-bold">{t("plannerShoppingList")}</span>
+        <span className="flex-1 text-[15px] font-bold">
+          {t("plannerShoppingList")}
+        </span>
         <span className="rounded-full bg-white/20 px-2.5 py-0.5 text-xs font-bold tabular-nums">
           {shoppingCount} {t("shoppingListItemCount")}
         </span>
@@ -57,7 +65,7 @@ export function PlanActions({
       <button
         type="button"
         onClick={onExport}
-        className="flex cursor-pointer items-center justify-center gap-2 rounded-2xl bg-[#A855F7]/8 p-4 text-[15px] font-bold text-[#A855F7] transition-colors hover:bg-[#A855F7]/12 dark:bg-[#A855F7]/10 dark:hover:bg-[#A855F7]/15"
+        className="flex cursor-pointer items-center justify-center gap-2 rounded-2xl bg-primary/8 p-4 text-[15px] font-bold text-primary transition-colors hover:bg-primary/12 dark:bg-primary/10 dark:hover:bg-primary/15"
       >
         <FileText className="size-[18px]" />
         {t("plannerExportPdf")}
@@ -76,11 +84,15 @@ export function PlanActions({
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>{t("plannerReset")}</AlertDialogTitle>
-            <AlertDialogDescription>{t("clearConfirmMessage")}</AlertDialogDescription>
+            <AlertDialogDescription>
+              {t("clearConfirmMessage")}
+            </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
-            <AlertDialogAction onClick={onReset}>{t("confirm")}</AlertDialogAction>
+            <AlertDialogAction onClick={onReset}>
+              {t("confirm")}
+            </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

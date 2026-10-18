@@ -16,13 +16,13 @@ const categoryEmoji: Record<Category, string> = {
 }
 
 const categoryColors: Record<Category, string> = {
-  Plat: "bg-[#FED3C7] dark:bg-[#3A2520]",
-  Entrée: "bg-[#D1FFC8] dark:bg-[#1A3A1A]",
+  Plat: "bg-[#F0DFD4] dark:bg-[#3A2520]",
+  Entrée: "bg-[#E4EBDD] dark:bg-[#1A3A1A]",
   Sauce: "bg-[#FFE4C8] dark:bg-[#3A2A1A]",
-  Accompagnement: "bg-[#FFF3C8] dark:bg-[#3A3520]",
-  Boisson: "bg-[#C8E4FF] dark:bg-[#1A2A3A]",
+  Accompagnement: "bg-[#F1E9D5] dark:bg-[#3A3520]",
+  Boisson: "bg-[#E0E8E8] dark:bg-[#1A2A3A]",
   Grillade: "bg-[#FFD1C8] dark:bg-[#3A201A]",
-  Dessert: "bg-[#F3C8FF] dark:bg-[#2A1A3A]",
+  Dessert: "bg-[#EEE1D7] dark:bg-[#2A1A3A]",
 }
 
 export function RecipeImage({

@@ -4,7 +4,6 @@ import { useMemo } from "react"
 import Link from "next/link"
 import {
   Search,
-
   Droplets,
   Triangle,
   Building2,
@@ -35,32 +34,73 @@ import type { Region } from "@/types/recipe"
 import type { LucideIcon } from "lucide-react"
 
 const FEATURED_IDS = [
-  "ndole", "poulet-dg", "eru", "mbongo-tchobi", "koki",
-  "taro-sauce-jaune", "kondre", "sanga", "okok-sucre",
-  "poisson-braise", "ekwang", "met-de-pistache", "okok-sale",
+  "ndole",
+  "poulet-dg",
+  "eru",
+  "mbongo-tchobi",
+  "koki",
+  "taro-sauce-jaune",
+  "kondre",
+  "sanga",
+  "okok-sucre",
+  "poisson-braise",
+  "ekwang",
+  "met-de-pistache",
+  "okok-sale",
 ]
 const POPULAR_IDS = [
-  "ndole", "poulet-dg", "eru", "mbongo-tchobi", "koki",
-  "taro-sauce-jaune", "kondre", "sanga", "okok-sucre",
-  "poisson-braise", "ekwang", "met-de-pistache", "okok-sale",
+  "ndole",
+  "poulet-dg",
+  "eru",
+  "mbongo-tchobi",
+  "koki",
+  "taro-sauce-jaune",
+  "kondre",
+  "sanga",
+  "okok-sucre",
+  "poisson-braise",
+  "ekwang",
+  "met-de-pistache",
+  "okok-sale",
 ]
 
 const regionIcons: Record<Exclude<Region, "TchopAI">, LucideIcon> = {
-  Littoral: Droplets, Ouest: Triangle, Centre: Building2, Sud: Compass,
-  Nord: Sun, Est: Leaf, Adamaoua: Signpost, "Extrême-Nord": Thermometer,
-  "Nord-Ouest": Map, "Sud-Ouest": Ship,
+  Littoral: Droplets,
+  Ouest: Triangle,
+  Centre: Building2,
+  Sud: Compass,
+  Nord: Sun,
+  Est: Leaf,
+  Adamaoua: Signpost,
+  "Extrême-Nord": Thermometer,
+  "Nord-Ouest": Map,
+  "Sud-Ouest": Ship,
 }
 
 const ALL_REGIONS: Exclude<Region, "TchopAI">[] = [
-  "Littoral", "Ouest", "Centre", "Sud", "Nord", "Est",
-  "Adamaoua", "Extrême-Nord", "Nord-Ouest", "Sud-Ouest",
+  "Littoral",
+  "Ouest",
+  "Centre",
+  "Sud",
+  "Nord",
+  "Est",
+  "Adamaoua",
+  "Extrême-Nord",
+  "Nord-Ouest",
+  "Sud-Ouest",
 ]
 
 const regionTranslationKeys: Record<Exclude<Region, "TchopAI">, string> = {
-  Littoral: "regionLittoral", Ouest: "regionOuest", Centre: "regionCentre",
-  Sud: "regionSud", Nord: "regionNord", Est: "regionEst",
-  Adamaoua: "regionAdamaoua", "Extrême-Nord": "regionExtremeNord",
-  "Nord-Ouest": "regionNordOuest", "Sud-Ouest": "regionSudOuest",
+  Littoral: "regionLittoral",
+  Ouest: "regionOuest",
+  Centre: "regionCentre",
+  Sud: "regionSud",
+  Nord: "regionNord",
+  Est: "regionEst",
+  Adamaoua: "regionAdamaoua",
+  "Extrême-Nord": "regionExtremeNord",
+  "Nord-Ouest": "regionNordOuest",
+  "Sud-Ouest": "regionSudOuest",
 }
 
 export default function AppHomePage() {
@@ -69,11 +109,17 @@ export default function AppHomePage() {
   const recipes = useLocalizedRecipes(locale)
 
   const featured = useMemo(
-    () => FEATURED_IDS.map((id) => recipes.find((r) => r.id === id)).filter(Boolean) as typeof recipes,
+    () =>
+      FEATURED_IDS.map((id) => recipes.find((r) => r.id === id)).filter(
+        Boolean
+      ) as typeof recipes,
     [recipes]
   )
   const popular = useMemo(
-    () => POPULAR_IDS.map((id) => recipes.find((r) => r.id === id)).filter(Boolean) as typeof recipes,
+    () =>
+      POPULAR_IDS.map((id) => recipes.find((r) => r.id === id)).filter(
+        Boolean
+      ) as typeof recipes,
     [recipes]
   )
 
@@ -82,9 +128,14 @@ export default function AppHomePage() {
       <StoreBanner />
 
       {/* Header */}
-      <h1 className="text-2xl font-extrabold text-foreground dark:text-white">
+      <p className="app-eyebrow">
+        {locale === "fr" ? "LA CUISINE, EN PARTAGE" : "GOOD FOOD, SHARED"}
+      </p>
+      <h1 className="app-display text-foreground dark:text-white">
         {/* Texte propre au web : pas dans constants/translations.ts, qui est copié depuis l'app mobile (pnpm sync) */}
-        {locale === "fr" ? "Les recettes camerounaises, région par région" : "Cameroonian recipes, region by region"}
+        {locale === "fr"
+          ? "On mange quoi aujourd’hui ?"
+          : "What are we cooking today?"}
       </h1>
 
       {/* Search bar */}
@@ -99,21 +150,25 @@ export default function AppHomePage() {
       {/* Qu'est-ce que je peux cuisiner ? (comme l'accueil mobile) */}
       <Link
         href={`/${locale}/app/ai-recipes`}
-        className="flex cursor-pointer items-center gap-4 rounded-3xl border-[1.5px] border-[#A855F7]/15 bg-[#A855F7]/8 p-5 transition-colors hover:border-[#A855F7]/30 hover:bg-[#A855F7]/12 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#A855F7]"
+        className="flex cursor-pointer items-center gap-4 rounded-3xl border-[1.5px] border-primary/15 bg-primary/8 p-5 transition-colors hover:border-primary/30 hover:bg-primary/12 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
       >
-        <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-[#A855F7]/15">
-          <Sparkles className="size-6 fill-[#A855F7]/20 text-[#A855F7]" />
+        <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-primary/15">
+          <Sparkles className="size-6 fill-primary/20 text-primary" />
         </div>
         <div className="min-w-0 flex-1">
-          <p className="text-base font-bold text-foreground dark:text-white">{t("aiCta")}</p>
-          <p className="mt-0.5 text-[13px] text-muted dark:text-dark-muted">{t("aiCtaSubtitle")}</p>
+          <p className="text-xl font-bold tracking-tight text-foreground dark:text-white">
+            {t("aiCta")}
+          </p>
+          <p className="mt-0.5 text-[13px] text-muted dark:text-dark-muted">
+            {t("aiCtaSubtitle")}
+          </p>
         </div>
-        <ChevronRight className="size-[18px] shrink-0 text-[#A855F7]" />
+        <ChevronRight className="size-[18px] shrink-0 text-primary" />
       </Link>
 
       {/* Regions */}
       <section>
-        <h2 className="mb-4 text-base font-bold text-foreground dark:text-white">
+        <h2 className="mb-4 text-xl font-bold tracking-tight text-foreground dark:text-white">
           {t("regions")}
         </h2>
         <div className="-mx-4 flex gap-3 overflow-x-auto px-4 pb-2 md:mx-0 md:flex-wrap md:px-0">
@@ -139,13 +194,10 @@ export default function AppHomePage() {
 
       {/* Featured — Carousel */}
       <section>
-        <h2 className="mb-4 text-base font-bold text-foreground dark:text-white">
+        <h2 className="mb-4 text-xl font-bold tracking-tight text-foreground dark:text-white">
           {t("featuredRecipes")}
         </h2>
-        <Carousel
-          opts={{ align: "start", loop: true }}
-          className="w-full"
-        >
+        <Carousel opts={{ align: "start", loop: true }} className="w-full">
           <CarouselContent className="-ml-3">
             {featured.map((r) => (
               <CarouselItem
@@ -156,15 +208,15 @@ export default function AppHomePage() {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="-left-3 size-10 border-foreground/10 bg-surface text-foreground active:-translate-y-1/2 hover:bg-surface dark:border-white/10 dark:bg-dark-surface dark:text-white dark:hover:bg-dark-surface" />
-          <CarouselNext className="-right-3 size-10 border-foreground/10 bg-surface text-foreground active:-translate-y-1/2 hover:bg-surface dark:border-white/10 dark:bg-dark-surface dark:text-white dark:hover:bg-dark-surface" />
+          <CarouselPrevious className="-left-3 size-10 border-foreground/10 bg-surface text-foreground hover:bg-surface active:-translate-y-1/2 dark:border-white/10 dark:bg-dark-surface dark:text-white dark:hover:bg-dark-surface" />
+          <CarouselNext className="-right-3 size-10 border-foreground/10 bg-surface text-foreground hover:bg-surface active:-translate-y-1/2 dark:border-white/10 dark:bg-dark-surface dark:text-white dark:hover:bg-dark-surface" />
         </Carousel>
       </section>
 
       {/* Popular */}
       <section>
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-base font-bold text-foreground dark:text-white">
+          <h2 className="text-xl font-bold tracking-tight text-foreground dark:text-white">
             {t("popularRecipes")}
           </h2>
           <Link

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next"
-import { Plus_Jakarta_Sans } from "next/font/google"
+import { Plus_Jakarta_Sans, Bricolage_Grotesque } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { Toaster } from "@/components/ui/sonner"
 import { SITE_NAME, SITE_URL } from "@/lib/seo"
@@ -12,6 +12,11 @@ const jakarta = Plus_Jakarta_Sans({
   weight: ["400", "500", "600", "700", "800"],
 })
 
+const display = Bricolage_Grotesque({
+  subsets: ["latin"],
+  variable: "--font-display",
+})
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   applicationName: SITE_NAME,
@@ -20,7 +25,7 @@ export const metadata: Metadata = {
     template: "%s | Tchopé",
   },
   description:
-    "Découvre des recettes traditionnelles camerounaises authentiques. Filtre par région, sauvegarde tes favoris et crée ton cookbook. 100% gratuit, 100% hors ligne.",
+    "Découvre des recettes traditionnelles camerounaises authentiques. Filtre par région, sauvegarde tes favoris et crée ton cookbook. Recettes accessibles hors ligne sur mobile, carnet personnel et aide IA avec Tchopé Pro.",
   authors: [{ name: "LNDEV", url: "https://lndev.me" }],
   creator: "LNDEV",
   publisher: SITE_NAME,
@@ -78,7 +83,11 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="fr" suppressHydrationWarning className={jakarta.variable}>
+    <html
+      lang="fr"
+      suppressHydrationWarning
+      className={`${jakarta.variable} ${display.variable}`}
+    >
       <body>
         {children}
         <Toaster />

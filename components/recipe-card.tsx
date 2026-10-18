@@ -16,9 +16,9 @@ export function RecipeCard({
   return (
     <Link
       href={`/${locale}/app/recipe/${recipe.id}`}
-      className="group flex cursor-pointer gap-4 rounded-2xl bg-surface p-3 dark:bg-dark-surface"
+      className="app-recipe-card group flex cursor-pointer gap-4 rounded-3xl bg-surface p-3 dark:bg-dark-surface"
     >
-      <div className="relative size-24 shrink-0 overflow-hidden rounded-xl">
+      <div className="relative size-24 shrink-0 overflow-hidden rounded-2xl">
         <RecipeImage
           recipeId={recipe.id}
           category={recipe.category}

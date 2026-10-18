@@ -1,9 +1,9 @@
 "use client"
 
-import { useCallback, useEffect } from "react"
+import { useEffect, useRef } from "react"
 import Image from "next/image"
 import { X } from "lucide-react"
-import { motion, AnimatePresence } from "framer-motion"
+import { useLocale } from "@/lib/locale-context"
 
 export function ScreenshotLightbox({
   src,
@@ -16,58 +16,46 @@ export function ScreenshotLightbox({
   open: boolean
   onClose: () => void
 }) {
-  const handleKeyDown = useCallback(
-    (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose()
-    },
-    [onClose]
-  )
-
+  const dialog = useRef<HTMLDialogElement>(null)
+  const { locale } = useLocale()
   useEffect(() => {
-    if (open) {
-      document.addEventListener("keydown", handleKeyDown)
-      document.body.style.overflow = "hidden"
-    }
+    const node = dialog.current
+    if (open) node?.showModal()
+    else node?.close()
+    if (!open) return
+    const overflow = document.body.style.overflow
+    document.body.style.overflow = "hidden"
     return () => {
-      document.removeEventListener("keydown", handleKeyDown)
-      document.body.style.overflow = ""
+      document.body.style.overflow = overflow
+      node?.close()
     }
-  }, [open, handleKeyDown])
-
+  }, [open])
   return (
-    <AnimatePresence>
-      {open && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.2 }}
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm"
-          onClick={onClose}
-        >
-          <button
-            onClick={onClose}
-            className="absolute top-4 right-4 rounded-full bg-white/10 p-2 text-white transition-colors hover:bg-white/20"
-          >
-            <X className="size-6" />
-          </button>
-          <motion.div
-            initial={{ scale: 0.85, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.85, opacity: 0 }}
-            transition={{ duration: 0.25, ease: "easeOut" }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <Image
-              src={src}
-              alt={alt}
-              width={360}
-              height={720}
-              className="max-h-[85vh] w-auto rounded-[2.5rem] shadow-2xl"
-            />
-          </motion.div>
-        </motion.div>
+    <dialog
+      ref={dialog}
+      aria-label={alt}
+      onCancel={onClose}
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose()
+      }}
+      className="fixed inset-0 m-auto max-h-none max-w-none overflow-visible border-0 bg-transparent p-0 backdrop:bg-black/80 backdrop:backdrop-blur-sm"
+    >
+      <button
+        onClick={onClose}
+        aria-label={locale === "fr" ? "Fermer l’aperçu" : "Close preview"}
+        className="absolute -top-3 -right-3 z-10 flex size-11 items-center justify-center rounded-full bg-white text-black shadow-lg"
+      >
+        <X className="size-6" />
+      </button>
+      {src && (
+        <Image
+          src={src}
+          alt={alt}
+          width={1206}
+          height={2622}
+          className="max-h-[85dvh] w-auto max-w-[85vw] rounded-2xl shadow-2xl"
+        />
       )}
-    </AnimatePresence>
+    </dialog>
   )
 }

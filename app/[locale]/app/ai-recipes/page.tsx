@@ -1,13 +1,28 @@
 "use client"
 
 import { useCallback, useMemo, useState } from "react"
-import { ArrowLeft, Carrot, Info, MessageCircle, Plus, PlusCircle, Search, ShoppingCart, Sparkles, X } from "lucide-react"
+import {
+  ArrowLeft,
+  Carrot,
+  Info,
+  MessageCircle,
+  Plus,
+  PlusCircle,
+  Search,
+  ShoppingCart,
+  Sparkles,
+  X,
+} from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useLocale } from "@/lib/locale-context"
 import { useAppTranslations } from "@/hooks/use-app-translations"
 import { useLocalizedRecipes } from "@/hooks/use-localized-recipes"
 import { RecipeCard } from "@/components/recipe-card"
-import { searchByIngredients, isValidIngredient, getMissingIngredients } from "@/lib/ingredient-matcher"
+import {
+  searchByIngredients,
+  isValidIngredient,
+  getMissingIngredients,
+} from "@/lib/ingredient-matcher"
 import { useGoBack } from "@/hooks/use-go-back"
 import { useAppOnly } from "@/components/app-only"
 import { appOnlyText } from "@/lib/app-only-i18n"
@@ -21,7 +36,7 @@ type SearchResult = {
 
 /** Classes partagées (ex-components/tchop-ai/styles.ts). */
 const focusRing =
-  "outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#A855F7]"
+  "outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
 const focusRingPrimary =
   "outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
 const roundButton =
@@ -58,7 +73,9 @@ export default function AiRecipesPage() {
 
   const knownIngredients = useMemo(() => {
     const set = new Set<string>()
-    recipes.forEach((r) => r.ingredients.forEach((ing) => set.add(ing.name.toLowerCase().trim())))
+    recipes.forEach((r) =>
+      r.ingredients.forEach((ing) => set.add(ing.name.toLowerCase().trim()))
+    )
     return set
   }, [recipes])
 
@@ -67,7 +84,10 @@ export default function AiRecipesPage() {
     if (cleaned.length < 2) return []
     const matches: string[] = []
     for (const known of knownIngredients) {
-      if (known.includes(cleaned) && !ingredients.some((i) => i.toLowerCase() === known)) {
+      if (
+        known.includes(cleaned) &&
+        !ingredients.some((i) => i.toLowerCase() === known)
+      ) {
         matches.push(known.charAt(0).toUpperCase() + known.slice(1))
       }
       if (matches.length >= 5) break
@@ -87,7 +107,10 @@ export default function AiRecipesPage() {
         setError(t("aiInvalidIngredient"))
         return
       }
-      setIngredients((prev) => [...prev, value.charAt(0).toUpperCase() + value.slice(1).toLowerCase()])
+      setIngredients((prev) => [
+        ...prev,
+        value.charAt(0).toUpperCase() + value.slice(1).toLowerCase(),
+      ])
       setInput("")
       setError(null)
     },
@@ -102,7 +125,9 @@ export default function AiRecipesPage() {
     if (ingredients.length === 0) return
     setError(null)
     const localResults = searchByIngredients(recipes, ingredients, isFr)
-    setResults(localResults.map((r) => ({ id: r.id, match: r.match, reason: r.reason })))
+    setResults(
+      localResults.map((r) => ({ id: r.id, match: r.match, reason: r.reason }))
+    )
   }
 
   const canSearch = ingredients.length > 0
@@ -113,9 +138,19 @@ export default function AiRecipesPage() {
       .map((r) => {
         const recipe = recipes.find((rec) => rec.id === r.id)
         if (!recipe) return null
-        return { recipe, match: r.match, reason: r.reason, missing: getMissingIngredients(recipe, ingredients) }
+        return {
+          recipe,
+          match: r.match,
+          reason: r.reason,
+          missing: getMissingIngredients(recipe, ingredients),
+        }
       })
-      .filter(Boolean) as { recipe: Recipe; match: number; reason: string; missing: string[] }[]
+      .filter(Boolean) as {
+      recipe: Recipe
+      match: number
+      reason: string
+      missing: string[]
+    }[]
   }, [results, recipes, ingredients])
 
   return (
@@ -136,9 +171,9 @@ export default function AiRecipesPage() {
         </h1>
         <div
           aria-hidden
-          className="flex size-9 shrink-0 items-center justify-center rounded-full bg-[#A855F7]/10 dark:bg-[#A855F7]/15"
+          className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary/10 dark:bg-primary/15"
         >
-          <Sparkles className="size-[18px] fill-[#A855F7]/20 text-[#A855F7]" />
+          <Sparkles className="size-[18px] fill-primary/20 text-primary" />
         </div>
       </div>
 
@@ -181,102 +216,107 @@ export default function AiRecipesPage() {
 
       {/* ── Ingrédients ── */}
       <>
-          <div className="space-y-2">
-            <form
-              onSubmit={(e) => {
-                e.preventDefault()
-                addIngredient()
+        <div className="space-y-2">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault()
+              addIngredient()
+            }}
+            className="flex items-center rounded-[20px] bg-surface pr-1 pl-4 ring-primary/30 transition-shadow focus-within:ring-2 dark:bg-dark-surface"
+          >
+            <Carrot
+              aria-hidden
+              className="size-[18px] shrink-0 text-muted dark:text-dark-muted"
+            />
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => {
+                setInput(e.target.value)
+                setError(null)
               }}
-              className="flex items-center rounded-[20px] bg-surface pr-1 pl-4 ring-primary/30 transition-shadow focus-within:ring-2 dark:bg-dark-surface"
+              placeholder={t("aiInputPlaceholder")}
+              aria-label={t("aiInputPlaceholder")}
+              aria-invalid={!!error}
+              autoCapitalize="none"
+              autoCorrect="off"
+              autoComplete="off"
+              spellCheck={false}
+              enterKeyHint="done"
+              className="min-w-0 flex-1 bg-transparent px-3 py-3.5 text-base text-foreground outline-none placeholder:text-muted dark:text-white dark:placeholder:text-dark-muted"
+            />
+            <button
+              type="submit"
+              // Garde le focus (et le clavier du téléphone) dans le champ, comme keyboardShouldPersistTaps sur mobile.
+              onMouseDown={(e) => e.preventDefault()}
+              disabled={!input.trim()}
+              aria-label={isFr ? "Ajouter l'ingrédient" : "Add ingredient"}
+              title={isFr ? "Ajouter" : "Add"}
+              className={cn(
+                "flex size-9 shrink-0 items-center justify-center rounded-full transition-colors",
+                input.trim()
+                  ? "cursor-pointer bg-primary text-white hover:bg-primary-dark"
+                  : "cursor-not-allowed bg-transparent text-muted dark:text-dark-muted",
+                focusRingPrimary
+              )}
             >
-              <Carrot aria-hidden className="size-[18px] shrink-0 text-muted dark:text-dark-muted" />
-              <input
-                type="text"
-                value={input}
-                onChange={(e) => {
-                  setInput(e.target.value)
-                  setError(null)
-                }}
-                placeholder={t("aiInputPlaceholder")}
-                aria-label={t("aiInputPlaceholder")}
-                aria-invalid={!!error}
-                autoCapitalize="none"
-                autoCorrect="off"
-                autoComplete="off"
-                spellCheck={false}
-                enterKeyHint="done"
-                className="min-w-0 flex-1 bg-transparent px-3 py-3.5 text-base text-foreground outline-none placeholder:text-muted dark:text-white dark:placeholder:text-dark-muted"
-              />
-              <button
-                type="submit"
-                // Garde le focus (et le clavier du téléphone) dans le champ, comme keyboardShouldPersistTaps sur mobile.
-                onMouseDown={(e) => e.preventDefault()}
-                disabled={!input.trim()}
-                aria-label={isFr ? "Ajouter l'ingrédient" : "Add ingredient"}
-                title={isFr ? "Ajouter" : "Add"}
-                className={cn(
-                  "flex size-9 shrink-0 items-center justify-center rounded-full transition-colors",
-                  input.trim()
-                    ? "cursor-pointer bg-primary text-white hover:bg-primary-dark"
-                    : "cursor-not-allowed bg-transparent text-muted dark:text-dark-muted",
-                  focusRingPrimary
-                )}
-              >
-                <Plus className="size-5" />
-              </button>
-            </form>
+              <Plus className="size-5" />
+            </button>
+          </form>
 
-            {/* Autocomplete */}
-            {suggestions.length > 0 && (
-              <div className="flex flex-wrap gap-2">
-                {suggestions.map((s) => (
-                  <button
-                    key={s}
-                    type="button"
-                    onMouseDown={(e) => e.preventDefault()}
-                    onClick={() => addIngredient(s)}
-                    className={cn(
-                      "flex cursor-pointer items-center gap-1 rounded-2xl bg-[#A855F7]/8 px-3 py-1.5 text-[13px] font-medium text-[#A855F7] transition-colors hover:bg-[#A855F7]/15 dark:bg-[#A855F7]/12 dark:hover:bg-[#A855F7]/20",
-                      focusRing
-                    )}
-                  >
-                    <PlusCircle className="size-3.5" />
-                    {s}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* Chips */}
-          {ingredients.length > 0 && (
-            <div className="space-y-3">
-              <p className="text-[13px] font-semibold tracking-wider text-muted uppercase dark:text-dark-muted">
-                {t("aiYourIngredients")} ({ingredients.length})
-              </p>
-              <ul className="flex flex-wrap gap-2">
-                {ingredients.map((ing, index) => (
-                  <li
-                    key={ing}
-                    className="flex items-center gap-1.5 rounded-[20px] bg-primary/8 py-2 pr-1.5 pl-3.5 dark:bg-primary/15"
-                  >
-                    <span className="text-sm font-medium text-primary">{ing}</span>
-                    <button
-                      type="button"
-                      onClick={() => removeIngredient(index)}
-                      aria-label={isFr ? `Retirer ${ing}` : `Remove ${ing}`}
-                      className={cn(
-                        "flex size-[22px] cursor-pointer items-center justify-center rounded-full bg-primary/15 text-primary transition-colors hover:bg-primary/25 dark:bg-primary/30 dark:hover:bg-primary/40",
-                        focusRingPrimary
-                      )}
-                    >
-                      <X className="size-3" />
-                    </button>
-                  </li>
-                ))}
-              </ul>
+          {/* Autocomplete */}
+          {suggestions.length > 0 && (
+            <div className="flex flex-wrap gap-2">
+              {suggestions.map((s) => (
+                <button
+                  key={s}
+                  type="button"
+                  onMouseDown={(e) => e.preventDefault()}
+                  onClick={() => addIngredient(s)}
+                  className={cn(
+                    "flex cursor-pointer items-center gap-1 rounded-2xl bg-primary/8 px-3 py-1.5 text-[13px] font-medium text-primary transition-colors hover:bg-primary/15 dark:bg-primary/12 dark:hover:bg-primary/20",
+                    focusRing
+                  )}
+                >
+                  <PlusCircle className="size-3.5" />
+                  {s}
+                </button>
+              ))}
             </div>
           )}
+        </div>
+
+        {/* Chips */}
+        {ingredients.length > 0 && (
+          <div className="space-y-3">
+            <p className="text-[13px] font-semibold tracking-wider text-muted uppercase dark:text-dark-muted">
+              {t("aiYourIngredients")} ({ingredients.length})
+            </p>
+            <ul className="flex flex-wrap gap-2">
+              {ingredients.map((ing, index) => (
+                <li
+                  key={ing}
+                  className="flex items-center gap-1.5 rounded-[20px] bg-primary/8 py-2 pr-1.5 pl-3.5 dark:bg-primary/15"
+                >
+                  <span className="text-sm font-medium text-primary">
+                    {ing}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => removeIngredient(index)}
+                    aria-label={isFr ? `Retirer ${ing}` : `Remove ${ing}`}
+                    className={cn(
+                      "flex size-[22px] cursor-pointer items-center justify-center rounded-full bg-primary/15 text-primary transition-colors hover:bg-primary/25 dark:bg-primary/30 dark:hover:bg-primary/40",
+                      focusRingPrimary
+                    )}
+                  >
+                    <X className="size-3" />
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </>
 
       {/* Error */}
@@ -294,7 +334,7 @@ export default function AiRecipesPage() {
         className={cn(
           "flex w-full items-center justify-center gap-2 rounded-[20px] py-4 text-base font-bold transition-colors",
           canSearch
-            ? "cursor-pointer bg-[#A855F7] text-white hover:bg-[#9333EA]"
+            ? "cursor-pointer bg-primary text-white hover:bg-primary-dark"
             : "cursor-not-allowed bg-surface text-muted dark:bg-dark-surface dark:text-dark-muted",
           focusRing
         )}
@@ -305,13 +345,18 @@ export default function AiRecipesPage() {
 
       {/* Recherche locale : la recherche intelligente est dans l'app */}
       {results && (
-        <div className="flex items-center gap-2 rounded-2xl bg-[#A855F7]/8 px-3.5 py-2.5 dark:bg-[#A855F7]/12">
-          <Info className="size-4 shrink-0 text-[#A855F7]" />
-          <p className="flex-1 text-xs text-muted dark:text-dark-muted">{appOnly.localHint}</p>
+        <div className="flex items-center gap-2 rounded-2xl bg-primary/8 px-3.5 py-2.5 dark:bg-primary/12">
+          <Info className="size-4 shrink-0 text-primary" />
+          <p className="flex-1 text-xs text-muted dark:text-dark-muted">
+            {appOnly.localHint}
+          </p>
           <button
             type="button"
             onClick={openAppOnly}
-            className={cn("shrink-0 cursor-pointer text-xs font-bold text-[#A855F7] underline", focusRing)}
+            className={cn(
+              "shrink-0 cursor-pointer text-xs font-bold text-primary underline",
+              focusRing
+            )}
           >
             {appOnly.localCta}
           </button>
@@ -330,10 +375,17 @@ export default function AiRecipesPage() {
                 <RecipeCard recipe={recipe} locale={locale} />
                 <div className="space-y-1 px-2">
                   <div className="flex items-start gap-2">
-                    <span className={cn("shrink-0 rounded-xl px-2 py-[3px] text-xs font-bold", matchPillClass(match))}>
+                    <span
+                      className={cn(
+                        "shrink-0 rounded-xl px-2 py-[3px] text-xs font-bold",
+                        matchPillClass(match)
+                      )}
+                    >
                       {match}%
                     </span>
-                    <p className="line-clamp-2 flex-1 pt-[3px] text-xs text-muted dark:text-dark-muted">{reason}</p>
+                    <p className="line-clamp-2 flex-1 pt-[3px] text-xs text-muted dark:text-dark-muted">
+                      {reason}
+                    </p>
                   </div>
                   {missing.length > 0 && (
                     <div className="mt-0.5 flex items-start gap-1.5">
@@ -354,10 +406,20 @@ export default function AiRecipesPage() {
 
       {/* No results */}
       {results && matchedRecipes.length === 0 && (
-        <div role="status" className="flex flex-col items-center gap-3 py-10 text-center">
-          <Search className="size-12 text-muted dark:text-dark-muted" strokeWidth={1.5} />
-          <p className="text-base font-semibold text-muted dark:text-dark-muted">{t("aiNoResults")}</p>
-          <p className="text-sm text-muted dark:text-dark-muted">{t("aiNoResultsHint")}</p>
+        <div
+          role="status"
+          className="flex flex-col items-center gap-3 py-10 text-center"
+        >
+          <Search
+            className="size-12 text-muted dark:text-dark-muted"
+            strokeWidth={1.5}
+          />
+          <p className="text-base font-semibold text-muted dark:text-dark-muted">
+            {t("aiNoResults")}
+          </p>
+          <p className="text-sm text-muted dark:text-dark-muted">
+            {t("aiNoResultsHint")}
+          </p>
         </div>
       )}
     </div>

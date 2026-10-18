@@ -2,7 +2,6 @@
 
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
-import { FadeInUp } from "@/components/motion-wrapper"
 import { useLocale } from "@/lib/locale-context"
 import { ArrowLeft } from "lucide-react"
 import Link from "next/link"
@@ -12,12 +11,12 @@ export default function PrivacyPage() {
   const s = t.privacy.sections
 
   return (
-    <>
+    <div className="brand-site">
       <Header />
 
-      <main className="bg-background">
-        <div className="mx-auto max-w-3xl px-6 py-24 lg:py-28">
-          <FadeInUp>
+      <main id="content" className="brand-legal">
+        <div className="brand-container">
+          <>
             <Link
               href={`/${locale}`}
               className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-muted transition-colors hover:text-primary"
@@ -44,10 +43,10 @@ export default function PrivacyPage() {
                 </a>
               </span>
             </div>
-          </FadeInUp>
+          </>
 
           <div className="mt-14 space-y-12">
-            <FadeInUp>
+            <>
               <Section title={s.intro.title}>
                 <p>{s.intro.content}</p>
                 <div className="mt-4 rounded-2xl border border-primary/15 bg-tags px-5 py-4">
@@ -56,9 +55,9 @@ export default function PrivacyPage() {
                   </p>
                 </div>
               </Section>
-            </FadeInUp>
+            </>
 
-            <FadeInUp>
+            <>
               <Section title={s.data.title}>
                 <p>{s.data.intro}</p>
                 <ul className="mt-4 space-y-2">
@@ -73,14 +72,16 @@ export default function PrivacyPage() {
                   ))}
                 </ul>
               </Section>
-            </FadeInUp>
+            </>
 
-            <FadeInUp>
+            <>
               <Section title={s.camera.title}>
                 <p>{s.camera.intro}</p>
                 {s.camera.subsections.map((sub) => (
                   <div key={sub.subtitle} className="mt-5">
-                    <p className="text-sm font-semibold text-foreground/80">{sub.subtitle}</p>
+                    <p className="text-sm font-semibold text-foreground/80">
+                      {sub.subtitle}
+                    </p>
                     <p className="mt-1">{sub.description}</p>
                     <ul className="mt-3 space-y-2">
                       {sub.items.map((item) => (
@@ -96,9 +97,9 @@ export default function PrivacyPage() {
                   </div>
                 ))}
               </Section>
-            </FadeInUp>
+            </>
 
-            <FadeInUp>
+            <>
               <Section title={s.microphone.title}>
                 <p>{s.microphone.intro}</p>
                 <ul className="mt-4 space-y-2">
@@ -113,9 +114,9 @@ export default function PrivacyPage() {
                   ))}
                 </ul>
               </Section>
-            </FadeInUp>
+            </>
 
-            <FadeInUp>
+            <>
               <Section title={s.payment.title}>
                 <p>{s.payment.intro}</p>
                 <ul className="mt-4 space-y-2">
@@ -130,9 +131,9 @@ export default function PrivacyPage() {
                   ))}
                 </ul>
               </Section>
-            </FadeInUp>
+            </>
 
-            <FadeInUp>
+            <>
               <Section title={s.storage.title}>
                 <p>{s.storage.intro}</p>
                 <ul className="mt-4 space-y-2">
@@ -161,15 +162,15 @@ export default function PrivacyPage() {
                   ))}
                 </ul>
               </Section>
-            </FadeInUp>
+            </>
 
-            <FadeInUp>
+            <>
               <Section title={s.thirdParty.title}>
                 <p>{s.thirdParty.content}</p>
               </Section>
-            </FadeInUp>
+            </>
 
-            <FadeInUp>
+            <>
               <Section title={s.ai.title}>
                 <p>{s.ai.intro}</p>
                 <ul className="mt-4 space-y-2">
@@ -184,15 +185,15 @@ export default function PrivacyPage() {
                   ))}
                 </ul>
               </Section>
-            </FadeInUp>
+            </>
 
-            <FadeInUp>
+            <>
               <Section title={s.changes.title}>
                 <p>{s.changes.content}</p>
               </Section>
-            </FadeInUp>
+            </>
 
-            <FadeInUp>
+            <>
               <Section title={s.contact.title}>
                 <p>{s.contact.intro}</p>
                 <div className="mt-4 grid gap-3 sm:grid-cols-3">
@@ -213,13 +214,13 @@ export default function PrivacyPage() {
                   />
                 </div>
               </Section>
-            </FadeInUp>
+            </>
           </div>
         </div>
       </main>
 
       <Footer />
-    </>
+    </div>
   )
 }
 
@@ -254,7 +255,7 @@ function ContactCard({
       href={href}
       target={href.startsWith("mailto") ? undefined : "_blank"}
       rel="noopener noreferrer"
-      className="group rounded-2xl border border-foreground/5 bg-surface p-4 transition-all hover:-translate-y-0.5 hover:border-primary/20 hover:shadow-md"
+      className="group rounded-2xl border border-foreground/5 bg-surface p-4 transition-colors hover:border-primary/30"
     >
       <p className="text-xs font-medium text-muted">{label}</p>
       <p className="mt-1 text-sm font-semibold text-foreground transition-colors group-hover:text-primary">

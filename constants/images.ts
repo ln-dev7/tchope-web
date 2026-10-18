@@ -1,4 +1,4 @@
-import type { Category } from '@/types/recipe';
+import type { Category } from "@/types/recipe"
 
 // Wikimedia Commons images (CC license) - authentic Cameroonian dish photos
 // Pexels/Unsplash used as fallbacks when no Wikimedia image exists
@@ -64,21 +64,12 @@ export const recipeImages: Record<string, string> = {
     "https://upload.wikimedia.org/wikipedia/commons/0/04/Un_plat_d%27alloco_Fried_Plantains.JPG",
   beignets:
     "https://upload.wikimedia.org/wikipedia/commons/a/a3/Nigerian-puff-puff-recipe_cropped.jpg",
-  "beignets-haricots":
-    "https://upload.wikimedia.org/wikipedia/commons/a/a3/Nigerian-puff-puff-recipe_cropped.jpg",
   "beignets-farine":
     "https://upload.wikimedia.org/wikipedia/commons/a/a3/Nigerian-puff-puff-recipe_cropped.jpg",
   "beignets-farine-de-ble":
     "https://upload.wikimedia.org/wikipedia/commons/a/a3/Nigerian-puff-puff-recipe_cropped.jpg",
   "beignets-de-mais":
     "https://upload.wikimedia.org/wikipedia/commons/a/a3/Nigerian-puff-puff-recipe_cropped.jpg",
-  fufu: "https://anideva.com/wp-content/uploads/2022/03/DSC02324-1024x768.jpg",
-  "water-fufu":
-    "https://anideva.com/wp-content/uploads/2022/03/DSC02324-1024x768.jpg",
-  "foufou-de-manioc":
-    "https://anideva.com/wp-content/uploads/2022/03/DSC02324-1024x768.jpg",
-  "foufou-de-mais":
-    "https://anideva.com/wp-content/uploads/2022/03/DSC02324-1024x768.jpg",
   miondo: "https://upload.wikimedia.org/wikipedia/commons/4/45/Kwanga.jpg",
   bobolo: "https://upload.wikimedia.org/wikipedia/commons/4/45/Kwanga.jpg",
   "baton-de-manioc":
@@ -104,8 +95,6 @@ export const recipeImages: Record<string, string> = {
     "https://upload.wikimedia.org/wikipedia/commons/5/53/Plat_de_Njapche.jpg",
   "mpele-macabo":
     "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Macabo_taro_pil%C3%A9_dans_une_feuille.jpg/960px-Macabo_taro_pil%C3%A9_dans_une_feuille.jpg",
-  "ndomba-porc":
-    "https://upload.wikimedia.org/wikipedia/commons/f/fa/NDOMBA_Light_%28Poisson_cuit_%C3%A0_l%27%C3%A9touff%C3%A9%29.gif",
   "ndomba-vipere":
     "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Snake_soup.jpg/960px-Snake_soup.jpg",
   nsugi: "https://upload.wikimedia.org/wikipedia/commons/5/5f/Eru_Soup.jpg",
@@ -165,7 +154,6 @@ export const recipeImages: Record<string, string> = {
     "https://upload.wikimedia.org/wikipedia/commons/4/4c/Beignets_-_Bouillie_-_haricots.jpg",
   "porc-fume-moutarde":
     "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Smoked_Pork_02.jpg/960px-Smoked_Pork_02.jpg",
-  "beignets-koki": "https://i.ytimg.com/vi/9OTB5iXbNJw/maxresdefault.jpg",
   "beignets-mais":
     "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Barranquilla_bu%C3%B1uelos_de_ma%C3%ADz.jpg/960px-Barranquilla_bu%C3%B1uelos_de_ma%C3%ADz.jpg",
   "bonbon-coconut":
@@ -245,8 +233,6 @@ export const recipeImages: Record<string, string> = {
     "https://upload.wikimedia.org/wikipedia/commons/5/5f/Eru_Soup.jpg",
   "kwaa-ndzap":
     "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/D%C3%A9gustation_de_koki.jpg/960px-D%C3%A9gustation_de_koki.jpg",
-  "kwanmkwala-esubag":
-    "https://www.emaketa.com/wp-content/uploads/2025/05/hq720-4.jpg",
   mbol: "https://upload.wikimedia.org/wikipedia/commons/5/5f/Eru_Soup.jpg",
   "met-de-pistache":
     "https://upload.wikimedia.org/wikipedia/commons/a/ad/Mets_de_pistache_pr%C3%AAt_%C3%A0_la_consommation.jpg",
@@ -270,73 +256,110 @@ export const recipeImages: Record<string, string> = {
     "https://upload.wikimedia.org/wikipedia/commons/e/ee/Jus_de_gingembre-2025.jpg",
 
   // =================== EXTRÊME-NORD ===================
-  'boule-de-mil': 'https://upload.wikimedia.org/wikipedia/commons/8/8b/Le_t%C3%B4_%C3%A0_la_sauce_d%C3%A2h.JPG',
-  'sauce-folere': 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Baobab_et_fol%C3%A9r%C3%A9.jpg',
-  'dambou-niari': 'https://upload.wikimedia.org/wikipedia/commons/b/bb/Couscous_de_mil_%28thi%C3%A9r%C3%A9%29.jpg',
-  'tchoukou': 'https://upload.wikimedia.org/wikipedia/commons/c/c1/Waagashi.jpg',
-  'bouillie-de-mil': 'https://upload.wikimedia.org/wikipedia/commons/3/33/Millet_porridge.png',
-  'mbaibere': 'https://upload.wikimedia.org/wikipedia/commons/1/10/Beignets_farine_et_Beignets_dougoub.jpg',
-  'lwa-lwa': 'https://upload.wikimedia.org/wikipedia/commons/f/f2/Sauce_de_gombo_avec_la_viande_et_l%27amarante_amer.jpg',
-  'sauce-yakwa': 'https://upload.wikimedia.org/wikipedia/commons/e/e6/Une_sauce_c%C3%B4p%C3%AA_en_C%C3%B4te_d%27Ivoire.jpg',
-  'poisson-braise-maroua': 'https://upload.wikimedia.org/wikipedia/commons/c/c0/Poisson_brais%C3%A9_%C3%A0_la_fa%C3%A7on_du_Cameroun%2C_Kribi.JPG',
+  "boule-de-mil":
+    "https://upload.wikimedia.org/wikipedia/commons/8/8b/Le_t%C3%B4_%C3%A0_la_sauce_d%C3%A2h.JPG",
+  "sauce-folere":
+    "https://upload.wikimedia.org/wikipedia/commons/a/a3/Baobab_et_fol%C3%A9r%C3%A9.jpg",
+  "dambou-niari":
+    "https://upload.wikimedia.org/wikipedia/commons/b/bb/Couscous_de_mil_%28thi%C3%A9r%C3%A9%29.jpg",
+  tchoukou: "https://upload.wikimedia.org/wikipedia/commons/c/c1/Waagashi.jpg",
+  "bouillie-de-mil":
+    "https://upload.wikimedia.org/wikipedia/commons/3/33/Millet_porridge.png",
+  mbaibere:
+    "https://upload.wikimedia.org/wikipedia/commons/1/10/Beignets_farine_et_Beignets_dougoub.jpg",
+  "lwa-lwa":
+    "https://upload.wikimedia.org/wikipedia/commons/f/f2/Sauce_de_gombo_avec_la_viande_et_l%27amarante_amer.jpg",
+  "sauce-yakwa":
+    "https://upload.wikimedia.org/wikipedia/commons/e/e6/Une_sauce_c%C3%B4p%C3%AA_en_C%C3%B4te_d%27Ivoire.jpg",
+  "poisson-braise-maroua":
+    "https://upload.wikimedia.org/wikipedia/commons/c/c0/Poisson_brais%C3%A9_%C3%A0_la_fa%C3%A7on_du_Cameroun%2C_Kribi.JPG",
 
   // =================== NORD ===================
-  'massa-galettes': 'https://upload.wikimedia.org/wikipedia/commons/5/5e/La_pr%C3%A9paration_des_galettes_%28_Massa%29.jpg',
-  'sauce-feuilles-baobab': 'https://upload.wikimedia.org/wikipedia/commons/9/91/Baobab_Leaves_%28Kukah%29.jpg',
-  'bouillie-mil-lait': 'https://upload.wikimedia.org/wikipedia/commons/2/26/Bouilli_de_petit_mil_au_yaourt.jpg',
+  "massa-galettes":
+    "https://upload.wikimedia.org/wikipedia/commons/5/5e/La_pr%C3%A9paration_des_galettes_%28_Massa%29.jpg",
+  "sauce-feuilles-baobab":
+    "https://upload.wikimedia.org/wikipedia/commons/9/91/Baobab_Leaves_%28Kukah%29.jpg",
+  "bouillie-mil-lait":
+    "https://upload.wikimedia.org/wikipedia/commons/2/26/Bouilli_de_petit_mil_au_yaourt.jpg",
 
   // =================== ADAMAOUA ===================
-  'dambou': 'https://upload.wikimedia.org/wikipedia/commons/3/35/Dambou.jpg',
-  'wayna': 'https://upload.wikimedia.org/wikipedia/commons/8/82/Cooked_masa.jpg',
-  'mbusiri': 'https://upload.wikimedia.org/wikipedia/commons/4/42/Bouillie_de_petit_mil_aux_galettes_de_petit_mil_aux_arachides_sucr%C3%A9_et_sal%C3%A9.jpg',
-  'naakiyaari': 'https://upload.wikimedia.org/wikipedia/commons/4/4d/Couscous_jaune_au_moringa.jpg',
-  'dakkere-au-lait': 'https://upload.wikimedia.org/wikipedia/commons/0/01/Gambia_Chakery_0001.jpg',
+  dambou: "https://upload.wikimedia.org/wikipedia/commons/3/35/Dambou.jpg",
+  wayna: "https://upload.wikimedia.org/wikipedia/commons/8/82/Cooked_masa.jpg",
+  mbusiri:
+    "https://upload.wikimedia.org/wikipedia/commons/4/42/Bouillie_de_petit_mil_aux_galettes_de_petit_mil_aux_arachides_sucr%C3%A9_et_sal%C3%A9.jpg",
+  naakiyaari:
+    "https://upload.wikimedia.org/wikipedia/commons/4/4d/Couscous_jaune_au_moringa.jpg",
+  "dakkere-au-lait":
+    "https://upload.wikimedia.org/wikipedia/commons/0/01/Gambia_Chakery_0001.jpg",
 
   // =================== EST ===================
-  'koko-arachides': 'https://upload.wikimedia.org/wikipedia/commons/b/bd/Ikok_mix%C3%A9_et_son_manioc_vapeur.jpg',
-  'mikom': 'https://upload.wikimedia.org/wikipedia/commons/9/90/Edible_Caterpillar.jpg',
-  'kpwem-noix-palme': 'https://upload.wikimedia.org/wikipedia/commons/d/de/Sombe_sauce_with_meat_and_ovacado_01_%28cropped%29.jpg',
-  'sauce-gombo-gibier': 'https://upload.wikimedia.org/wikipedia/commons/6/6a/Okro_soup_with_shrimps%2Cdried_fish%2Ccow_leg_and_tail_with_meat.jpg',
-  'ndomba-poisson-eau-douce': 'https://upload.wikimedia.org/wikipedia/commons/5/52/Liboke_entrouvert_03.JPG',
-  'feuilles-manioc-arachides': 'https://upload.wikimedia.org/wikipedia/commons/6/6f/Sombe_sauce_served_with_kalo_and_avocado.jpg',
-  'porc-epic-sauce-tomate': 'https://upload.wikimedia.org/wikipedia/commons/d/de/Cuisson_du_porc-%C3%A9pic_%28Cameroun%29.jpg',
-  'sauce-arachide-poisson-fume': 'https://upload.wikimedia.org/wikipedia/commons/6/69/Sauce_d%27arachides_au_pisson_fum%C3%A9.jpg',
+  "koko-arachides":
+    "https://upload.wikimedia.org/wikipedia/commons/b/bd/Ikok_mix%C3%A9_et_son_manioc_vapeur.jpg",
+  mikom:
+    "https://upload.wikimedia.org/wikipedia/commons/9/90/Edible_Caterpillar.jpg",
+  "kpwem-noix-palme":
+    "https://upload.wikimedia.org/wikipedia/commons/d/de/Sombe_sauce_with_meat_and_ovacado_01_%28cropped%29.jpg",
+  "sauce-gombo-gibier":
+    "https://upload.wikimedia.org/wikipedia/commons/6/6a/Okro_soup_with_shrimps%2Cdried_fish%2Ccow_leg_and_tail_with_meat.jpg",
+  "ndomba-poisson-eau-douce":
+    "https://upload.wikimedia.org/wikipedia/commons/5/52/Liboke_entrouvert_03.JPG",
+  "feuilles-manioc-arachides":
+    "https://upload.wikimedia.org/wikipedia/commons/6/6f/Sombe_sauce_served_with_kalo_and_avocado.jpg",
+  "porc-epic-sauce-tomate":
+    "https://upload.wikimedia.org/wikipedia/commons/d/de/Cuisson_du_porc-%C3%A9pic_%28Cameroun%29.jpg",
+  "sauce-arachide-poisson-fume":
+    "https://upload.wikimedia.org/wikipedia/commons/6/69/Sauce_d%27arachides_au_pisson_fum%C3%A9.jpg",
 
   // =================== SUD-OUEST ===================
-  'kwacoco-bible': 'https://upload.wikimedia.org/wikipedia/commons/1/14/Kwacoco_Bible%2C_a_traditional_meal_of_the_Bakweri_people_from_the_South_West_Region_of_Cameroon.jpg',
-  'mbanga-soup': 'https://upload.wikimedia.org/wikipedia/commons/8/89/Banga_Soup.jpg',
-  'garri-saute-arachides': 'https://upload.wikimedia.org/wikipedia/commons/7/71/Garri_and_Groundnuts_with_honey.jpg',
-  'plantain-roti-poisson': 'https://upload.wikimedia.org/wikipedia/commons/c/c4/Port_Harcourt_Bole_and_Fish_2026.jpg',
+  "kwacoco-bible":
+    "https://upload.wikimedia.org/wikipedia/commons/1/14/Kwacoco_Bible%2C_a_traditional_meal_of_the_Bakweri_people_from_the_South_West_Region_of_Cameroon.jpg",
+  "mbanga-soup":
+    "https://upload.wikimedia.org/wikipedia/commons/8/89/Banga_Soup.jpg",
+  "garri-saute-arachides":
+    "https://upload.wikimedia.org/wikipedia/commons/7/71/Garri_and_Groundnuts_with_honey.jpg",
+  "plantain-roti-poisson":
+    "https://upload.wikimedia.org/wikipedia/commons/c/c4/Port_Harcourt_Bole_and_Fish_2026.jpg",
 
   // =================== SUD ===================
-  'nnam-ngon': 'https://upload.wikimedia.org/wikipedia/commons/6/61/Mbika_-_ground_flour_from_dried_pumpkin_seeds.jpg',
-  'poisson-braise-kribi': 'https://upload.wikimedia.org/wikipedia/commons/c/c0/Poisson_brais%C3%A9_%C3%A0_la_fa%C3%A7on_du_Cameroun%2C_Kribi.JPG',
-  'crevettes-kribiennes': 'https://upload.wikimedia.org/wikipedia/commons/4/47/Crevettes_sur_oignons_grill%C3%A9s.jpg',
-  'sauce-ndoo': 'https://upload.wikimedia.org/wikipedia/commons/3/39/Ogbono_soup.jpg',
-  'maban-kribi': 'https://upload.wikimedia.org/wikipedia/commons/d/d7/Smoked_fish_on_the_market.JPG',
+  "nnam-ngon":
+    "https://upload.wikimedia.org/wikipedia/commons/6/61/Mbika_-_ground_flour_from_dried_pumpkin_seeds.jpg",
+  "poisson-braise-kribi":
+    "https://upload.wikimedia.org/wikipedia/commons/c/c0/Poisson_brais%C3%A9_%C3%A0_la_fa%C3%A7on_du_Cameroun%2C_Kribi.JPG",
+  "crevettes-kribiennes":
+    "https://upload.wikimedia.org/wikipedia/commons/4/47/Crevettes_sur_oignons_grill%C3%A9s.jpg",
+  "sauce-ndoo":
+    "https://upload.wikimedia.org/wikipedia/commons/3/39/Ogbono_soup.jpg",
+  "maban-kribi":
+    "https://upload.wikimedia.org/wikipedia/commons/d/d7/Smoked_fish_on_the_market.JPG",
 
   // =================== NORD-OUEST ===================
-  'corn-chaff': 'https://upload.wikimedia.org/wikipedia/commons/c/c6/Githeri_Meal.jpg',
-  'fufu-corn': 'https://upload.wikimedia.org/wikipedia/commons/3/35/Fufu_corn_and_khati_khati.jpg',
-  'koki-corn': 'https://upload.wikimedia.org/wikipedia/commons/8/8c/Koki_Corn.jpg',
-  'shaa': 'https://upload.wikimedia.org/wikipedia/commons/a/a7/Benin_-_Tchouk_photo_9.jpg',
-};
+  "corn-chaff":
+    "https://upload.wikimedia.org/wikipedia/commons/c/c6/Githeri_Meal.jpg",
+  "fufu-corn":
+    "https://upload.wikimedia.org/wikipedia/commons/3/35/Fufu_corn_and_khati_khati.jpg",
+  "koki-corn":
+    "https://upload.wikimedia.org/wikipedia/commons/8/8c/Koki_Corn.jpg",
+  shaa: "https://upload.wikimedia.org/wikipedia/commons/a/a7/Benin_-_Tchouk_photo_9.jpg",
+}
 
 // Fallback images by category (Wikimedia when possible, Pexels otherwise)
 export const categoryFallbacks: Record<Category, string> = {
-  'Plat': 'https://upload.wikimedia.org/wikipedia/commons/3/30/Poulet_DG.JPG',
-  'Sauce': 'https://upload.wikimedia.org/wikipedia/commons/1/1b/Mbongo_Tchobi_%28sauce_noir%29.jpg',
-  'Grillade': 'https://upload.wikimedia.org/wikipedia/commons/c/c0/Poisson_brais%C3%A9_%C3%A0_la_fa%C3%A7on_du_Cameroun%2C_Kribi.JPG',
-  'Entrée': 'https://upload.wikimedia.org/wikipedia/commons/a/a2/Salade_avocat_01.jpg',
-  'Accompagnement': 'https://upload.wikimedia.org/wikipedia/commons/0/04/Un_plat_d%27alloco_Fried_Plantains.JPG',
-  'Boisson': 'https://upload.wikimedia.org/wikipedia/commons/e/ea/Bissap_jus_00.jpg',
-  'Dessert': 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Nigerian-puff-puff-recipe_cropped.jpg',
-};
+  Plat: "https://upload.wikimedia.org/wikipedia/commons/3/30/Poulet_DG.JPG",
+  Sauce:
+    "https://upload.wikimedia.org/wikipedia/commons/1/1b/Mbongo_Tchobi_%28sauce_noir%29.jpg",
+  Grillade:
+    "https://upload.wikimedia.org/wikipedia/commons/c/c0/Poisson_brais%C3%A9_%C3%A0_la_fa%C3%A7on_du_Cameroun%2C_Kribi.JPG",
+  Entrée:
+    "https://upload.wikimedia.org/wikipedia/commons/a/a2/Salade_avocat_01.jpg",
+  Accompagnement:
+    "https://upload.wikimedia.org/wikipedia/commons/0/04/Un_plat_d%27alloco_Fried_Plantains.JPG",
+  Boisson:
+    "https://upload.wikimedia.org/wikipedia/commons/e/ea/Bissap_jus_00.jpg",
+  Dessert:
+    "https://upload.wikimedia.org/wikipedia/commons/a/a3/Nigerian-puff-puff-recipe_cropped.jpg",
+}
 
-/**
- * Get the image URL for a recipe by its id and category.
- * Returns a specific image if available, otherwise a category fallback.
- */
+/** Web image sources stay URLs; native require() assets are not copied. */
 export function getRecipeImage(id: string, category: Category): string {
-  return recipeImages[id] ?? categoryFallbacks[category];
+  return recipeImages[id] ?? categoryFallbacks[category]
 }

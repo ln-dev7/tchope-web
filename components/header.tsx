@@ -1,135 +1,94 @@
 "use client"
-
 import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { Menu, X, Globe } from "lucide-react"
-import { motion, AnimatePresence } from "framer-motion"
+import { Menu, X, Globe, ArrowUpRight } from "lucide-react"
 import { useLocale } from "@/lib/locale-context"
-
 export function Header() {
-  const { locale, t, switchLocale } = useLocale()
-  const [mobileOpen, setMobileOpen] = useState(false)
-
-  const navItems = [
-    { label: t.nav.features, href: `/${locale}#features` },
-    { label: t.nav.screenshots, href: `/${locale}#screenshots` },
+  const { locale, switchLocale } = useLocale()
+  const [open, setOpen] = useState(false)
+  const fr = locale === "fr"
+  const items = [
+    { label: fr ? "Comment ça marche" : "How it works", hash: "features" },
+    { label: fr ? "Les recettes" : "The recipes", hash: "recipes" },
+    { label: fr ? "Questions fréquentes" : "FAQ", hash: "faq" },
   ]
-
   return (
-    <header className="fixed top-0 right-0 left-0 z-50">
-      <div className="mx-auto max-w-6xl px-4 pt-4">
-        <div className="rounded-xl lg:rounded-full border border-foreground/5 bg-surface/80 px-5 py-3 shadow-lg shadow-foreground/5 backdrop-blur-xl"
+    <header className="brand-header">
+      <a href="#content" className="brand-skip">
+        {fr ? "Aller au contenu" : "Skip to content"}
+      </a>
+      <div className="brand-nav-wrap">
+        <Link href={`/${locale}`} className="brand-logo">
+          <Image src="/brand/logo.png" alt="" width={40} height={40} />
+          <span>Tchopé</span>
+        </Link>
+        <nav
+          aria-label={fr ? "Navigation principale" : "Main navigation"}
+          className="brand-desktop-nav"
         >
-          <div className="flex items-center justify-between">
-            <Link href={`/${locale}`} className="flex items-center gap-2.5">
-              <Image
-                src="/brand/logo.png"
-                alt="Tchopé"
-                width={32}
-                height={32}
-                className="rounded-[8px]"
-              />
-              <span className="text-lg font-extrabold tracking-tight text-foreground">
-                Tchopé
-              </span>
+          {items.map((x) => (
+            <Link key={x.hash} href={`/${locale}#${x.hash}`}>
+              {x.label}
             </Link>
-
-            {/* Desktop nav */}
-            <nav className="hidden items-center gap-1 lg:flex">
-              {navItems.map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  className="rounded-lg px-4 py-2 text-sm font-medium text-foreground/60 transition-colors hover:bg-foreground/5 hover:text-foreground"
-                >
-                  {item.label}
-                </a>
-              ))}
-              <button
-                onClick={switchLocale}
-                className="ml-2 flex items-center gap-1.5 rounded-full border border-foreground/10 px-3 py-1.5 text-xs font-semibold text-foreground/60 transition-all hover:border-primary/30 hover:text-primary"
-              >
-                <Globe className="size-3.5" />
-                {locale === "fr" ? "EN" : "FR"}
-              </button>
-              <Link
-                href={`/${locale}/app`}
-                className="ml-1 rounded-full bg-primary px-5 py-2 text-sm font-semibold text-white transition-all hover:brightness-110"
-              >
-                {t.nav.openApp}
-              </Link>
-              <a
-                href={`/${locale}#download`}
-                className="ml-1 rounded-full bg-foreground px-5 py-2 text-sm font-semibold text-surface transition-all hover:bg-foreground/85"
-              >
-                {t.nav.download}
-              </a>
-            </nav>
-
-            {/* Mobile toggle */}
-            <div className="flex items-center gap-2 lg:hidden">
-              <button
-                onClick={switchLocale}
-                className="flex items-center gap-1 rounded-full border border-foreground/10 px-2.5 py-1.5 text-xs font-semibold text-foreground/60"
-              >
-                <Globe className="size-3.5" />
-                {locale === "fr" ? "EN" : "FR"}
-              </button>
-              <button
-                onClick={() => setMobileOpen(!mobileOpen)}
-                className="rounded-lg p-1.5 text-foreground transition-colors hover:bg-foreground/5"
-              >
-                {mobileOpen ? (
-                  <X className="size-5" />
-                ) : (
-                  <Menu className="size-5" />
-                )}
-              </button>
-            </div>
-          </div>
-
-          {/* Mobile menu */}
-          <AnimatePresence>
-            {mobileOpen && (
-              <motion.nav
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: "auto", opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.25, ease: "easeInOut" }}
-                className="overflow-hidden lg:hidden"
-              >
-                <div className="flex flex-col gap-1 pt-4 pb-2">
-                  {navItems.map((item) => (
-                    <a
-                      key={item.href}
-                      href={item.href}
-                      onClick={() => setMobileOpen(false)}
-                      className="rounded-xl px-4 py-3 text-sm font-medium text-foreground/70 transition-colors hover:bg-foreground/5"
-                    >
-                      {item.label}
-                    </a>
-                  ))}
-                  <Link
-                    href={`/${locale}/app`}
-                    onClick={() => setMobileOpen(false)}
-                    className="mt-2 rounded-full bg-primary py-3 text-center text-sm font-semibold text-white"
-                  >
-                    {t.nav.openApp}
-                  </Link>
-                  <a
-                    href={`/${locale}#download`}
-                    onClick={() => setMobileOpen(false)}
-                    className="rounded-full bg-foreground py-3 text-center text-sm font-semibold text-surface"
-                  >
-                    {t.nav.download}
-                  </a>
-                </div>
-              </motion.nav>
-            )}
-          </AnimatePresence>
+          ))}
+        </nav>
+        <div className="brand-nav-actions">
+          <button
+            onClick={switchLocale}
+            aria-label={fr ? "Switch to English" : "Passer en français"}
+            className="brand-language"
+          >
+            <Globe size={16} />
+            {fr ? "EN" : "FR"}
+          </button>
+          <Link
+            className="brand-button brand-nav-download"
+            href={`/${locale}/download`}
+          >
+            {fr ? "Télécharger" : "Get the app"}
+            <ArrowUpRight size={16} />
+          </Link>
+          <button
+            className="brand-menu-toggle"
+            aria-label={
+              open
+                ? fr
+                  ? "Fermer le menu"
+                  : "Close menu"
+                : fr
+                  ? "Ouvrir le menu"
+                  : "Open menu"
+            }
+            aria-expanded={open}
+            aria-controls="brand-mobile-menu"
+            onClick={() => setOpen(!open)}
+          >
+            {open ? <X /> : <Menu />}
+          </button>
         </div>
       </div>
+      {open && (
+        <nav
+          id="brand-mobile-menu"
+          className="brand-mobile-menu"
+          aria-label={fr ? "Navigation mobile" : "Mobile navigation"}
+        >
+          {items.map((x) => (
+            <Link
+              key={x.hash}
+              href={`/${locale}#${x.hash}`}
+              onClick={() => setOpen(false)}
+            >
+              {x.label}
+            </Link>
+          ))}
+          <Link href={`/${locale}/download`} onClick={() => setOpen(false)}>
+            {fr ? "Télécharger Tchopé" : "Download Tchopé"}{" "}
+            <ArrowUpRight size={20} />
+          </Link>
+        </nav>
+      )}
     </header>
   )
 }

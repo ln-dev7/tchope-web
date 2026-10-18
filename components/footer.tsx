@@ -1,81 +1,66 @@
 "use client"
-
-import Image from "next/image"
 import Link from "next/link"
+import { ArrowUpRight } from "lucide-react"
 import { useLocale } from "@/lib/locale-context"
-
+import { StoreBadges } from "@/components/store-badges"
 export function Footer() {
-  const { locale, t } = useLocale()
-
+  const { locale } = useLocale()
+  const fr = locale === "fr"
   return (
-    <footer className="bg-dark text-white">
-      <div className="mx-auto max-w-6xl px-6 pt-16 pb-8">
-        <div className="grid gap-12 md:grid-cols-3">
-          {/* Col 1 */}
+    <footer className="brand-footer">
+      <div className="brand-container">
+        <div className="brand-footer-top">
           <div>
-            <div className="flex items-center gap-2.5">
-              <Image
-                src="/brand/logo.png"
-                alt="Tchopé"
-                width={30}
-                height={30}
-                className="rounded-[8px]"
-              />
-              <span className="text-lg font-extrabold tracking-tight">
-                Tchopé
-              </span>
-            </div>
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-dark-muted">
-              {t.footer.tagline}
+            <p className="brand-eyebrow">
+              {fr ? "LA CUISINE, EN PARTAGE" : "GOOD FOOD, SHARED"}
             </p>
+            <h2>{fr ? "On passe à table ?" : "Shall we eat?"}</h2>
+            <p>
+              {fr
+                ? "Les saveurs du Cameroun vous accompagnent."
+                : "Take the flavours of Cameroon with you."}
+            </p>
+            <StoreBadges />
           </div>
-
-          {/* Col 2 */}
-          <div className="flex flex-col gap-3">
-            <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-dark-muted">
-              {t.footer.links}
-            </p>
-            <Link
-              href={`/${locale}/download`}
-              className="text-sm text-dark-muted transition-colors hover:text-white"
-            >
-              {t.footer.download}
+          <nav aria-label={fr ? "Liens utiles" : "Useful links"}>
+            <Link href={`/${locale}/download`}>
+              {fr ? "Télécharger l’app" : "Download the app"}
+              <ArrowUpRight size={16} />
             </Link>
-            <Link
-              href={`/${locale}/privacy`}
-              className="text-sm text-dark-muted transition-colors hover:text-white"
-            >
-              {t.footer.privacy}
+            <Link href={`/${locale}/privacy`}>
+              {fr ? "Confidentialité" : "Privacy"}
+            </Link>
+            <Link href={`/${locale}/app`}>
+              {fr ? "Utiliser la version web" : "Use the web version"}
             </Link>
             <a
               href="https://github.com/ln-dev7/tchope"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm text-dark-muted transition-colors hover:text-white"
             >
               GitHub
+              <ArrowUpRight size={16} />
             </a>
-          </div>
-
-          {/* Col 3 */}
-          <div className="flex flex-col gap-3 md:items-end">
-            <p className="text-sm text-dark-muted">{t.footer.madeWith}</p>
-            <p className="text-sm text-dark-muted">
-              {t.footer.by}{" "}
-              <a
-                href="https://lndev.me"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-semibold text-white transition-colors hover:text-primary"
-              >
-                lndev.me
-              </a>
-            </p>
-          </div>
+            <a
+              href="https://lndev.me"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {fr ? "Créé par LNDEV" : "Made by LNDEV"}
+              <ArrowUpRight size={16} />
+            </a>
+          </nav>
         </div>
-
-        <div className="mt-14 border-t border-white/8 pt-6 text-center text-xs text-dark-muted">
-          {t.footer.rights}
+        <div className="brand-wordmark" aria-hidden="true">
+          Tchopé.
+        </div>
+        <div className="brand-footer-bottom">
+          <span>© {new Date().getFullYear()} Tchopé</span>
+          <span>
+            {fr
+              ? "Du Cameroun. Pour toutes les cuisines."
+              : "From Cameroon. For every kitchen."}
+          </span>
         </div>
       </div>
     </footer>

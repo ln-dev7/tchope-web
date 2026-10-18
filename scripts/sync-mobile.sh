@@ -86,6 +86,8 @@ echo -e "${CYAN}▸ Synchronisation des constantes...${NC}"
 
 for FILE in "$MOBILE_DIR"/constants/*.ts; do
   BASENAME="$(basename "$FILE")"
+  # Native-only typography uses React Native; the web theme lives in globals.css.
+  [ "$BASENAME" = "design.ts" ] && continue
   sync_file "$FILE" "$WEB_DIR/constants/$BASENAME" "constants/$BASENAME"
 done
 

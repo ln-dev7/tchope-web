@@ -23,7 +23,11 @@ export function StoreBadges({ className }: { className?: string }) {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={`/store/apple-store/${locale}.svg`}
-            alt="Download on the App Store"
+            alt={
+              locale === "fr"
+                ? "Télécharger dans l’App Store"
+                : "Download on the App Store"
+            }
             className="h-[48px] w-auto"
           />
         </a>
@@ -38,7 +42,11 @@ export function StoreBadges({ className }: { className?: string }) {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={`/store/play-store/${locale}.svg`}
-            alt="Get it on Google Play"
+            alt={
+              locale === "fr"
+                ? "Disponible sur Google Play"
+                : "Get it on Google Play"
+            }
             className="h-[48px] w-auto"
           />
         </a>

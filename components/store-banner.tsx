@@ -44,7 +44,7 @@ export function StoreBanner() {
   }
 
   return (
-    <div className="flex flex-col gap-3 rounded-2xl bg-primary/10 p-3 dark:bg-primary/15 sm:flex-row sm:items-center sm:px-4 sm:py-3">
+    <div className="flex flex-col gap-3 rounded-2xl bg-primary/10 p-3 sm:flex-row sm:items-center sm:px-4 sm:py-3 dark:bg-primary/15">
       <div className="flex flex-1 items-center gap-3">
         <Smartphone className="size-5 shrink-0 text-primary" />
         <p className="text-xs font-medium text-foreground dark:text-white">
@@ -55,7 +55,7 @@ export function StoreBanner() {
       </div>
       <div className="flex items-center gap-2 self-end sm:self-auto">
         <a
-          href={`/${locale}#download`}
+          href={`/${locale}/download`}
           className="shrink-0 cursor-pointer rounded-full bg-primary px-3 py-1.5 text-xs font-bold text-white"
         >
           {locale === "fr" ? "Installer" : "Install"}
