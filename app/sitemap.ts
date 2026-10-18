@@ -19,6 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "", priority: 1, changeFrequency: "weekly" },
     { path: "/download", priority: 0.8, changeFrequency: "monthly" },
     { path: "/privacy", priority: 0.4, changeFrequency: "yearly" },
+    { path: "/photo-credits", priority: 0.2, changeFrequency: "monthly" },
     { path: "/app", priority: 0.9, changeFrequency: "weekly" },
     { path: "/app/search", priority: 0.7, changeFrequency: "weekly" },
     { path: "/app/cookbook", priority: 0.6, changeFrequency: "weekly" },

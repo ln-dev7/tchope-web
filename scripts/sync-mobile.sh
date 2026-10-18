@@ -88,6 +88,10 @@ for FILE in "$MOBILE_DIR"/constants/*.ts; do
   BASENAME="$(basename "$FILE")"
   # Native-only typography uses React Native; the web theme lives in globals.css.
   [ "$BASENAME" = "design.ts" ] && continue
+  # localImages.ts mobile = require() natifs : le web a sa propre version (générée plus bas).
+  [ "$BASENAME" = "localImages.ts" ] && continue
+  # Propres à l'app mobile (API, RevenueCat, écran Pro) : pas utilisés par le site.
+  case "$BASENAME" in api.ts|revenuecat.ts|pro-translations.ts) continue ;; esac
   sync_file "$FILE" "$WEB_DIR/constants/$BASENAME" "constants/$BASENAME"
 done
 
@@ -95,7 +99,31 @@ done
 if [ -f "$WEB_DIR/constants/images.ts" ]; then
   sed -i '' "s|from '@/types'|from '@/types/recipe'|g" "$WEB_DIR/constants/images.ts" 2>/dev/null || \
   sed -i "s|from '@/types'|from '@/types/recipe'|g" "$WEB_DIR/constants/images.ts" 2>/dev/null || true
+  # Sur le web, une photo locale est un chemin (string), jamais un require() (number).
+  sed -i '' "s#): string | number {#): string {#" "$WEB_DIR/constants/images.ts" 2>/dev/null || \
+  sed -i "s#): string | number {#): string {#" "$WEB_DIR/constants/images.ts" 2>/dev/null || true
 fi
+
+# --------------------------------------------------
+# 2 bis. Photos des plats (assets/images/recipes/*.webp → public/recipes/)
+#        + constants/localImages.ts version web (chemins publics).
+#        Auteurs et licences : constants/photoCredits.ts (copié ci-dessus), page /[locale]/photo-credits.
+# --------------------------------------------------
+echo -e "${CYAN}▸ Photos des plats...${NC}"
+mkdir -p "$WEB_DIR/public/recipes"
+rm -f "$WEB_DIR/public/recipes/"*.webp
+cp "$MOBILE_DIR/assets/images/recipes/"*.webp "$WEB_DIR/public/recipes/"
+{
+  echo "// Photos des recettes servies par le site (public/recipes), générées par scripts/sync-mobile.sh."
+  echo "// Ne pas éditer à la main. Crédits et licences : constants/photoCredits.ts."
+  echo "export const localRecipeImages: Record<string, string> = {"
+  for IMG in "$WEB_DIR/public/recipes/"*.webp; do
+    ID="$(basename "$IMG" .webp)"
+    echo "  \"$ID\": \"/recipes/$ID.webp\","
+  done
+  echo "}"
+} > "$WEB_DIR/constants/localImages.ts"
+echo -e "  ${GREEN}✓${NC} $(ls "$WEB_DIR/public/recipes/"*.webp | wc -l | tr -d ' ') photos → public/recipes/ + constants/localImages.ts"
 
 echo ""
 

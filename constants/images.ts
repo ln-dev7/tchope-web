@@ -1,4 +1,5 @@
 import type { Category } from "@/types/recipe"
+import { localRecipeImages } from "./localImages"
 
 // Wikimedia Commons images (CC license) - authentic Cameroonian dish photos
 // Pexels/Unsplash used as fallbacks when no Wikimedia image exists
@@ -359,7 +360,12 @@ export const categoryFallbacks: Record<Category, string> = {
     "https://upload.wikimedia.org/wikipedia/commons/a/a3/Nigerian-puff-puff-recipe_cropped.jpg",
 }
 
-/** Web image sources stay URLs; native require() assets are not copied. */
+/**
+ * Get the image source for a recipe by its id and category.
+ * Returns a local require (number) for home page recipes, or a remote URL (string) otherwise.
+ */
 export function getRecipeImage(id: string, category: Category): string {
-  return recipeImages[id] ?? categoryFallbacks[category]
+  return (
+    localRecipeImages[id] ?? recipeImages[id] ?? categoryFallbacks[category]
+  )
 }

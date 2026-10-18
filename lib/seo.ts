@@ -110,7 +110,7 @@ export function recipeJsonLd({
     "@type": "Recipe",
     name,
     description,
-    image: image ? [image] : undefined,
+    image: image ? [new URL(image, SITE_URL).href] : undefined,
     inLanguage: locale === "fr" ? "fr-FR" : "en-US",
     url,
     author,

@@ -30,6 +30,9 @@ export function Footer() {
             <Link href={`/${locale}/privacy`}>
               {fr ? "Confidentialité" : "Privacy"}
             </Link>
+            <Link href={`/${locale}/photo-credits`}>
+              {fr ? "Crédits photos" : "Photo credits"}
+            </Link>
             <Link href={`/${locale}/app`}>
               {fr ? "Utiliser la version web" : "Use the web version"}
             </Link>

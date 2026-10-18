@@ -32,6 +32,7 @@ import { RecipeImage } from "@/components/recipe-image"
 import { StoreBanner } from "@/components/store-banner"
 import { useAppOnly } from "@/components/app-only"
 import { getRecipeImage } from "@/constants/images"
+import { SITE_URL } from "@/lib/seo"
 import { getRecipeVideos, getRecipeVideosEn } from "@/constants/videos"
 import { scaleQuantity } from "@/lib/quantity"
 import { useTimerStore } from "@/stores/timers"
@@ -112,7 +113,8 @@ export default function RecipeDetail() {
         recipeCategory: recipe.category,
         recipeCuisine: "Cameroonian",
         recipeYield: `${recipe.servings} portions`,
-        image: getRecipeImage(recipe.id, recipe.category),
+        image: new URL(getRecipeImage(recipe.id, recipe.category), SITE_URL)
+          .href,
         recipeIngredient: recipe.ingredients.map(
           (i) => `${i.quantity} ${i.name}`
         ),
