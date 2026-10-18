@@ -2,8 +2,7 @@
 
 import { useState } from "react"
 import Image from "next/image"
-import { recipeImages } from "@/constants/images"
-import { localRecipeImages } from "@/constants/localImages"
+import { getRecipeImage } from "@/constants/images"
 import type { Category } from "@/types/recipe"
 
 const categoryEmoji: Record<Category, string> = {
@@ -48,11 +47,8 @@ export function RecipeImage({
   const [error, setError] = useState(false)
 
   const isUserRecipe = recipeId.startsWith("user-")
-  const src =
-    imageUri ||
-    (isUserRecipe
-      ? null
-      : (localRecipeImages[recipeId] ?? recipeImages[recipeId]))
+  // Sans photo fiable : placeholder de la catégorie (jamais de fausse image).
+  const src = imageUri || (isUserRecipe ? null : getRecipeImage(recipeId))
 
   if (!src || error) {
     if (isUserRecipe) {

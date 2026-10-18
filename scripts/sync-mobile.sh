@@ -99,9 +99,6 @@ done
 if [ -f "$WEB_DIR/constants/images.ts" ]; then
   sed -i '' "s|from '@/types'|from '@/types/recipe'|g" "$WEB_DIR/constants/images.ts" 2>/dev/null || \
   sed -i "s|from '@/types'|from '@/types/recipe'|g" "$WEB_DIR/constants/images.ts" 2>/dev/null || true
-  # Sur le web, une photo locale est un chemin (string), jamais un require() (number).
-  sed -i '' "s#): string | number {#): string {#" "$WEB_DIR/constants/images.ts" 2>/dev/null || \
-  sed -i "s#): string | number {#): string {#" "$WEB_DIR/constants/images.ts" 2>/dev/null || true
 fi
 
 # --------------------------------------------------

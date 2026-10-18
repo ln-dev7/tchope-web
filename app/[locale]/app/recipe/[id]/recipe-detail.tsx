@@ -113,8 +113,10 @@ export default function RecipeDetail() {
         recipeCategory: recipe.category,
         recipeCuisine: "Cameroonian",
         recipeYield: `${recipe.servings} portions`,
-        image: new URL(getRecipeImage(recipe.id, recipe.category), SITE_URL)
-          .href,
+        image: (() => {
+          const photo = getRecipeImage(recipe.id, recipe.category)
+          return photo ? new URL(photo, SITE_URL).href : undefined
+        })(),
         recipeIngredient: recipe.ingredients.map(
           (i) => `${i.quantity} ${i.name}`
         ),

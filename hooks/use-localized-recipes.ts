@@ -4,13 +4,15 @@ import { useMemo } from "react"
 import { recipes as baseRecipes } from "@/data/recipes"
 import { recipesEn } from "@/data/recipes-en"
 import type { Recipe } from "@/types/recipe"
+import { photosFirst } from "@/constants/images"
 import type { Locale } from "@/lib/i18n"
 
 export function useLocalizedRecipes(locale: Locale): Recipe[] {
   return useMemo(() => {
-    if (locale === "fr") return baseRecipes
+    // Les plats sans photo fiable passent toujours en fin de liste.
+    if (locale === "fr") return photosFirst(baseRecipes)
 
-    return baseRecipes.map((recipe) => {
+    return photosFirst(baseRecipes).map((recipe) => {
       const en = recipesEn[recipe.id]
       if (!en) return recipe
 
