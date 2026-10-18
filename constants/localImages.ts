@@ -126,6 +126,7 @@ export const localRecipeImages: Record<string, string> = {
   "spaghetti-sauce-avocat": "/recipes/spaghetti-sauce-avocat.webp",
   "spaghettis-sardine": "/recipes/spaghettis-sardine.webp",
   "tape-plantain": "/recipes/tape-plantain.webp",
+  "tapioca-saute": "/recipes/tapioca-saute.webp",
   "taro-sauce-jaune": "/recipes/taro-sauce-jaune.webp",
   tchoukou: "/recipes/tchoukou.webp",
   "tenue-militaire": "/recipes/tenue-militaire.webp",
