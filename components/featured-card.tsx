@@ -32,7 +32,7 @@ export function FeaturedCard({
             fill
             className="transition-transform duration-300 group-hover:scale-105"
           />
-          <div className="absolute top-3 left-3 flex gap-1.5">
+          <div className="absolute top-3 right-16 left-3 flex flex-wrap gap-1.5">
             {recipe.tags?.map((tag) => (
               <span
                 key={tag}
@@ -40,7 +40,16 @@ export function FeaturedCard({
                   tag === "CHEF'S CHOICE" ? "bg-secondary" : "bg-primary"
                 }`}
               >
-                {tag}
+                {locale === "fr"
+                  ? ({
+                      "CHEF'S CHOICE": "Choix du chef",
+                      "Sunday Feast": "Repas du dimanche",
+                      POPULAR: "Populaire",
+                      POPULAIRE: "Populaire",
+                    }[tag] ?? tag)
+                  : ({ POPULAIRE: "Popular", "CHEF'S CHOICE": "Chef’s choice" }[
+                      tag
+                    ] ?? tag)}
               </span>
             ))}
           </div>

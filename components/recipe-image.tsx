@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import Image from "next/image"
-import { getRecipeImage } from "@/constants/images"
+import { recipeImages } from "@/constants/images"
 import type { Category } from "@/types/recipe"
 
 const categoryEmoji: Record<Category, string> = {
@@ -47,8 +47,7 @@ export function RecipeImage({
   const [error, setError] = useState(false)
 
   const isUserRecipe = recipeId.startsWith("user-")
-  const src =
-    imageUri || (isUserRecipe ? null : getRecipeImage(recipeId, category))
+  const src = imageUri || (isUserRecipe ? null : recipeImages[recipeId])
 
   if (!src || error) {
     if (isUserRecipe) {
@@ -62,7 +61,12 @@ export function RecipeImage({
     }
     return (
       <div
-        className={`flex items-center justify-center ${categoryColors[category]} ${className}`}
+        role="img"
+        aria-label={alt}
+        style={
+          fill ? undefined : { width: width ?? 200, height: height ?? 200 }
+        }
+        className={`flex items-center justify-center ${fill ? "absolute inset-0 h-full w-full" : ""} ${categoryColors[category]} ${className}`}
       >
         <span className="text-4xl">{categoryEmoji[category]}</span>
       </div>

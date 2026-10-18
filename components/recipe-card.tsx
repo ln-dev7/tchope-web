@@ -18,7 +18,7 @@ export function RecipeCard({
       href={`/${locale}/app/recipe/${recipe.id}`}
       className="app-recipe-card group flex cursor-pointer gap-4 rounded-3xl bg-surface p-3 dark:bg-dark-surface"
     >
-      <div className="relative size-24 shrink-0 overflow-hidden rounded-2xl">
+      <div className="relative size-24 shrink-0 overflow-hidden rounded-2xl bg-tags dark:bg-dark-surface">
         <RecipeImage
           recipeId={recipe.id}
           category={recipe.category}
@@ -28,7 +28,7 @@ export function RecipeCard({
         />
       </div>
       <div className="flex min-w-0 flex-1 flex-col justify-center">
-        <h3 className="truncate text-[15px] font-semibold text-foreground dark:text-white">
+        <h3 className="line-clamp-2 text-[15px] font-semibold text-foreground dark:text-white">
           {recipe.name}
         </h3>
         <div className="mt-1.5 flex items-center gap-1 text-xs text-muted dark:text-dark-muted">

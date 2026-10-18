@@ -88,7 +88,12 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               Tchopé
             </span>
           </Link>
-          <nav className="flex flex-1 flex-col gap-1">
+          <nav
+            aria-label={
+              locale === "fr" ? "Navigation principale" : "Main navigation"
+            }
+            className="flex flex-1 flex-col gap-1"
+          >
             {navItems.map((item) => {
               const active = isActive(item.href)
               return (
@@ -107,7 +112,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 </Link>
               )
             })}
-            <div className="mt-auto pt-4">
+            <div className="mt-auto space-y-1 pt-4">
+              <AppAiButton />
               <Link
                 href={`/${locale}`}
                 className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-muted transition-colors hover:bg-foreground/5 hover:text-foreground dark:text-dark-muted dark:hover:bg-white/5 dark:hover:text-white"
@@ -130,7 +136,12 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               className="rounded-[8px]"
             />
           </Link>
-          <nav className="flex flex-1 flex-col items-center gap-2">
+          <nav
+            aria-label={
+              locale === "fr" ? "Navigation principale" : "Main navigation"
+            }
+            className="flex flex-1 flex-col items-center gap-2"
+          >
             {navItems.map((item) => {
               const active = isActive(item.href)
               return (
@@ -139,7 +150,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   href={item.href}
                   aria-current={active ? "page" : undefined}
                   title={t(item.labelKey)}
-                  className={`flex size-10 items-center justify-center rounded-xl transition-colors ${
+                  aria-label={t(item.labelKey)}
+                  className={`flex size-11 items-center justify-center rounded-xl transition-colors ${
                     active
                       ? "bg-primary/10 text-primary dark:bg-primary/20"
                       : "text-muted hover:bg-foreground/5 hover:text-foreground dark:text-dark-muted dark:hover:bg-white/5 dark:hover:text-white"
@@ -149,11 +161,12 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 </Link>
               )
             })}
-            <div className="mt-auto pt-4">
+            <div className="mt-auto space-y-2 pt-4">
+              <AppAiButton compact />
               <Link
                 href={`/${locale}`}
                 title={locale === "fr" ? "Retour au site" : "Back to site"}
-                className="flex size-10 items-center justify-center rounded-xl text-muted transition-colors hover:bg-foreground/5 hover:text-foreground dark:text-dark-muted dark:hover:bg-white/5 dark:hover:text-white"
+                className="flex size-11 items-center justify-center rounded-xl text-muted transition-colors hover:bg-foreground/5 hover:text-foreground dark:text-dark-muted dark:hover:bg-white/5 dark:hover:text-white"
               >
                 <Globe className="size-5" />
               </Link>
@@ -163,11 +176,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
         {/* Main content */}
         {immersive ? (
-          <main className="h-dvh w-full md:ml-[72px] lg:ml-[220px]">
+          <main className="h-dvh min-w-0 flex-1 md:ml-[72px] lg:ml-[220px]">
             {children}
           </main>
         ) : (
-          <main className="min-h-dvh w-full pb-20 md:ml-[72px] lg:ml-[220px]">
+          <main className="min-h-dvh min-w-0 flex-1 pb-[calc(6rem+env(safe-area-inset-bottom))] md:ml-[72px] md:pb-8 lg:ml-[220px]">
             <div className="mx-auto max-w-2xl px-5 py-7 sm:px-7 md:py-9 lg:max-w-4xl">
               {children}
             </div>
@@ -176,12 +189,12 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
         <TimerHost />
 
-        {/* Bouton TchopAI flottant (comme components/TchopAI.tsx sur mobile) : TchopAI est dans l'app. */}
-        {!immersive && <TchopAiFab />}
-
         {/* Bottom tabs — mobile */}
         <nav
-          className={`fixed right-0 bottom-0 left-0 z-40 border-t border-foreground/5 bg-surface/90 backdrop-blur-xl md:hidden dark:border-white/5 dark:bg-dark-surface/90 ${immersive ? "hidden" : ""}`}
+          aria-label={
+            locale === "fr" ? "Navigation principale" : "Main navigation"
+          }
+          className={`app-bottom-nav fixed right-0 bottom-0 left-0 z-40 border-t border-foreground/5 bg-surface/90 backdrop-blur-xl md:hidden dark:border-white/5 dark:bg-dark-surface/90 ${immersive ? "hidden" : ""}`}
         >
           <div className="flex items-center justify-around px-2 py-2">
             {navItems.map((item) => {
@@ -191,7 +204,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   key={item.href}
                   href={item.href}
                   aria-current={active ? "page" : undefined}
-                  className={`flex flex-col items-center gap-0.5 rounded-xl px-3 py-1.5 text-[10px] font-semibold transition-colors ${
+                  className={`flex min-h-11 min-w-0 flex-1 flex-col items-center gap-0.5 rounded-xl px-1 py-1.5 text-[10px] font-semibold transition-colors ${
                     active
                       ? "bg-primary/10 text-primary"
                       : "text-muted dark:text-dark-muted"
@@ -209,7 +222,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   )
 }
 
-function TchopAiFab() {
+function AppAiButton({ compact = false }: { compact?: boolean }) {
   const { openAppOnly } = useAppOnly()
   return (
     <button
@@ -217,9 +230,10 @@ function TchopAiFab() {
       onClick={openAppOnly}
       aria-label="TchopAI"
       title="TchopAI"
-      className="fixed right-4 bottom-24 z-50 flex size-14 cursor-pointer items-center justify-center rounded-full bg-[#A84027] text-white shadow-lg shadow-[#A84027]/35 transition-transform hover:scale-105 md:right-6 md:bottom-6"
+      className={`flex min-h-11 cursor-pointer items-center rounded-xl text-primary transition-colors hover:bg-primary/10 ${compact ? "size-11 justify-center" : "w-full gap-3 px-3 py-2.5 text-sm font-medium"}`}
     >
-      <MessageCircleMore className="size-7" />
+      <MessageCircleMore className="size-5" />
+      {!compact && "TchopAI"}
     </button>
   )
 }

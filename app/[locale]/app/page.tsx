@@ -16,10 +16,12 @@ import {
   Ship,
   ChevronRight,
   Sparkles,
+  MessageCircleMore,
 } from "lucide-react"
 import { useLocale } from "@/lib/locale-context"
 import { useAppTranslations } from "@/hooks/use-app-translations"
 import { useLocalizedRecipes } from "@/hooks/use-localized-recipes"
+import { useAppOnly } from "@/components/app-only"
 import { StoreBanner } from "@/components/store-banner"
 import { FeaturedCard } from "@/components/featured-card"
 import { RecipeCard } from "@/components/recipe-card"
@@ -105,6 +107,7 @@ const regionTranslationKeys: Record<Exclude<Region, "TchopAI">, string> = {
 
 export default function AppHomePage() {
   const { locale } = useLocale()
+  const { openAppOnly } = useAppOnly()
   const { t } = useAppTranslations(locale)
   const recipes = useLocalizedRecipes(locale)
 
@@ -128,15 +131,17 @@ export default function AppHomePage() {
       <StoreBanner />
 
       {/* Header */}
-      <p className="app-eyebrow">
-        {locale === "fr" ? "LA CUISINE, EN PARTAGE" : "GOOD FOOD, SHARED"}
-      </p>
-      <h1 className="app-display text-foreground dark:text-white">
-        {/* Texte propre au web : pas dans constants/translations.ts, qui est copié depuis l'app mobile (pnpm sync) */}
-        {locale === "fr"
-          ? "On mange quoi aujourd’hui ?"
-          : "What are we cooking today?"}
-      </h1>
+      <header className="space-y-3">
+        <p className="app-eyebrow">
+          {locale === "fr" ? "LA CUISINE, EN PARTAGE" : "GOOD FOOD, SHARED"}
+        </p>
+        <h1 className="app-display text-foreground dark:text-white">
+          {/* Texte propre au web : pas dans constants/translations.ts, qui est copié depuis l'app mobile (pnpm sync) */}
+          {locale === "fr"
+            ? "On mange quoi aujourd’hui ?"
+            : "What are we cooking today?"}
+        </h1>
+      </header>
 
       {/* Search bar */}
       <Link
@@ -166,24 +171,35 @@ export default function AppHomePage() {
         <ChevronRight className="size-[18px] shrink-0 text-primary" />
       </Link>
 
+      <button
+        type="button"
+        onClick={openAppOnly}
+        className="flex min-h-11 w-full items-center justify-center gap-2 rounded-2xl border border-primary/15 px-4 py-3 text-sm font-semibold text-primary transition-colors hover:bg-primary/5 md:hidden"
+      >
+        <MessageCircleMore className="size-5" />
+        {locale === "fr"
+          ? "Un coup de main avec TchopAI"
+          : "A helping hand from TchopAI"}
+      </button>
+
       {/* Regions */}
       <section>
         <h2 className="mb-4 text-xl font-bold tracking-tight text-foreground dark:text-white">
           {t("regions")}
         </h2>
-        <div className="-mx-4 flex gap-3 overflow-x-auto px-4 pb-2 md:mx-0 md:flex-wrap md:px-0">
+        <div className="-mx-4 flex gap-3 overflow-x-auto px-4 pb-2 md:mx-0 md:grid md:grid-cols-5 md:px-0 xl:grid-cols-10">
           {ALL_REGIONS.map((region) => {
             const Icon = regionIcons[region]
             return (
               <Link
                 key={region}
                 href={`/${locale}/app/search?region=${encodeURIComponent(region)}`}
-                className="flex shrink-0 cursor-pointer flex-col items-center gap-2"
+                className="flex w-20 shrink-0 cursor-pointer flex-col items-center gap-2 md:w-auto"
               >
                 <div className="flex size-14 items-center justify-center rounded-full bg-tags text-primary transition-colors hover:bg-primary hover:text-white dark:bg-primary/15 dark:hover:bg-primary">
                   <Icon className="size-5" />
                 </div>
-                <span className="w-16 truncate text-center text-[11px] font-semibold text-foreground dark:text-white">
+                <span className="min-h-8 w-full text-center text-[11px] font-semibold text-foreground dark:text-white">
                   {t(regionTranslationKeys[region] as Parameters<typeof t>[0])}
                 </span>
               </Link>

@@ -377,30 +377,32 @@ export default function TimerPage() {
   return (
     <div className="space-y-6 pb-4">
       {/* En-tête */}
-      <header className="flex items-center gap-3">
+      <header className="flex items-center gap-2 sm:gap-3">
         <button
           type="button"
           onClick={() => router.back()}
           aria-label={isFr ? "Retour" : "Back"}
-          className="flex size-10 shrink-0 cursor-pointer items-center justify-center rounded-full bg-surface text-foreground transition-colors hover:bg-foreground/5 dark:bg-dark-surface dark:text-white dark:hover:bg-white/10"
+          className="flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-full bg-surface text-foreground transition-colors hover:bg-foreground/5 dark:bg-dark-surface dark:text-white dark:hover:bg-white/10"
         >
           <ArrowLeft className="size-5" />
         </button>
-        <h1 className="min-w-0 flex-1 truncate text-2xl font-extrabold text-foreground dark:text-white">
+        <h1 className="app-compact-heading min-w-0 flex-1 font-[Georgia,serif] text-2xl font-normal text-foreground dark:text-white">
           {t("timerPageTitle")}
         </h1>
         <button
           type="button"
           onClick={() => setTickSound(!tickSound)}
           aria-pressed={tickSound}
-          className={`flex shrink-0 cursor-pointer items-center gap-1.5 rounded-2xl px-2.5 py-2 text-[11px] font-semibold transition-colors sm:px-3 sm:text-xs ${
+          aria-label={t("timerTickSound")}
+          title={t("timerTickSound")}
+          className={`flex min-h-11 min-w-11 shrink-0 justify-center cursor-pointer items-center gap-1.5 rounded-2xl px-2.5 py-2 text-[11px] font-semibold transition-colors sm:px-3 sm:text-xs ${
             tickSound
               ? "bg-primary/15 text-primary hover:bg-primary/20"
               : "bg-surface text-muted hover:bg-foreground/5 dark:bg-dark-surface dark:text-dark-muted dark:hover:bg-white/10"
           }`}
         >
           {tickSound ? <Volume2 className="size-4" /> : <VolumeX className="size-4" />}
-          {t("timerTickSound")}
+          <span className="hidden sm:inline">{t("timerTickSound")}</span>
         </button>
         <button
           type="button"
@@ -408,7 +410,7 @@ export default function TimerPage() {
           aria-pressed={keepAwake}
           aria-label={t("timerKeepAwake")}
           title={t("timerKeepAwake")}
-          className={`flex shrink-0 cursor-pointer items-center gap-1.5 rounded-2xl px-2.5 py-2 text-xs font-semibold transition-colors sm:px-3 ${
+          className={`flex min-h-11 min-w-11 shrink-0 cursor-pointer items-center justify-center gap-1.5 rounded-2xl px-2.5 py-2 text-xs font-semibold transition-colors sm:px-3 ${
             keepAwake
               ? "bg-primary/15 text-primary hover:bg-primary/20"
               : "bg-surface text-muted hover:bg-foreground/5 dark:bg-dark-surface dark:text-dark-muted dark:hover:bg-white/10"

@@ -37,7 +37,8 @@ function SearchPage() {
   const { locale } = useLocale()
   const { t } = useAppTranslations(locale)
   const recipes = useLocalizedRecipes(locale)
-  const { results, query, setQuery, filters, setFilters, reset } = useSearch(recipes)
+  const { results, query, setQuery, filters, setFilters, reset } =
+    useSearch(recipes)
   const inputRef = useRef<HTMLInputElement>(null)
   const searchParams = useSearchParams()
 
@@ -50,11 +51,23 @@ function SearchPage() {
     inputRef.current?.focus()
   }, [])
 
-  const hasFilters = !!(query || filters.duration || filters.spiciness || filters.ingredient)
+  const hasFilters = !!(
+    query ||
+    filters.duration ||
+    filters.spiciness ||
+    filters.ingredient
+  )
 
   return (
     <div className="space-y-5 pb-4">
       <StoreBanner />
+
+      <header className="space-y-2">
+        <h1 className="text-foreground dark:text-white">{t("searchTitle")}</h1>
+        <p className="text-sm text-muted dark:text-dark-muted">
+          {t("searchSubtitle")}
+        </p>
+      </header>
 
       {/* Search input */}
       <div className="relative">
@@ -65,11 +78,15 @@ function SearchPage() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder={t("searchPlaceholder")}
+          aria-label={t("searchPlaceholder")}
           className="w-full rounded-2xl border border-foreground/5 bg-surface py-3 pr-10 pl-11 text-sm text-foreground outline-none placeholder:text-muted focus:border-primary/30 dark:border-white/5 dark:bg-dark-surface dark:text-white dark:placeholder:text-dark-muted"
         />
         {query && (
           <button
             onClick={() => setQuery("")}
+            aria-label={
+              locale === "fr" ? "Effacer la recherche" : "Clear search"
+            }
             className="absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer rounded-full p-1 text-muted hover:text-foreground dark:text-dark-muted"
           >
             <X className="size-4" />

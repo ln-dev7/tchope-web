@@ -44,26 +44,26 @@ export function StoreBanner() {
   }
 
   return (
-    <div className="flex flex-col gap-3 rounded-2xl bg-primary/10 p-3 sm:flex-row sm:items-center sm:px-4 sm:py-3 dark:bg-primary/15">
-      <div className="flex flex-1 items-center gap-3">
-        <Smartphone className="size-5 shrink-0 text-primary" />
+    <div className="flex items-center gap-2 rounded-2xl bg-primary/10 p-2.5 sm:gap-3 sm:px-4 dark:bg-primary/15">
+      <div className="flex min-w-0 flex-1 items-center gap-2">
+        <Smartphone className="size-4 shrink-0 text-primary" />
         <p className="text-xs font-medium text-foreground dark:text-white">
           {locale === "fr"
-            ? "Tchopé est aussi disponible sur mobile, sur iPhone et Android !"
-            : "Tchopé is also available on mobile, on iPhone and Android!"}
+            ? "Tchopé sur iPhone, iPad et Android."
+            : "Tchopé on iPhone, iPad and Android."}
         </p>
       </div>
-      <div className="flex items-center gap-2 self-end sm:self-auto">
+      <div className="flex shrink-0 items-center gap-1">
         <a
           href={`/${locale}/download`}
-          className="shrink-0 cursor-pointer rounded-full bg-primary px-3 py-1.5 text-xs font-bold text-white"
+          className="flex min-h-11 shrink-0 cursor-pointer items-center rounded-full px-2 text-xs font-bold text-primary"
         >
           {locale === "fr" ? "Installer" : "Install"}
         </a>
         <button
           onClick={dismiss}
           aria-label={locale === "fr" ? "Fermer" : "Close"}
-          className="shrink-0 cursor-pointer rounded-full p-1 text-foreground/40 transition-colors hover:text-foreground dark:text-white/40 dark:hover:text-white"
+          className="flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-full text-muted transition-colors hover:text-foreground dark:text-white/40 dark:hover:text-white"
         >
           <X className="size-4" />
         </button>

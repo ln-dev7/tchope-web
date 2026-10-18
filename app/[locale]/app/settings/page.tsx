@@ -1,7 +1,8 @@
 "use client"
 
-import { useState, useEffect, useSyncExternalStore } from "react"
+import { useEffect, useSyncExternalStore } from "react"
 import { useRouter } from "next/navigation"
+import { useTheme } from "next-themes"
 import Link from "next/link"
 import {
   Sun,
@@ -39,27 +40,6 @@ import {
 
 type Theme = "light" | "dark" | "system"
 
-function getStoredTheme(): Theme {
-  if (typeof window === "undefined") return "light"
-  try {
-    return (localStorage.getItem("tchope_theme") as Theme) || "light"
-  } catch {
-    return "light"
-  }
-}
-
-function applyTheme(theme: Theme) {
-  const isDark =
-    theme === "dark" ||
-    (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches)
-  document.documentElement.classList.toggle("dark", isDark)
-  try {
-    localStorage.setItem("tchope_theme", theme)
-  } catch {
-    // stockage bloqué : thème appliqué pour cette visite seulement
-  }
-}
-
 const noopSubscribe = () => () => {}
 
 export default function SettingsPage() {
@@ -68,15 +48,14 @@ export default function SettingsPage() {
   const router = useRouter()
   const clearFavorites = useFavorites((s) => s.clearAll)
   const clearUserRecipes = useUserRecipes((s) => s.clearAll)
-  // Thème enregistré lu seulement côté client (null au rendu serveur et à l'hydratation,
-  // sinon la coche différerait entre serveur et client : erreur d'hydratation React #418).
-  const storedTheme = useSyncExternalStore(noopSubscribe, getStoredTheme, () => null)
-  const [chosenTheme, setTheme] = useState<Theme | null>(null)
-  const theme = chosenTheme ?? storedTheme
-
-  useEffect(() => {
-    applyTheme(chosenTheme ?? getStoredTheme())
-  }, [chosenTheme])
+  const { theme: savedTheme, setTheme } = useTheme()
+  // Keep the server and initial hydration identical until the browser is mounted.
+  const mounted = useSyncExternalStore(
+    noopSubscribe,
+    () => true,
+    () => false
+  )
+  const theme = mounted ? savedTheme : undefined
 
   // Comme le mobile : tout effacer (favoris, recettes, notes, plans, minuteurs, thème, et les restes
   // de l'ancienne IA du site), puis recharger pour repartir de zéro.
@@ -85,7 +64,8 @@ export default function SettingsPage() {
       const toRemove: string[] = []
       for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i)
-        if (key && (key.startsWith("tchope_") || key.startsWith("ai_cache:"))) toRemove.push(key)
+        if (key && (key.startsWith("tchope_") || key.startsWith("ai_cache:")))
+          toRemove.push(key)
       }
       toRemove.forEach((key) => localStorage.removeItem(key))
       sessionStorage.setItem("tchope_reset_done", "1")
@@ -121,14 +101,15 @@ export default function SettingsPage() {
 
       {/* Appearance */}
       <Section title={t("appearance")}>
-        {([
+        {[
           { key: "light" as Theme, icon: Sun, label: t("light") },
           { key: "dark" as Theme, icon: Moon, label: t("dark") },
           { key: "system" as Theme, icon: Monitor, label: t("system") },
-        ]).map((item) => (
+        ].map((item) => (
           <button
             key={item.key}
             onClick={() => setTheme(item.key)}
+            aria-pressed={theme === item.key}
             className="flex w-full cursor-pointer items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-foreground transition-colors hover:bg-foreground/5 dark:text-white dark:hover:bg-white/5"
           >
             <item.icon className="size-4 text-muted dark:text-dark-muted" />
@@ -168,7 +149,9 @@ export default function SettingsPage() {
       </Section>
 
       {/* Store badges */}
-      <Section title={locale === "fr" ? "Télécharger l'app" : "Download the app"}>
+      <Section
+        title={locale === "fr" ? "Télécharger l'app" : "Download the app"}
+      >
         <div className="flex items-center justify-center px-4 py-3">
           <StoreBadges />
         </div>
@@ -178,9 +161,7 @@ export default function SettingsPage() {
       <Section title={t("data")}>
         <AlertDialog>
           <AlertDialogTrigger asChild>
-            <button
-              className="flex w-full cursor-pointer items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-red-500 transition-colors hover:bg-red-500/5"
-            >
+            <button className="flex w-full cursor-pointer items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-red-500 transition-colors hover:bg-red-500/5">
               <Trash2 className="size-4" />
               {t("clearFavorites")}
             </button>
@@ -188,14 +169,18 @@ export default function SettingsPage() {
           <AlertDialogContent>
             <AlertDialogHeader>
               <AlertDialogTitle>{t("clearConfirm")}</AlertDialogTitle>
-              <AlertDialogDescription>{t("clearConfirmMessage")}</AlertDialogDescription>
+              <AlertDialogDescription>
+                {t("clearConfirmMessage")}
+              </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
               <AlertDialogAction
                 onClick={() => {
                   clearFavorites()
-                  toast.success(locale === "fr" ? "Favoris supprimés" : "Favorites cleared")
+                  toast.success(
+                    locale === "fr" ? "Favoris supprimés" : "Favorites cleared"
+                  )
                 }}
               >
                 {t("confirm")}
@@ -205,9 +190,7 @@ export default function SettingsPage() {
         </AlertDialog>
         <AlertDialog>
           <AlertDialogTrigger asChild>
-            <button
-              className="flex w-full cursor-pointer items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-red-500 transition-colors hover:bg-red-500/5"
-            >
+            <button className="flex w-full cursor-pointer items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-red-500 transition-colors hover:bg-red-500/5">
               <Trash2 className="size-4" />
               {t("clearUserRecipes")}
             </button>
@@ -215,7 +198,9 @@ export default function SettingsPage() {
           <AlertDialogContent>
             <AlertDialogHeader>
               <AlertDialogTitle>{t("clearConfirm")}</AlertDialogTitle>
-              <AlertDialogDescription>{t("clearConfirmMessage")}</AlertDialogDescription>
+              <AlertDialogDescription>
+                {t("clearConfirmMessage")}
+              </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
@@ -236,18 +221,24 @@ export default function SettingsPage() {
               <RotateCcw className="mt-0.5 size-4 shrink-0" />
               <span className="flex-1">
                 {t("resetAllData")}
-                <span className="mt-0.5 block text-xs font-normal text-muted dark:text-dark-muted">{t("resetAllDataDesc")}</span>
+                <span className="mt-0.5 block text-xs font-normal text-muted dark:text-dark-muted">
+                  {t("resetAllDataDesc")}
+                </span>
               </span>
             </button>
           </AlertDialogTrigger>
           <AlertDialogContent>
             <AlertDialogHeader>
               <AlertDialogTitle>{t("resetAllData")}</AlertDialogTitle>
-              <AlertDialogDescription>{t("resetAllDataConfirm")}</AlertDialogDescription>
+              <AlertDialogDescription>
+                {t("resetAllDataConfirm")}
+              </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
-              <AlertDialogAction onClick={resetAllData}>{t("confirm")}</AlertDialogAction>
+              <AlertDialogAction onClick={resetAllData}>
+                {t("confirm")}
+              </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
@@ -255,14 +246,31 @@ export default function SettingsPage() {
 
       {/* Contact */}
       <Section title={t("contactMe")}>
-        <SettingsLink href="mailto:leonelngoya@gmail.com" icon={Mail} label="leonelngoya@gmail.com" />
-        <SettingsLink href="https://t.me/ln_dev7" icon={Send} label="Telegram" />
+        <SettingsLink
+          href="mailto:leonelngoya@gmail.com"
+          icon={Mail}
+          label="leonelngoya@gmail.com"
+        />
+        <SettingsLink
+          href="https://t.me/ln_dev7"
+          icon={Send}
+          label="Telegram"
+        />
       </Section>
 
       {/* About */}
       <Section title={t("about")}>
-        <SettingsLink href="https://lndev.me" icon={ExternalLink} label={t("developer")} suffix="lndev.me" />
-        <SettingsLink href="https://github.com/ln-dev7/tchope" icon={Github} label="GitHub" />
+        <SettingsLink
+          href="https://lndev.me"
+          icon={ExternalLink}
+          label={t("developer")}
+          suffix="lndev.me"
+        />
+        <SettingsLink
+          href="https://github.com/ln-dev7/tchope"
+          icon={Github}
+          label="GitHub"
+        />
         <Link
           href={`/${locale}/privacy`}
           className="flex w-full cursor-pointer items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-foreground transition-colors hover:bg-foreground/5 dark:text-white dark:hover:bg-white/5"
@@ -275,7 +283,12 @@ export default function SettingsPage() {
       <div className="pb-4 text-center text-xs text-muted dark:text-dark-muted">
         <p>{t("madeWith")}</p>
         <p className="mt-1">
-          <a href="https://lndev.me" target="_blank" rel="noopener noreferrer" className="font-medium text-primary">
+          <a
+            href="https://lndev.me"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium text-primary"
+          >
             lndev.me
           </a>
         </p>
@@ -284,13 +297,21 @@ export default function SettingsPage() {
   )
 }
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
+function Section({
+  title,
+  children,
+}: {
+  title: string
+  children: React.ReactNode
+}) {
   return (
     <section>
-      <h2 className="mb-2 text-xs font-bold uppercase tracking-wider text-muted dark:text-dark-muted">
+      <h2 className="mb-2 text-xs font-bold tracking-wider text-muted uppercase dark:text-dark-muted">
         {title}
       </h2>
-      <div className="rounded-2xl bg-surface dark:bg-dark-surface p-2">{children}</div>
+      <div className="rounded-2xl bg-surface p-2 dark:bg-dark-surface">
+        {children}
+      </div>
     </section>
   )
 }
@@ -315,7 +336,11 @@ function SettingsLink({
     >
       <Icon className="size-4 text-muted dark:text-dark-muted" />
       <span className="flex-1">{label}</span>
-      {suffix && <span className="text-xs text-muted dark:text-dark-muted">{suffix}</span>}
+      {suffix && (
+        <span className="text-xs text-muted dark:text-dark-muted">
+          {suffix}
+        </span>
+      )}
     </a>
   )
 }

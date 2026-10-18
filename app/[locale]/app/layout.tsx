@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { ThemeProvider } from "next-themes"
 import { AppShell } from "@/components/app-shell"
 import {
   DEFAULT_OG_EN,
@@ -54,5 +55,15 @@ export async function generateMetadata({
 }
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
-  return <AppShell>{children}</AppShell>
+  return (
+    <ThemeProvider
+      attribute="class"
+      storageKey="tchope_theme"
+      defaultTheme="light"
+      enableSystem
+      disableTransitionOnChange
+    >
+      <AppShell>{children}</AppShell>
+    </ThemeProvider>
+  )
 }

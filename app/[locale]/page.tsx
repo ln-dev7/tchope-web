@@ -31,9 +31,9 @@ export default function Home() {
         eyebrow: "LES SAVEURS DU CAMEROUN, À VOTRE TABLE.",
         title: (
           <>
-            Un peu de chez nous.
+            La cuisine camerounaise
             <br />
-            <em>Dans chaque plat.</em>
+            <em>dans ta poche.</em>
           </>
         ),
         intro:
@@ -115,9 +115,9 @@ export default function Home() {
         eyebrow: "THE FLAVOURS OF CAMEROON, AT YOUR TABLE.",
         title: (
           <>
-            A little taste of home.
+            Cameroonian cuisine
             <br />
-            <em>In every dish.</em>
+            <em>in your pocket.</em>
           </>
         ),
         intro:

@@ -376,7 +376,7 @@ function CookingMode({
             <ArrowLeft className="size-5" />
           </button>
           <div className="min-w-0 flex-1">
-            <h1 className="truncate text-base font-bold text-foreground dark:text-white">
+            <h1 className="app-compact-heading truncate text-base font-bold text-foreground dark:text-white">
               {recipe.name}
             </h1>
             <p className="text-[13px] text-muted dark:text-dark-muted">

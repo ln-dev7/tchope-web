@@ -739,7 +739,7 @@
   letter-spacing: 0.14em;
   font-weight: 700;
   color: var(--tchope-primary);
-  margin-bottom: -12px;
+  margin-bottom: 0;
 }
 .tchope-app input:not([type="checkbox"]),
 .tchope-app textarea {
@@ -760,7 +760,7 @@
 .tchope-app nav a {
   min-height: 44px;
 }
-.tchope-app nav[aria-label] {
+.tchope-app .app-bottom-nav {
   padding-bottom: env(safe-area-inset-bottom);
 }
 @media (max-width: 1000px) {
@@ -1044,7 +1044,7 @@
 .tchope-app .bg-secondary.text-white {
   color: var(--tchope-on-secondary);
 }
-.tchope-app h1:not(.app-display) {
+.tchope-app h1:not(.app-display):not(.app-compact-heading) {
   font-family: Georgia, serif;
   font-size: 30px;
   font-weight: 500;
