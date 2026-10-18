@@ -17,8 +17,7 @@ const ANTHROPIC_URL = "https://api.anthropic.com/v1/messages"
 
 export async function POST(req: NextRequest) {
   if (isBrowserRequest(req.headers)) return NextResponse.json({ error: "app-only" }, { status: 403 })
-  // Clé Anthropic du projet Vercel (`TCHOPE_SECRET_KEY`, nom historique du site, ou `ANTHROPIC_API_KEY`).
-  const apiKey = process.env.TCHOPE_SECRET_KEY || process.env.ANTHROPIC_API_KEY
+  const apiKey = process.env.ANTHROPIC_API_KEY
   if (!apiKey) return NextResponse.json({ error: "not-configured" }, { status: 503 })
 
   const access = await resolveAccess(req.headers)

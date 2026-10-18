@@ -13,7 +13,7 @@ export async function GET(req: NextRequest) {
   if (!rl.ok) return NextResponse.json({ error: "slow-down" }, { status: 429 })
   const status = await proCheckStatus()
   return NextResponse.json(
-    { ...status, anthropicKey: !!(process.env.TCHOPE_SECRET_KEY || process.env.ANTHROPIC_API_KEY) },
+    { ...status, anthropicKey: !!process.env.ANTHROPIC_API_KEY },
     { headers: { "cache-control": "no-store", "x-robots-tag": "noindex" } }
   )
 }

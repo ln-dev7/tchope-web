@@ -86,7 +86,7 @@ Tchopé Pro is checked server-side (`lib/server/pro-check.ts`): the app sends it
 the RevenueCat API v2 whether the `tchope_pro` entitlement is active. Only the text chat has a free taste; everything else
 requires the subscription. Closed by default: without keys the routes answer 503.
 
-Environment variables (Vercel project settings, `.env` locally): `TCHOPE_SECRET_KEY` (or `ANTHROPIC_API_KEY`),
+Environment variables (Vercel project settings, `.env` locally): `ANTHROPIC_API_KEY`,
 `REVENUECAT_SECRET_KEY` (RevenueCat v2 secret key, read access to customers and project configuration),
 `REVENUECAT_PROJECT_ID`, optionally `ALLOWED_MODELS`, `MIN_APP_VERSION`. Tests: `pnpm test:pro`.
 
