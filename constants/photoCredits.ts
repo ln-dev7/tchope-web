@@ -15,13 +15,6 @@ export const photoCredits: PhotoCredit[] = [
     url: "https://commons.wikimedia.org/wiki/File:Pineapple,_carrots,_avocado_on_mixed_greens_-_Massachusetts.jpg",
   },
   {
-    id: "banane-malaxee",
-    author: "Giftcup",
-    license: "CC BY-SA 4.0",
-    source: "Wikimedia Commons",
-    url: "https://commons.wikimedia.org/wiki/File:Cameroonian_Porridge_Plantain.jpg",
-  },
-  {
     id: "baton-manioc",
     author: "AGRIPO",
     license: "CC BY-SA 4.0",
@@ -337,13 +330,6 @@ export const photoCredits: PhotoCredit[] = [
     url: "https://commons.wikimedia.org/wiki/File:Un_plat_de_feuille_de_Manioc_et_du_fufu.jpg",
   },
   {
-    id: "kpwem-noix-palme",
-    author: "BalukuBrian",
-    license: "CC BY-SA 4.0",
-    source: "Wikimedia Commons",
-    url: "https://commons.wikimedia.org/wiki/File:Sombe_sauce_with_meat_and_ovacado_01_(cropped).jpg",
-  },
-  {
     id: "kwacoco-bible",
     author: "Joso11",
     license: "CC0",
@@ -587,13 +573,6 @@ export const photoCredits: PhotoCredit[] = [
     license: "CC BY-SA 4.0",
     source: "Wikimedia Commons",
     url: "https://commons.wikimedia.org/wiki/File:Smoky_grilled_pork_and_dodo.jpg",
-  },
-  {
-    id: "porc-fume-moutarde",
-    author: "Ssemmanda will",
-    license: "CC BY-SA 4.0",
-    source: "Wikimedia Commons",
-    url: "https://commons.wikimedia.org/wiki/File:Smoked_Pork_02.jpg",
   },
   {
     id: "poulet-braise",
