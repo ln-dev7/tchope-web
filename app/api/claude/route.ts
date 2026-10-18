@@ -26,7 +26,9 @@ export async function POST(req: NextRequest) {
 
   let body: unknown
   try {
-    body = await req.json()
+    const rawBody = await req.text()
+    if (rawBody.length > 4_000_000) return NextResponse.json({ error: "too-large" }, { status: 413 })
+    body = JSON.parse(rawBody)
   } catch {
     return NextResponse.json({ error: "bad-request" }, { status: 400 })
   }
@@ -38,6 +40,12 @@ export async function POST(req: NextRequest) {
   const feature: Feature = clean.images > 0 && declared === "chat" ? "chat-photo" : declared
   if (needsPro(access, feature)) return NextResponse.json({ error: "pro-required" }, { status: 402 })
 
+  // Bound Live cost even if a modified client sends a larger history or token budget.
+  if (feature === "live-cooking") {
+    const textChars = JSON.stringify(clean.system).length + clean.messages.reduce((n, m) => n + (typeof m.content === "string" ? m.content.length : m.content.filter(b => b.type === "text").reduce((a, b) => a + ("text" in b ? b.text.length : 0), 0)), 0)
+    if (clean.messages.length > 8 || clean.images > 1 || textChars > 18_000) return NextResponse.json({ error: "live-context-too-large" }, { status: 413 })
+    clean.max_tokens = Math.min(clean.max_tokens, 256)
+  }
   const rl = checkLimits(access, feature)
   if (!rl.ok) {
     if (!access.pro && rl.reason === "day") return NextResponse.json({ error: "pro-required" }, { status: 402 })
@@ -47,6 +55,7 @@ export async function POST(req: NextRequest) {
   try {
     const res = await fetch(ANTHROPIC_URL, {
       method: "POST",
+      signal: AbortSignal.any([req.signal, AbortSignal.timeout(45_000)]),
       headers: {
         "content-type": "application/json",
         "x-api-key": apiKey,
@@ -56,12 +65,16 @@ export async function POST(req: NextRequest) {
       body: JSON.stringify({ model: clean.model, max_tokens: clean.max_tokens, system: clean.system, messages: clean.messages }),
     })
     if (!res.ok) {
-      console.error(`[claude] Anthropic HTTP ${res.status} : ${(await res.text()).slice(0, 300)}`)
+      console.error(`[claude] Anthropic HTTP ${res.status}`)
       return NextResponse.json({ error: "ai-failed" }, { status: 502 })
     }
-    return NextResponse.json(await res.json(), { headers: { "cache-control": "no-store" } })
+    const data = await res.json()
+    if (!data.content?.some((b: { type?: string; text?: string }) => b.type === "text" && b.text?.trim())) {
+      return NextResponse.json({ error: "empty-response" }, { status: 502 })
+    }
+    return NextResponse.json(data, { headers: { "cache-control": "no-store" } })
   } catch (err) {
-    console.error("[claude] erreur :", err)
+    console.error("[claude] request interrupted:", err instanceof Error ? err.name : "unknown")
     return NextResponse.json({ error: "ai-failed" }, { status: 502 })
   }
 }

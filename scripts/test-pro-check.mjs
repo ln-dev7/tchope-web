@@ -101,5 +101,56 @@ await test('diagnostic : actif avec une clé et un projet valides', async () => 
   assert.equal(st.active, true);
 });
 
+await test('panne RevenueCat : un faux indice Pro ne donne jamais accès', async () => {
+  P._resetProCache();
+  const original = globalThis.fetch;
+  globalThis.fetch = async () => new Response('{}', { status: 503 });
+  const access = await P.resolveAccess(h({ id: PRO, pro: true }));
+  assert.equal(access.pro, false);
+  assert.deepEqual(P.accessRefusal(access), { status: 503, error: 'subscription-unavailable' });
+  globalThis.fetch = original;
+  assert.equal((await P.resolveAccess(h({ id: PRO, pro: true }))).pro, true);
+});
+await test('entitlement expiré ou date invalide ne débloque pas Pro', async () => {
+  assert.equal(P.activeEntitlement([{ entitlement_id: ENT, expires_at: Date.now() - 1 }], ENT), false);
+  assert.equal(P.activeEntitlement([{ entitlement_id: ENT, expires_at: 'invalid' }], ENT), false);
+});
+
+// Exercise the real route with a fake upstream; no credentials or paid requests.
+await copy('app/api/claude/route.ts', 'claude-route.ts', s => s
+  .replace('"next/server"', '"./next-stub.ts"')
+  .replaceAll('"@/lib/server/claude-policy"', '"./claude-policy.ts"')
+  .replaceAll('"@/lib/server/pro-check"', '"./pro-check.ts"')
+  .replaceAll('"@/lib/server/app-only"', '"./app-only.ts"'));
+await writeFile(path.join(dir, 'next-stub.ts'), 'export class NextRequest extends Request {}\nexport const NextResponse = { json: (data, options) => Response.json(data, options) };');
+const routeApi = await import(pathToFileURL(path.join(dir, 'claude-route.ts')).href);
+process.env.ANTHROPIC_API_KEY = 'test-only';
+const revenuecat = globalThis.fetch;
+let forwarded;
+let aiStatus = 200;
+let aiContent = [{ type: 'text', text: 'Remuez doucement.' }];
+globalThis.fetch = async (url, options) => {
+  if (!String(url).includes('api.anthropic.com')) return revenuecat(url, options);
+  forwarded = JSON.parse(options.body);
+  return Response.json({ content: aiContent }, { status: aiStatus });
+};
+const body = { model: 'claude-haiku-4-5', feature: 'live-cooking', system: 'Cooking assistant', messages: [{ role: 'user', content: 'Question' }], max_tokens: 2048 };
+const post = (body, headers = {}) => routeApi.POST(new Request('https://test.invalid/api/claude', { method: 'POST', headers: { 'content-type': 'application/json', 'x-tchope-user': PRO, ...headers }, body: JSON.stringify(body) }));
+await test('Live route: Pro required, browser refused, oversized histories rejected', async () => {
+  P._resetProCache();
+  assert.equal((await post(body, { 'x-tchope-user': FREE })).status, 402);
+  assert.equal((await post(body, { origin: 'https://test.invalid' })).status, 403);
+  assert.equal((await post({ ...body, messages: Array(9).fill(body.messages[0]) })).status, 413);
+  assert.equal((await post({ ...body, system: 'x'.repeat(18001) })).status, 413);
+});
+await test('Live route: token cap, one current photo, no upstream error content leaked', async () => {
+  const image = { type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: 'AAA' } };
+  assert.equal((await post({ ...body, messages: [{ role: 'user', content: [image, image] }] })).status, 413);
+  const res = await post({ ...body, messages: [{ role: 'user', content: [{ type: 'text', text: 'Photo' }, image] }] });
+  assert.equal(res.status, 200); assert.equal(forwarded.max_tokens, 256); assert.equal(forwarded.messages[0].content.length, 2);
+  aiStatus = 429; assert.deepEqual(await (await post(body)).json(), { error: 'ai-failed' });
+  aiStatus = 200; aiContent = []; assert.deepEqual(await (await post(body)).json(), { error: 'empty-response' });
+});
+
 await rm(dir, { recursive: true, force: true });
 console.log(`\n${passed} tests OK`);

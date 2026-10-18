@@ -14,7 +14,7 @@
    - clé ou projet absents → 503 `not-configured` (fermé, jamais ouvert à tous) ;
    - app sans identifiant → 403 `update-app` ;
    - sinon abonnement réel vérifié, limites par appareil.
-   RevenueCat injoignable ou clé refusée : on suit l'indice de l'app (journalisé). Diagnostic : /api/pro-status. */
+   RevenueCat injoignable ou clé refusée : accès fermé (503), jamais de confiance dans l'indice client. Diagnostic : /api/pro-status. */
 import { checkRateLimit, clientKeyFromHeaders, type RateLimitResult } from './rate-limit';
 
 type HeaderGetter = { get(name: string): string | null };
@@ -30,11 +30,12 @@ const MAX_CACHE = 5_000;
 const LOOKUPS_PER_IP = { perMinute: 120, perDay: 5_000 };
 
 export type AccessMode = 'off' | 'no-device' | 'verified';
-export type DeviceStatus = 'pro' | 'free' | 'unknown';
+export type DeviceStatus = 'pro' | 'free' | 'unknown' | 'unavailable';
 export interface Access {
   mode: AccessMode;
   pro: boolean;
   known: boolean;
+  unavailable?: boolean;
   device: string | null;
   ip: string;
 }
@@ -131,7 +132,7 @@ export async function deviceStatus(device: string, hintPro: boolean, cfg: Config
   if (!c && !checkRateLimit(`rc-lookup:${ip}`, LOOKUPS_PER_IP).ok) return 'unknown';
   try {
     const status = await askRevenueCat(device, cfg);
-    if (status !== 'unknown') {
+    if (status === 'pro' || status === 'free') {
       if (cache.size >= MAX_CACHE) {
         for (const [k, v] of cache) if (now - v.at > PRO_TTL_MS) cache.delete(k);
         if (cache.size >= MAX_CACHE) cache.clear();
@@ -141,7 +142,7 @@ export async function deviceStatus(device: string, hintPro: boolean, cfg: Config
     return status;
   } catch (e) {
     console.error(`[pro-check] RevenueCat injoignable : ${e instanceof Error ? e.message : e}`);
-    return hintPro ? 'pro' : 'free';
+    return 'unavailable'; // Never trust a client subscription hint during an outage.
   }
 }
 
@@ -152,11 +153,12 @@ export async function resolveAccess(headers: HeaderGetter): Promise<Access> {
   const device = deviceFromHeaders(headers);
   if (!device) return { mode: 'no-device', pro: false, known: true, device: null, ip };
   const status = await deviceStatus(device, headers.get('x-tchope-pro') === '1', cfg, ip);
-  return { mode: 'verified', pro: status === 'pro', known: status !== 'unknown', device, ip };
+  return { mode: 'verified', pro: status === 'pro', known: status !== 'unknown', unavailable: status === 'unavailable', device, ip };
 }
 
 /** Refus avant tout travail : 503 `not-configured`, 403 `update-app` (app sans identifiant) ou `unknown-device`. */
-export function accessRefusal(a: Access): { status: 403 | 503; error: 'not-configured' | 'update-app' | 'unknown-device' } | null {
+export function accessRefusal(a: Access): { status: 403 | 503; error: 'not-configured' | 'update-app' | 'unknown-device' | 'subscription-unavailable' } | null {
+  if (a.unavailable) return { status: 503, error: 'subscription-unavailable' };
   if (a.mode === 'off') return { status: 503, error: 'not-configured' };
   if (a.mode === 'no-device') return { status: 403, error: 'update-app' };
   if (!a.known) return { status: 403, error: 'unknown-device' };
@@ -206,8 +208,7 @@ export interface ProCheckStatus {
   errors: string[];
 }
 
-/** Diagnostic sans secret (route /api/pro-status) : une clé refusée ou un projet absent ne bloquent personne, donc
- *  « l'app répond » ne prouve pas que le contrôle marche. */
+/** Diagnostic sans secret (route /api/pro-status), y compris les pannes qui ferment l’accès IA. */
 export async function proCheckStatus(): Promise<ProCheckStatus> {
   const key = !!process.env.REVENUECAT_SECRET_KEY?.trim();
   const project = !!process.env.REVENUECAT_PROJECT_ID?.trim();
