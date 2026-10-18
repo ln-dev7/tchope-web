@@ -17,7 +17,7 @@ Landing page, privacy policy and web version of **Tchopé**, the app for authent
 
 ## Features
 
-- Static landing page and recipe pages, plus two small API routes for TchopAI (see below)
+- Static landing page and recipe pages, plus the AI API of the mobile app (see below)
 - Bilingual (French / English) with route-based i18n (`/fr`, `/en`)
 - Responsive design (mobile-first)
 - Screenshot lightbox on click
@@ -63,20 +63,32 @@ public/
 The web version of the mobile app (`../tchope`, the source of truth: `pnpm sync` copies its data, types and translations here):
 
 - Recipes by region, search, recipe pages (adjustable servings, share), cookbook (favorites, own recipes), settings
-- **TchopAI** chat (text, photo, recipe links, save a recipe or a note from the answer, history)
-- **Cuisine avec ce que j'ai**: recipes from the ingredients you have, or a free-text request (local search when offline)
-- **Mon Plan**: AI meal plan for the week, meal swap, saved plans, PDF export, shopping list
-- **Notes** (block editor), **cooking mode** (step by step, step timers, read aloud), **timers**, **TchopAI Live** (voice with the Web Speech API, camera)
+- **Cuisine avec ce que j'ai**: recipes from the ingredients you have (simple local search, no AI)
+- **Mon Plan**: saved plans, meal swap, PDF export, shopping list
+- **Notes** (block editor), **cooking mode** (step by step, step timers, read aloud), **timers**
+
+No AI runs on the website: TchopAI, photo analysis, AI search, AI meal planning and TchopAI Live are part of Tchopé Pro
+in the mobile app. Every AI entry point opens the "TchopAI is in the app" dialog (`components/app-only.tsx`).
 
 Everything the user creates is kept in the browser (`localStorage`, keys `tchope_*`).
 
-### TchopAI (API routes)
+### AI API of the mobile app (`app/api/**`)
 
-- `POST /api/claude`: relays requests to the Anthropic API with the server key, only for `claude-haiku-4-5-20251001`, max 2048 tokens
+Used only by the Tchopé app (≥ 2.0.0); calls from a browser are refused (`lib/server/app-only.ts`).
+
+- `POST /api/claude`: relays requests to the Anthropic API, only allowed models (Haiku 4.5 by default), max 2048 tokens,
+  bounded size (`lib/server/claude-policy.ts`)
 - `POST /api/fetch-recipe-url`: reads the text of a recipe page pasted in the chat (internal addresses refused)
+- `GET /api/pro-status`: diagnostic of the subscription check (no secrets)
+- `GET /api/version`: minimum app version (`MIN_APP_VERSION`, `LATEST_APP_VERSION`, `FORCE_UPDATE`)
 
-Both only accept calls from the site's own pages (same origin) and are rate-limited per IP (`lib/server/ai-guard.ts`).
-They need `TCHOPE_SECRET_KEY` (an Anthropic API key) in `.env` locally and in the Vercel project settings. `ANTHROPIC_API_KEY` also works.
+Tchopé Pro is checked server-side (`lib/server/pro-check.ts`): the app sends its anonymous RevenueCat id, the server asks
+the RevenueCat API v2 whether the `tchope_pro` entitlement is active. Only the text chat has a free taste; everything else
+requires the subscription. Closed by default: without keys the routes answer 503.
+
+Environment variables (Vercel project settings, `.env` locally): `TCHOPE_SECRET_KEY` (or `ANTHROPIC_API_KEY`),
+`REVENUECAT_SECRET_KEY` (RevenueCat v2 secret key, read access to customers and project configuration),
+`REVENUECAT_PROJECT_ID`, optionally `ALLOWED_MODELS`, `MIN_APP_VERSION`. Tests: `pnpm test:pro`.
 
 ## i18n
 

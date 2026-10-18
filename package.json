@@ -11,6 +11,7 @@
     "lint": "eslint",
     "format": "prettier --write \"**/*.{ts,tsx}\"",
     "typecheck": "tsc --noEmit",
+    "test:pro": "node --experimental-strip-types --no-warnings scripts/test-pro-check.mjs",
     "sync": "bash scripts/sync-mobile.sh"
   },
   "dependencies": {
