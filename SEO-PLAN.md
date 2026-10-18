@@ -2,7 +2,7 @@
 
 > Audit réalisé le 18 juillet 2026. Chaque constat provient d'un fichier lu dans ce dépôt ou d'une page réellement consultée en ligne.
 
-⚠️ **Signalement hors périmètre SEO mais urgent** : le fichier `.env` à la racine contient une clé API Anthropic en clair (`TCHOPE_SECRET_KEY=sk-ant-...`). Ce fichier est présent sur le disque d'un projet dont le dépôt GitHub (`ln-dev7/tchope-web`) est potentiellement public (licence GPL-3.0, README public). Vérifier si `.env` est bien ignoré par git ET si la clé n'a jamais été commitée ; la faire tourner dans le doute.
+⚠️ **Signalement hors périmètre SEO mais urgent** : le fichier `.env` à la racine contient une clé API Anthropic en clair (`TCHOPE_SECRET_KEY=sk-ant-...`). Ce fichier est présent sur le disque d'un projet dont le dépôt GitHub (`ln-dev7/tchope-web`) est potentiellement public (licence GPL-3.0, README public). Vérifier si `.env` est bien ignoré par git ET si la clé n'a jamais été commitée ; la faire tourner dans le doute. **Vérifié le 18 oct. 2026** : `.env` est ignoré par git et aucune clé n'apparaît dans l'historique (62 commits) ; la clé est désormais `ANTHROPIC_API_KEY` (variables Vercel).
 
 ## 1. Contexte
 
