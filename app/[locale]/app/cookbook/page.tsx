@@ -10,13 +10,14 @@ import {
   FileText,
   ChevronRight,
   Heart,
-  MapPin,
+  UtensilsCrossed,
   Clock,
   PenLine,
 } from "lucide-react"
 import { toast } from "sonner"
 import { useLocale } from "@/lib/locale-context"
 import { useAppTranslations } from "@/hooks/use-app-translations"
+import { useCategoryLabel } from "@/hooks/use-category-label"
 import { useLocalizedRecipes } from "@/hooks/use-localized-recipes"
 import { useFavorites } from "@/stores/favorites"
 import { useUserRecipes } from "@/stores/user-recipes"
@@ -222,6 +223,7 @@ function UserRecipeCard({
   t: (key: TranslationKey) => string
 }) {
   const deleteRecipe = useUserRecipes((s) => s.deleteRecipe)
+  const categoryLabel = useCategoryLabel()
 
   return (
     <div className="relative">
@@ -244,8 +246,8 @@ function UserRecipeCard({
             {recipe.name}
           </h3>
           <p className="mt-1 flex items-center gap-1.5 text-xs text-muted dark:text-dark-muted">
-            <MapPin className="size-3 shrink-0" />
-            <span className="truncate">{recipe.region}</span>
+            <UtensilsCrossed className="size-3 shrink-0" />
+            <span className="truncate">{categoryLabel(recipe.category)}</span>
           </p>
           <p className="mt-1.5 flex items-center gap-1 text-xs font-medium text-foreground/80 dark:text-white/80">
             <Clock className="size-3.5" />
@@ -300,6 +302,7 @@ function UserRecipeCard({
 /** Favori : carte en grille (comme RecipeGridCard du mobile) avec le cœur pour retirer. */
 function FavoriteGridCard({ recipe, locale }: { recipe: Recipe; locale: Locale }) {
   const toggleFavorite = useFavorites((s) => s.toggleFavorite)
+  const categoryLabel = useCategoryLabel()
   const isFr = locale === "fr"
 
   return (
@@ -318,8 +321,8 @@ function FavoriteGridCard({ recipe, locale }: { recipe: Recipe; locale: Locale }
           {recipe.name}
         </h3>
         <p className="mt-0.5 flex items-center gap-1 text-sm text-muted dark:text-dark-muted">
-          <MapPin className="size-3.5 shrink-0" />
-          <span className="truncate">{recipe.region}</span>
+          <UtensilsCrossed className="size-3.5 shrink-0" />
+          <span className="truncate">{categoryLabel(recipe.category)}</span>
         </p>
       </Link>
       <button

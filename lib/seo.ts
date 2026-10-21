@@ -124,7 +124,6 @@ export function recipeJsonLd({
     recipeCuisine: locale === "fr" ? "Camerounaise" : "Cameroonian",
     keywords: [
       recipe.name,
-      recipe.region,
       locale === "fr" ? "cuisine camerounaise" : "Cameroonian cuisine",
     ].join(", "),
     recipeYield: `${recipe.servings} ${locale === "fr" ? "portions" : "servings"}`,

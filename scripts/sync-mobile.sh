@@ -75,8 +75,9 @@ sync_file() {
 echo -e "${CYAN}▸ Synchronisation des types...${NC}"
 sync_file "$MOBILE_DIR/types/index.ts" "$WEB_DIR/types/recipe.ts" "types/index.ts → types/recipe.ts"
 
-# Corriger les imports : le web utilise @/types/recipe au lieu de @/types
-# Le fichier types n'a pas d'imports à corriger.
+# Palettes et icônes de l'app (constants/themes.ts, app-icons.ts) sont propres au mobile : simples chaînes côté web.
+sed -i '' -e "s|import('@/constants/themes').PaletteId|string|" -e "s|import('@/constants/app-icons').AppIconId|string|" "$WEB_DIR/types/recipe.ts" 2>/dev/null || \
+sed -i -e "s|import('@/constants/themes').PaletteId|string|" -e "s|import('@/constants/app-icons').AppIconId|string|" "$WEB_DIR/types/recipe.ts"
 echo ""
 
 # --------------------------------------------------
@@ -90,16 +91,16 @@ for FILE in "$MOBILE_DIR"/constants/*.ts; do
   [ "$BASENAME" = "design.ts" ] && continue
   # localImages.ts mobile = require() natifs : le web a sa propre version (générée plus bas).
   [ "$BASENAME" = "localImages.ts" ] && continue
-  # Propres à l'app mobile (API, RevenueCat, écran Pro) : pas utilisés par le site.
-  case "$BASENAME" in api.ts|revenuecat.ts|pro-translations.ts) continue ;; esac
+  # Propres à l'app mobile (API, RevenueCat, écran Pro, icônes et palettes natives) : pas utilisés par le site.
+  case "$BASENAME" in api.ts|revenuecat.ts|pro-translations.ts|app-icons.ts|themes.ts) continue ;; esac
   sync_file "$FILE" "$WEB_DIR/constants/$BASENAME" "constants/$BASENAME"
 done
 
-# Corriger l'import dans images.ts : @/types → @/types/recipe
-if [ -f "$WEB_DIR/constants/images.ts" ]; then
-  sed -i '' "s|from '@/types'|from '@/types/recipe'|g" "$WEB_DIR/constants/images.ts" 2>/dev/null || \
-  sed -i "s|from '@/types'|from '@/types/recipe'|g" "$WEB_DIR/constants/images.ts" 2>/dev/null || true
-fi
+# Corriger les imports des constantes (images.ts, categories.ts…) : @/types → @/types/recipe
+for FILE in "$WEB_DIR"/constants/*.ts; do
+  sed -i '' "s|from '@/types'|from '@/types/recipe'|g" "$FILE" 2>/dev/null || \
+  sed -i "s|from '@/types'|from '@/types/recipe'|g" "$FILE" 2>/dev/null || true
+done
 
 # --------------------------------------------------
 # 2 bis. Photos des plats (assets/images/recipes/*.webp → public/recipes/)

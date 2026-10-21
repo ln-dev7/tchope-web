@@ -39,7 +39,6 @@ function matchesText(recipe: Recipe, query: string): boolean {
   const searchable = [
     recipe.name,
     recipe.description,
-    recipe.region,
     recipe.id,
     ...(recipe.tags ?? []),
     ...recipe.ingredients.map((i) => i.name),

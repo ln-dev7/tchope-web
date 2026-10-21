@@ -12,7 +12,6 @@ export const translations = {
     cookbookSubtitle: "Vos favoris, vos créations, vos petits secrets.",
     plannerSubtitle: "De bonnes idées pour chaque jour.",
     settingsSubtitle: "Tchopé, à votre goût.",
-    regionSubtitle: "Dix régions. Mille façons de se régaler.",
     aiEyebrow: "UN COUP DE MAIN EN CUISINE",
 
     homeHeadline: "On mange quoi aujourd’hui ?",
@@ -20,6 +19,7 @@ export const translations = {
     quickRecipes: "Prêt en moins de 30 min",
     withIngredients: "Avec mes ingrédients",
     askAI: "Poser une question à TchopAI",
+    proBadgeLabel: "Abonnement Tchopé Pro actif",
     askAISubtitle: "Une technique, une substitution, un conseil.",
     voiceGuide: "Guidage vocal IA",
     planRecipe: "Planifier ce repas",
@@ -60,7 +60,6 @@ export const translations = {
     // Home
     welcome: "Bienvenue,",
     searchPlaceholder: "Rechercher une recette, un ingrédient...",
-    regions: "Régions du Cameroun",
     seeAll: "Tout voir",
     featuredRecipes: "Recettes Vedettes",
     popularRecipes: "Recettes Populaires",
@@ -132,7 +131,6 @@ export const translations = {
     // Form
     newRecipe: "Nouvelle Recette",
     recipeName: "Nom de la recette",
-    region: "Région",
     prepTimeLabel: "Temps de préparation",
     difficultyLabel: "Difficulté",
     addIngredient: "Ajouter un ingrédient",
@@ -147,7 +145,6 @@ export const translations = {
     recipeUpdated: "Recette modifiée avec succès",
     recipeDeleted: "Recette supprimée",
     editRecipe: "Modifier la recette",
-    selectRegion: "Sélectionner une région",
     photoSubtitle: "Prenez ou choisissez une photo de votre plat",
     saveRecipe: "Enregistrer la recette",
     ingredientsAdded: "Ingrédients ajoutés",
@@ -182,18 +179,6 @@ export const translations = {
     resetAllDataConfirm:
       "Toutes les données de l'application seront supprimées. Cette action est irréversible.",
     resetAllDataDone: "Toutes les données ont été supprimées",
-
-    // Regions
-    regionLittoral: "Littoral",
-    regionOuest: "Ouest",
-    regionCentre: "Centre",
-    regionSud: "Sud",
-    regionNord: "Nord",
-    regionEst: "Est",
-    regionAdamaoua: "Adamaoua",
-    regionExtremeNord: "Extrême-Nord",
-    regionNordOuest: "Nord-Ouest",
-    regionSudOuest: "Sud-Ouest",
 
     // Categories
     catPlat: "Plat",
@@ -310,7 +295,7 @@ export const translations = {
     plannerCta: "Planifier ma semaine",
     plannerCtaSubtitle: "L'IA compose vos repas de la semaine",
     plannerDescribePlaceholder:
-      "Décrivez vos envies : plats légers, cuisine du Littoral, pas de poisson, invités samedi...",
+      "Décrivez vos envies : plats légers, plats en sauce, pas de poisson, invités samedi...",
     plannerGenerate: "Générer mon plan",
     plannerGenerating: "Votre plan est en cours de création...",
     plannerLunch: "Déjeuner",
@@ -407,7 +392,7 @@ export const translations = {
     onboardingStart: "C'est parti !",
     onboarding1Title: "Bienvenue sur Tchopé",
     onboarding1Desc:
-      "Explorez plus de 100 recettes authentiques des 10 régions du Cameroun.",
+      "Explorez plus de 100 recettes authentiques de la cuisine camerounaise.",
     onboarding2Title: "Cuisine pas-à-pas",
     onboarding2Desc:
       "Lancez le mode cuisine et laissez-vous guider étape par étape, avec timer et lecture vocale.",
@@ -564,7 +549,6 @@ export const translations = {
     cookbookSubtitle: "Your favourites, your recipes, your kitchen secrets.",
     plannerSubtitle: "Good ideas for every day.",
     settingsSubtitle: "Make Tchopé your own.",
-    regionSubtitle: "Ten regions. A world of flavour.",
     aiEyebrow: "A HELPING HAND IN THE KITCHEN",
 
     homeHeadline: "What’s cooking today?",
@@ -572,6 +556,7 @@ export const translations = {
     quickRecipes: "Ready in under 30 min",
     withIngredients: "Use my ingredients",
     askAI: "Ask TchopAI a question",
+    proBadgeLabel: "Tchopé Pro subscription active",
     askAISubtitle: "Techniques, substitutions and cooking advice.",
     voiceGuide: "AI voice guidance",
     planRecipe: "Plan this meal",
@@ -611,7 +596,6 @@ export const translations = {
     // Home
     welcome: "Welcome,",
     searchPlaceholder: "Search a recipe, an ingredient...",
-    regions: "Regions of Cameroon",
     seeAll: "See all",
     featuredRecipes: "Featured Recipes",
     popularRecipes: "Popular Recipes",
@@ -682,7 +666,6 @@ export const translations = {
     // Form
     newRecipe: "New Recipe",
     recipeName: "Recipe Name",
-    region: "Region",
     prepTimeLabel: "Prep Time",
     difficultyLabel: "Difficulty",
     addIngredient: "Add an Ingredient",
@@ -696,7 +679,6 @@ export const translations = {
     recipeUpdated: "Recipe updated successfully",
     editRecipe: "Edit Recipe",
     recipeDeleted: "Recipe deleted",
-    selectRegion: "Select a region",
     photoSubtitle: "Take or choose a photo of your dish",
     saveRecipe: "Save Recipe",
     ingredientsAdded: "Ingredients added",
@@ -731,18 +713,6 @@ export const translations = {
     resetAllDataConfirm:
       "All app data will be deleted. This action cannot be undone.",
     resetAllDataDone: "All data has been deleted",
-
-    // Regions
-    regionLittoral: "Littoral",
-    regionOuest: "West",
-    regionCentre: "Centre",
-    regionSud: "South",
-    regionNord: "North",
-    regionEst: "East",
-    regionAdamaoua: "Adamaoua",
-    regionExtremeNord: "Far North",
-    regionNordOuest: "North-West",
-    regionSudOuest: "South-West",
 
     // Categories
     catPlat: "Dish",
@@ -856,7 +826,7 @@ export const translations = {
     plannerCta: "Plan my week",
     plannerCtaSubtitle: "AI composes your meals for the week",
     plannerDescribePlaceholder:
-      "Describe your preferences: light meals, Littoral cuisine, no fish, guests on Saturday...",
+      "Describe your preferences: light meals, dishes with sauce, no fish, guests on Saturday...",
     plannerGenerate: "Generate my plan",
     plannerGenerating: "Creating your plan...",
     plannerLunch: "Lunch",
@@ -950,8 +920,7 @@ export const translations = {
     onboardingNext: "Next",
     onboardingStart: "Let's go!",
     onboarding1Title: "Welcome to Tchopé",
-    onboarding1Desc:
-      "Explore over 100 authentic recipes from all 10 regions of Cameroon.",
+    onboarding1Desc: "Explore over 100 authentic Cameroonian recipes.",
     onboarding2Title: "Step-by-step cooking",
     onboarding2Desc:
       "Launch cooking mode and let yourself be guided step by step, with timer and voice reading.",

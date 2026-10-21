@@ -22,8 +22,8 @@ export async function generateMetadata({
     ? "Toutes les recettes camerounaises"
     : "All Cameroonian recipes"
   const description = isFr
-    ? "Parcours 140+ recettes traditionnelles camerounaises classées par région et par catégorie. Entrées, plats, sauces, grillades, desserts et boissons."
-    : "Browse 140+ traditional Cameroonian recipes by region and category. Starters, mains, sauces, grills, desserts and drinks."
+    ? "Parcours 140+ recettes traditionnelles camerounaises classées par catégorie. Entrées, plats, sauces, grillades, desserts et boissons."
+    : "Browse 140+ traditional Cameroonian recipes by category. Starters, mains, sauces, grills, desserts and drinks."
   const ogImage = isFr ? DEFAULT_OG_FR : DEFAULT_OG_EN
   const path = "/app"
 

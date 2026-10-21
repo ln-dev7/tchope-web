@@ -7,19 +7,8 @@ import { toast } from "sonner"
 import { useLocale } from "@/lib/locale-context"
 import { useAppTranslations } from "@/hooks/use-app-translations"
 import { useUserRecipes } from "@/stores/user-recipes"
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from "@/components/ui/select"
-import type { Region, Difficulty, UserRecipe } from "@/types/recipe"
+import type { Difficulty, UserRecipe } from "@/types/recipe"
 
-const REGIONS: Region[] = [
-  "Littoral", "Ouest", "Centre", "Sud", "Nord", "Est",
-  "Adamaoua", "Extrême-Nord", "Nord-Ouest", "Sud-Ouest",
-]
 const DIFFICULTIES: Difficulty[] = ["Easy", "Medium", "Hard"]
 
 export default function AddRecipePage() {
@@ -42,7 +31,6 @@ function AddRecipeForm() {
   const isEditing = !!editingRecipe
 
   const [name, setName] = useState(editingRecipe?.name ?? "")
-  const [region, setRegion] = useState<Region>(editingRecipe?.region ?? "Centre")
   const [duration, setDuration] = useState(editingRecipe ? String(editingRecipe.duration) : "30")
   const [difficulty, setDifficulty] = useState<Difficulty>(editingRecipe?.difficulty ?? "Easy")
   const [ingredients, setIngredients] = useState(
@@ -73,7 +61,6 @@ function AddRecipeForm() {
       name: name.trim(),
       description: "",
       image: null,
-      region,
       category: "Plat",
       duration: parseInt(duration) || 30,
       difficulty,
@@ -135,21 +122,6 @@ function AddRecipeForm() {
         placeholder={t("recipeName")}
         className="w-full rounded-2xl bg-surface px-4 py-3 text-sm text-foreground outline-none placeholder:text-muted dark:bg-dark-surface dark:text-white dark:placeholder:text-dark-muted"
       />
-
-      {/* Region */}
-      <div>
-        <label className="mb-2 block text-xs font-semibold text-muted dark:text-dark-muted">{t("region")}</label>
-        <Select value={region} onValueChange={(v) => setRegion(v as Region)}>
-          <SelectTrigger>
-            <SelectValue placeholder={t("selectRegion")} />
-          </SelectTrigger>
-          <SelectContent>
-            {REGIONS.map((r) => (
-              <SelectItem key={r} value={r}>{r}</SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
 
       {/* Duration + Difficulty */}
       <div className="grid grid-cols-2 gap-3">

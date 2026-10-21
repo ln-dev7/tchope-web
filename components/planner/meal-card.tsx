@@ -41,7 +41,7 @@ export function MealCard({
           <p className="truncate text-[10px] font-semibold tracking-wide text-primary uppercase">{label}</p>
           <p className="mt-0.5 truncate text-sm font-bold text-foreground dark:text-white">{recipe.name}</p>
           <p className="mt-0.5 truncate text-[11px] text-muted dark:text-dark-muted">
-            {recipe.region} · {recipe.duration} min
+            {recipe.duration} min
           </p>
         </div>
       </Link>

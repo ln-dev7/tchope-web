@@ -52,8 +52,8 @@ export async function generateMetadata({
     ? `${name} — Recette Camerounaise`
     : `${name} — Cameroonian Recipe`
   const desc = isFr
-    ? `${baseDescription} Préparation : ${recipe.duration} min. Difficulté : ${localizedDifficulty(recipe.difficulty, "fr")}. Spécialité de la région ${recipe.region}.`
-    : `${baseDescription} Prep time: ${recipe.duration} min. Difficulty: ${recipe.difficulty}. Specialty from ${recipe.region} region.`
+    ? `${baseDescription} Préparation : ${recipe.duration} min. Difficulté : ${localizedDifficulty(recipe.difficulty, "fr")}.`
+    : `${baseDescription} Prep time: ${recipe.duration} min. Difficulty: ${recipe.difficulty}.`
 
   return {
     title,
@@ -62,7 +62,6 @@ export async function generateMetadata({
       name,
       isFr ? "recette camerounaise" : "cameroonian recipe",
       isFr ? "cuisine camerounaise" : "cameroonian cuisine",
-      recipe.region,
       recipe.category,
       ...recipe.ingredients.slice(0, 8).map((i) => i.name),
     ],
@@ -81,7 +80,7 @@ export async function generateMetadata({
       images: image
         ? [{ url: image, width: 1200, height: 630, alt: name }]
         : [],
-      tags: [recipe.region, recipe.category, name],
+      tags: [recipe.category, name],
     },
     twitter: {
       card: "summary_large_image",

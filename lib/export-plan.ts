@@ -62,7 +62,7 @@ export function generateMealPlanHTML({ plan, recipeMap, lang, title, shoppingLis
         .map((meal) => {
           const recipe = recipeMap[meal.recipeId]
           const name = recipe?.name ?? meal.recipeId
-          const meta = recipe ? `${recipe.region} · ${recipe.duration} min` : ""
+          const meta = recipe ? `${recipe.duration} min` : ""
           return `
         <div class="meal">
           <span class="meal-label">${escapeHtml(meal.label)}</span>

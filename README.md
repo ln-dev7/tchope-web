@@ -62,7 +62,7 @@ public/
 
 The web version of the mobile app (`../tchope`, the source of truth: `pnpm sync` copies its data, types and translations here):
 
-- Recipes by region, search, recipe pages (adjustable servings, share), cookbook (favorites, own recipes), settings
+- Recipes by category, search, recipe pages (adjustable servings, share), cookbook (favorites, own recipes), settings
 - **Cuisine avec ce que j'ai**: recipes from the ingredients you have (simple local search, no AI)
 - **Mon Plan**: saved plans, meal swap, PDF export, shopping list
 - **Notes** (block editor), **cooking mode** (step by step, step timers, read aloud), **timers**

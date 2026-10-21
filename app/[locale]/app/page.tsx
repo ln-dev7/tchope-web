@@ -4,16 +4,6 @@ import { useMemo } from "react"
 import Link from "next/link"
 import {
   Search,
-  Droplets,
-  Triangle,
-  Building2,
-  Compass,
-  Sun,
-  Leaf,
-  Signpost,
-  Thermometer,
-  Map,
-  Ship,
   ChevronRight,
   Sparkles,
   MessageCircleMore,
@@ -32,8 +22,6 @@ import {
   CarouselPrevious,
   CarouselNext,
 } from "@/components/ui/carousel"
-import type { Region } from "@/types/recipe"
-import type { LucideIcon } from "lucide-react"
 
 const FEATURED_IDS = [
   "ndole",
@@ -65,45 +53,6 @@ const POPULAR_IDS = [
   "met-de-pistache",
   "okok-sale",
 ]
-
-const regionIcons: Record<Exclude<Region, "TchopAI">, LucideIcon> = {
-  Littoral: Droplets,
-  Ouest: Triangle,
-  Centre: Building2,
-  Sud: Compass,
-  Nord: Sun,
-  Est: Leaf,
-  Adamaoua: Signpost,
-  "Extrême-Nord": Thermometer,
-  "Nord-Ouest": Map,
-  "Sud-Ouest": Ship,
-}
-
-const ALL_REGIONS: Exclude<Region, "TchopAI">[] = [
-  "Littoral",
-  "Ouest",
-  "Centre",
-  "Sud",
-  "Nord",
-  "Est",
-  "Adamaoua",
-  "Extrême-Nord",
-  "Nord-Ouest",
-  "Sud-Ouest",
-]
-
-const regionTranslationKeys: Record<Exclude<Region, "TchopAI">, string> = {
-  Littoral: "regionLittoral",
-  Ouest: "regionOuest",
-  Centre: "regionCentre",
-  Sud: "regionSud",
-  Nord: "regionNord",
-  Est: "regionEst",
-  Adamaoua: "regionAdamaoua",
-  "Extrême-Nord": "regionExtremeNord",
-  "Nord-Ouest": "regionNordOuest",
-  "Sud-Ouest": "regionSudOuest",
-}
 
 export default function AppHomePage() {
   const { locale } = useLocale()
@@ -181,32 +130,6 @@ export default function AppHomePage() {
           ? "Un coup de main avec TchopAI"
           : "A helping hand from TchopAI"}
       </button>
-
-      {/* Regions */}
-      <section>
-        <h2 className="mb-4 text-xl font-bold tracking-tight text-foreground dark:text-white">
-          {t("regions")}
-        </h2>
-        <div className="-mx-4 flex gap-3 overflow-x-auto px-4 pb-2 md:mx-0 md:grid md:grid-cols-5 md:px-0 xl:grid-cols-10">
-          {ALL_REGIONS.map((region) => {
-            const Icon = regionIcons[region]
-            return (
-              <Link
-                key={region}
-                href={`/${locale}/app/search?region=${encodeURIComponent(region)}`}
-                className="flex w-20 shrink-0 cursor-pointer flex-col items-center gap-2 md:w-auto"
-              >
-                <div className="flex size-14 items-center justify-center rounded-full bg-tags text-primary transition-colors hover:bg-primary hover:text-white dark:bg-primary/15 dark:hover:bg-primary">
-                  <Icon className="size-5" />
-                </div>
-                <span className="min-h-8 w-full text-center text-[11px] font-semibold text-foreground dark:text-white">
-                  {t(regionTranslationKeys[region] as Parameters<typeof t>[0])}
-                </span>
-              </Link>
-            )
-          })}
-        </div>
-      </section>
 
       {/* Featured — Carousel */}
       <section>

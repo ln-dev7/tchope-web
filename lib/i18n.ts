@@ -19,14 +19,11 @@ const dictionaries = {
       badge: "100+ recettes",
       title: "La cuisine camerounaise dans ta poche",
       subtitle:
-        "Découvre des recettes camerounaises traditionnelles et authentiques, filtre par région et crée ton propre cookbook. 100% gratuit, 100% hors ligne.",
+        "Découvre des recettes camerounaises traditionnelles et authentiques, filtre par temps, piment ou ingrédient et crée ton propre cookbook. 100% gratuit, 100% hors ligne.",
     },
     features: {
       sectionLabel: "Fonctionnalités",
       title: "Tout ce qu'il faut pour cuisiner camerounais",
-      regionTitle: "Recettes par région",
-      regionDesc:
-        "Explore les spécialités des 10 régions du Cameroun, du Littoral à l'Extrême-Nord.",
       searchTitle: "Recherche intelligente",
       searchDesc:
         "Filtre par temps de cuisson, niveau de piment et ingrédients populaires.",
@@ -42,7 +39,6 @@ const dictionaries = {
       title: "Un aperçu de Tchopé",
     },
     stats: {
-      regions: "Régions du Cameroun",
       languages: "Langues (FR & EN)",
       free: "Gratuit & hors ligne",
     },
@@ -240,14 +236,11 @@ const dictionaries = {
       badge: "100+ recipes",
       title: "Cameroonian cuisine in your pocket",
       subtitle:
-        "Discover authentic traditional Cameroonian recipes, filter by region and create your own cookbook. 100% free, 100% offline.",
+        "Discover authentic traditional Cameroonian recipes, filter by time, spice or ingredient and create your own cookbook. 100% free, 100% offline.",
     },
     features: {
       sectionLabel: "Features",
       title: "Everything you need to cook Cameroonian",
-      regionTitle: "Recipes by region",
-      regionDesc:
-        "Explore specialties from all 10 regions of Cameroon, from the Coast to the Far North.",
       searchTitle: "Smart search",
       searchDesc:
         "Filter by cooking time, spice level, and popular ingredients.",
@@ -263,7 +256,6 @@ const dictionaries = {
       title: "A glimpse of Tchopé",
     },
     stats: {
-      regions: "Regions of Cameroon",
       languages: "Languages (FR & EN)",
       free: "Free & offline",
     },

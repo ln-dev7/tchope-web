@@ -19,6 +19,8 @@ import { ScreenshotLightbox } from "@/components/screenshot-lightbox"
 import { RecipeImage } from "@/components/recipe-image"
 import { useLocale } from "@/lib/locale-context"
 import { recipes } from "@/data/recipes"
+import { translations } from "@/constants/translations"
+import { CATEGORY_KEYS } from "@/constants/categories"
 
 export default function Home() {
   const { locale } = useLocale()
@@ -46,7 +48,7 @@ export default function Home() {
           [
             "01",
             "Trouvez le plat qui vous ressemble.",
-            "Par région, par ingrédient ou par temps de préparation : retrouvez un classique ou laissez-vous surprendre.",
+            "Par catégorie, par ingrédient ou par temps de préparation : retrouvez un classique ou laissez-vous surprendre.",
             "03-search",
           ],
           [
@@ -62,9 +64,9 @@ export default function Home() {
             "06-cooking",
           ],
         ],
-        regionsTitle: "Dix régions. Mille façons de se régaler.",
-        regionsIntro:
-          "Des saveurs du Littoral aux spécialités de l’Ouest, un patrimoine culinaire à découvrir, à cuisiner et à transmettre.",
+        showcaseTitle: "Un pays. Mille façons de se régaler.",
+        showcaseIntro:
+          "Ndolé, eru, poulet DG, koki… un patrimoine culinaire à découvrir, à cuisiner et à transmettre.",
         weekTitle: (
           <>
             La semaine se prépare.
@@ -130,7 +132,7 @@ export default function Home() {
           [
             "01",
             "Find your kind of dish.",
-            "Browse by region, ingredient or cooking time. Rediscover an old favourite or try something new.",
+            "Browse by category, ingredient or cooking time. Rediscover an old favourite or try something new.",
             "03-search",
           ],
           [
@@ -146,9 +148,9 @@ export default function Home() {
             "06-cooking",
           ],
         ],
-        regionsTitle: "Ten regions. So many flavours to share.",
-        regionsIntro:
-          "From the Littoral to the West, discover a culinary heritage worth cooking, enjoying and passing on.",
+        showcaseTitle: "One country. So many flavours to share.",
+        showcaseIntro:
+          "Ndolé, eru, poulet DG, koki… a culinary heritage worth cooking, enjoying and passing on.",
         weekTitle: (
           <>
             Plan the week.
@@ -268,8 +270,8 @@ export default function Home() {
               {fr ? "recettes à découvrir" : "recipes to discover"}
             </span>
             <span>
-              <strong>10</strong>{" "}
-              {fr ? "régions du Cameroun" : "regions of Cameroon"}
+              <strong>{new Set(recipes.map((r) => r.category)).size}</strong>{" "}
+              {fr ? "catégories de plats" : "dish categories"}
             </span>
             <span>
               <Globe size={19} />{" "}
@@ -307,14 +309,14 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="brand-regions" id="recipes">
+        <section className="brand-showcase" id="recipes">
           <div className="brand-container">
             <div className="brand-section-heading">
               <p className="brand-eyebrow">
                 {fr ? "UN PATRIMOINE À PARTAGER" : "A HERITAGE TO SHARE"}
               </p>
-              <h2>{copy.regionsTitle}</h2>
-              <p>{copy.regionsIntro}</p>
+              <h2>{copy.showcaseTitle}</h2>
+              <p>{copy.showcaseIntro}</p>
             </div>
             <div className="brand-food-grid">
               {showcase.map((r) => (
@@ -331,28 +333,12 @@ export default function Home() {
                       fill
                     />
                   </div>
-                  <span>{r.region}</span>
+                  <span>{translations[fr ? "fr" : "en"][CATEGORY_KEYS[r.category]]}</span>
                   <h3>
                     {r.name}
                     <ArrowUpRight size={20} />
                   </h3>
                 </Link>
-              ))}
-            </div>
-            <div className="brand-region-names">
-              {[
-                "Littoral",
-                "Ouest",
-                "Centre",
-                "Sud",
-                "Nord",
-                "Est",
-                "Adamaoua",
-                "Extrême-Nord",
-                "Nord-Ouest",
-                "Sud-Ouest",
-              ].map((n) => (
-                <span key={n}>{n}</span>
               ))}
             </div>
           </div>

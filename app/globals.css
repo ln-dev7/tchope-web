@@ -395,7 +395,7 @@
 .brand-step.is-reversed .brand-poster {
   transform: rotate(4deg);
 }
-.brand-regions {
+.brand-showcase {
   background: #e5cc9f;
   padding: 100px 0 80px;
   border-radius: 50% 50% 0 0 / 35px 35px 0 0;
@@ -426,15 +426,6 @@
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-}
-.brand-region-names {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 13px 24px;
-  border-top: 1px solid #2c241e30;
-  margin-top: 50px;
-  padding-top: 25px;
-  font-size: 12px;
 }
 .brand-week {
   background: #e5cc9f;
@@ -930,14 +921,10 @@
   .brand-food-card > span {
     font-size: 9px;
   }
-  .brand-regions {
+  .brand-showcase {
     padding: 70px 0 50px;
   }
-  .brand-region-names {
-    gap: 12px 17px;
-    font-size: 10px;
-  }
-  .brand-week {
+    .brand-week {
     padding: 30px 0 60px;
   }
   .brand-split {

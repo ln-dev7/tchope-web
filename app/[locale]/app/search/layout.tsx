@@ -10,8 +10,8 @@ export async function generateMetadata({
   const isFr = locale !== "en"
   const title = isFr ? "Rechercher une recette" : "Search a recipe"
   const description = isFr
-    ? "Filtre par région, catégorie, temps de préparation, niveau de piment et ingrédients pour trouver la recette camerounaise parfaite."
-    : "Filter by region, category, prep time, spiciness and ingredients to find the perfect Cameroonian recipe."
+    ? "Filtre par catégorie, temps de préparation, niveau de piment et ingrédients pour trouver la recette camerounaise parfaite."
+    : "Filter by category, prep time, spiciness and ingredients to find the perfect Cameroonian recipe."
   const ogImage = isFr ? DEFAULT_OG_FR : DEFAULT_OG_EN
   const path = "/app/search"
 

@@ -1,7 +1,8 @@
 "use client"
 
 import Link from "next/link"
-import { Clock, MapPin } from "lucide-react"
+import { Clock, UtensilsCrossed } from "lucide-react"
+import { useCategoryLabel } from "@/hooks/use-category-label"
 import { RecipeImage } from "@/components/recipe-image"
 import type { Recipe } from "@/types/recipe"
 import type { Locale } from "@/lib/i18n"
@@ -13,6 +14,7 @@ export function RecipeCard({
   recipe: Recipe
   locale: Locale
 }) {
+  const categoryLabel = useCategoryLabel()
   return (
     <Link
       href={`/${locale}/app/recipe/${recipe.id}`}
@@ -32,8 +34,8 @@ export function RecipeCard({
           {recipe.name}
         </h3>
         <div className="mt-1.5 flex items-center gap-1 text-xs text-muted dark:text-dark-muted">
-          <MapPin className="size-3" />
-          {recipe.region}
+          <UtensilsCrossed className="size-3" />
+          {categoryLabel(recipe.category)}
         </div>
         <div className="mt-0.5 flex items-center gap-1 text-xs text-muted dark:text-dark-muted">
           <Clock className="size-3" />

@@ -161,7 +161,7 @@ export default function RecipeDetail() {
   function buildRecipeText(): string {
     const r = recipe!
     let text = `🍽️ ${r.name}\n`
-    text += `📍 ${r.region} | ⏱️ ${r.duration} min | 👥 ${r.servings} pers.\n\n`
+    text += `⏱️ ${r.duration} min | 👥 ${r.servings} pers.\n\n`
     if (r.description) text += `📝 ${r.description}\n\n`
     text += `🛒 INGRÉDIENTS\n`
     r.ingredients.forEach((ing) => {
@@ -210,7 +210,7 @@ export default function RecipeDetail() {
 
   function handleCopyRecipe() {
     let text = `🍽️ ${recipe!.name}\n`
-    text += `📍 ${recipe!.region} | ⏱️ ${recipe!.duration} min | 👥 ${recipe!.servings} pers.\n\n`
+    text += `⏱️ ${recipe!.duration} min | 👥 ${recipe!.servings} pers.\n\n`
     if (recipe!.description) text += `📝 ${recipe!.description}\n\n`
     text += `🛒 INGRÉDIENTS\n`
     recipe!.ingredients.forEach((ing) => {

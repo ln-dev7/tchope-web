@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     template: "%s | Tchopé",
   },
   description:
-    "Découvre des recettes traditionnelles camerounaises authentiques. Filtre par région, sauvegarde tes favoris et crée ton cookbook. Recettes accessibles hors ligne sur mobile, carnet personnel et aide IA avec Tchopé Pro.",
+    "Découvre des recettes traditionnelles camerounaises authentiques. Filtre par temps, piment ou ingrédient, sauvegarde tes favoris et crée ton cookbook. Recettes accessibles hors ligne sur mobile, carnet personnel et aide IA avec Tchopé Pro.",
   authors: [{ name: "LNDEV", url: "https://lndev.me" }],
   creator: "LNDEV",
   publisher: SITE_NAME,

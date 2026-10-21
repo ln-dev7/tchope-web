@@ -1,7 +1,6 @@
 "use client"
 
 import { Suspense, useRef, useEffect } from "react"
-import { useSearchParams } from "next/navigation"
 import { Search as SearchIcon, X, Clock, Flame, RotateCcw } from "lucide-react"
 import { useLocale } from "@/lib/locale-context"
 import { useAppTranslations } from "@/hooks/use-app-translations"
@@ -40,12 +39,6 @@ function SearchPage() {
   const { results, query, setQuery, filters, setFilters, reset } =
     useSearch(recipes)
   const inputRef = useRef<HTMLInputElement>(null)
-  const searchParams = useSearchParams()
-
-  useEffect(() => {
-    const region = searchParams.get("region")
-    if (region) setQuery(region)
-  }, [searchParams, setQuery])
 
   useEffect(() => {
     inputRef.current?.focus()
