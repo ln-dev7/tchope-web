@@ -3,7 +3,12 @@
    gratuit. Maintenant : modèles autorisés seulement, max_tokens plafonné, taille et nombre de messages bornés, images
    comptées (elles sont réservées à Tchopé Pro). */
 
-export const DEFAULT_MODELS = ['claude-haiku-4-5-20251001', 'claude-haiku-4-5'];
+export const DEFAULT_MODELS = ['claude-haiku-4-5-20251001', 'claude-haiku-4-5', 'claude-haiku-5-5'];
+
+/** Modèle réellement appelé (27 oct. 2026) : l'app demande Haiku 4.5 (valeur codée dans les versions installées), le
+    serveur appelle Haiku 5.5 (0,10 $ / 0,50 $ par million de tokens au lieu de 1 $ / 5 $, ~10× moins cher), sans mise à
+    jour de l'app. `TCHOPE_AI_MODEL` pour en changer ; si l'API refuse ce modèle, la route se replie sur celui demandé. */
+export const UPSTREAM_MODEL = process.env.TCHOPE_AI_MODEL?.trim() || 'claude-haiku-5-5';
 export const MAX_TOKENS_CAP = 2048;
 const MAX_MESSAGES = 60;
 const MAX_TEXT_CHARS = 120_000;

@@ -151,6 +151,26 @@ await test('Live route: token cap, one current photo, no upstream error content 
   aiStatus = 429; assert.deepEqual(await (await post(body)).json(), { error: 'ai-failed' });
   aiStatus = 200; aiContent = []; assert.deepEqual(await (await post(body)).json(), { error: 'empty-response' });
 });
+await test('Modèle : Haiku 4.5 demandé → Haiku 5.5 appelé, repli sur 4.5 si l’API le refuse', async () => {
+  const seen = [];
+  let refuse = false;
+  globalThis.fetch = async (url, options) => {
+    if (!String(url).includes('api.anthropic.com')) return revenuecat(url, options);
+    const b = JSON.parse(options.body);
+    seen.push(b.model);
+    if (refuse && b.model === 'claude-haiku-5-5') return Response.json({ type: 'error', error: { type: 'not_found_error', message: 'model: claude-haiku-5-5' } }, { status: 404 });
+    return Response.json({ content: [{ type: 'text', text: 'ok' }] });
+  };
+  const chat = { model: 'claude-haiku-4-5-20251001', system: 'Chef', messages: [{ role: 'user', content: 'Bonjour' }], max_tokens: 512 };
+  assert.equal((await post(chat)).status, 200);
+  assert.deepEqual(seen, ['claude-haiku-5-5']);
+  refuse = true; seen.length = 0;
+  assert.equal((await post(chat)).status, 200);
+  assert.deepEqual(seen, ['claude-haiku-5-5', 'claude-haiku-4-5-20251001']);
+  seen.length = 0; // refusé il y a moins de 10 min : directement 4.5
+  assert.equal((await post(chat)).status, 200);
+  assert.deepEqual(seen, ['claude-haiku-4-5-20251001']);
+});
 
 await rm(dir, { recursive: true, force: true });
 console.log(`\n${passed} tests OK`);
